@@ -394,6 +394,113 @@ def test_404_returns_none_and_is_cached_as_unavailable(tmp_path, monkeypatch):
     assert client.get_json("/daily/NOPE/", {}, "daily/NOPE") is None
     saved = json.loads((tmp_path / "daily" / "NOPE.json").read_text(encoding="utf-8"))
     assert saved["unavailable"] == 404
+
+
+def test_429_gives_up_after_max_retries_instead_of_looping_forever(tmp_path, monkeypatch):
+    """Rate limit yang bertahan harus berhenti, bukan terus memakan kredit."""
+    monkeypatch.setattr(client.config, "RAW_DIR", tmp_path)
+    monkeypatch.setattr(client.config, "api_key", lambda: "dummy")
+    monkeypatch.setattr(client.time, "sleep", lambda _: None)
+    client.NETWORK_CALLS.clear()
+
+    monkeypatch.setattr(
+        client.requests, "get", lambda url, headers, params, timeout: FakeResponse({}, status=429)
+    )
+
+    with pytest.raises(RuntimeError, match="429"):
+        client.get_json("/suspensions/", {}, "suspensions/ratelimited")
+
+    assert len(client.NETWORK_CALLS) == client.MAX_RETRIES + 1
+    assert not (tmp_path / "suspensions" / "ratelimited.json").exists()
+
+
+def test_429_then_success_returns_the_payload(tmp_path, monkeypatch):
+    monkeypatch.setattr(client.config, "RAW_DIR", tmp_path)
+    monkeypatch.setattr(client.config, "api_key", lambda: "dummy")
+    monkeypatch.setattr(client.time, "sleep", lambda _: None)
+
+    responses = [FakeResponse({}, status=429), FakeResponse({"ok": True})]
+    monkeypatch.setattr(
+        client.requests, "get", lambda url, headers, params, timeout: responses.pop(0)
+    )
+
+    assert client.get_json("/suspensions/", {}, "suspensions/recovered") == {"ok": True}
+
+
+def _record_calls(monkeypatch, tmp_path):
+    """Tangkap url dan params yang dikirim wrapper, tanpa menyentuh jaringan."""
+    monkeypatch.setattr(client.config, "RAW_DIR", tmp_path)
+    monkeypatch.setattr(client.config, "api_key", lambda: "dummy")
+    seen = []
+
+    def fake_get(url, headers, params, timeout):
+        seen.append((url, dict(params)))
+        return FakeResponse({"ok": True})
+
+    monkeypatch.setattr(client.requests, "get", fake_get)
+    return seen
+
+
+def test_get_prices_uppercases_symbol_and_sends_the_date_range(tmp_path, monkeypatch):
+    seen = _record_calls(monkeypatch, tmp_path)
+    client.get_prices("alka", "2026-06-22", "2026-09-19")
+
+    url, params = seen[0]
+    assert url.endswith("/v2/daily/ALKA/")
+    assert params == {"start": "2026-06-22", "end": "2026-09-19"}
+
+
+def test_get_overview_requests_only_the_overview_section(tmp_path, monkeypatch):
+    """Menghilangkan `sections` membuat endpoint ini berharga 8 kredit, bukan 1."""
+    seen = _record_calls(monkeypatch, tmp_path)
+    client.get_overview("inps")
+
+    url, params = seen[0]
+    assert url.endswith("/v2/company/report/INPS/")
+    assert params == {"sections": "overview"}
+
+
+def test_get_suspensions_page_passes_limit_and_offset(tmp_path, monkeypatch):
+    seen = _record_calls(monkeypatch, tmp_path)
+    client.get_suspensions_page(limit=30, offset=60)
+
+    url, params = seen[0]
+    assert url.endswith("/v2/suspensions/")
+    assert params == {"limit": 30, "offset": 60}
+
+
+def test_screen_never_sends_a_natural_language_query(tmp_path, monkeypatch):
+    """Parameter `q` berharga 3 kredit; query terstruktur 1."""
+    seen = _record_calls(monkeypatch, tmp_path)
+    client.screen("tags in ['52-w-high']")
+
+    url, params = seen[0]
+    assert url.endswith("/v2/companies/")
+    assert "q" not in params
+    assert params["where"] == "tags in ['52-w-high']"
+
+
+def test_screen_does_not_reuse_one_cache_file_for_different_limits(tmp_path, monkeypatch):
+    """Dua query yang beda `limit` harus jadi dua file, bukan satu.
+
+    Kalau jadi satu, pemanggil kedua diam-diam menerima hasil pemanggil pertama
+    dengan jumlah baris yang salah.
+    """
+    seen = _record_calls(monkeypatch, tmp_path)
+    client.screen(None, limit=50)
+    client.screen(None, limit=200)
+
+    assert len(seen) == 2
+    assert len(list((tmp_path / "companies").glob("*.json"))) == 2
+
+
+def test_screen_distinguishes_where_clauses_that_differ_only_in_punctuation(tmp_path, monkeypatch):
+    seen = _record_calls(monkeypatch, tmp_path)
+    client.screen("a-b")
+    client.screen("a_b")
+
+    assert len(seen) == 2
+    assert len(list((tmp_path / "companies").glob("*.json"))) == 2
 ```
 
 - [ ] **Step 2: Jalankan test untuk memastikan gagal**
@@ -409,8 +516,10 @@ File `freezebyte/client.py`:
 """Satu-satunya modul yang menyentuh jaringan.
 
 Aturan keras: setiap respons ditulis ke disk sebelum dikembalikan ke pemanggil,
-dan endpoint yang sama tidak pernah dipanggil dua kali.
+dan data yang sudah ada di cache tidak pernah ditarik ulang. Satu-satunya
+pengecualian adalah percobaan ulang saat kena 429, dan itu pun dibatasi.
 """
+import hashlib
 import json
 import time
 from pathlib import Path
@@ -421,11 +530,24 @@ import requests
 from freezebyte import config
 
 TIMEOUT = 30
+MAX_RETRIES = 3
+RETRY_SLEEP = 5
 NETWORK_CALLS: list[str] = []
 
 
 def _cache_path(cache_key: str) -> Path:
     return config.RAW_DIR / f"{cache_key}.json"
+
+
+def _params_digest(params: dict) -> str:
+    """Sidik jari pendek dari seluruh parameter.
+
+    Dipakai untuk endpoint yang parameternya bebas bentuk. Menyusun cache key
+    dari potongan parameter yang dipilih tangan pernah membuat dua query berbeda
+    menulis ke file yang sama; digest menutup itu.
+    """
+    blob = json.dumps(params, sort_keys=True, ensure_ascii=False)
+    return hashlib.sha256(blob.encode("utf-8")).hexdigest()[:16]
 
 
 def get_json(path: str, params: dict, cache_key: str) -> Any:
@@ -441,26 +563,36 @@ def get_json(path: str, params: dict, cache_key: str) -> Any:
             return None
         return envelope["payload"]
 
-    response = requests.get(
-        config.BASE_URL + path,
-        headers={"Authorization": config.api_key()},
-        params=params,
-        timeout=TIMEOUT,
-    )
-    NETWORK_CALLS.append(path)
+    for attempt in range(MAX_RETRIES + 1):
+        response = requests.get(
+            config.BASE_URL + path,
+            headers={"Authorization": config.api_key()},
+            params=params,
+            timeout=TIMEOUT,
+        )
+        NETWORK_CALLS.append(path)
+
+        if response.status_code != 429:
+            break
+
+        if attempt == MAX_RETRIES:
+            raise RuntimeError(
+                f"Masih kena 429 setelah {MAX_RETRIES} percobaan ulang untuk {path}. "
+                "Berhenti daripada terus memakan kredit tanpa batas."
+            )
+        time.sleep(RETRY_SLEEP * (attempt + 1))
 
     cached.parent.mkdir(parents=True, exist_ok=True)
 
     if response.status_code == 404:
         cached.write_text(
-            json.dumps({"endpoint": path, "params": params, "unavailable": 404}),
+            json.dumps(
+                {"endpoint": path, "params": params, "unavailable": 404},
+                ensure_ascii=False,
+            ),
             encoding="utf-8",
         )
         return None
-
-    if response.status_code == 429:
-        time.sleep(5)
-        return get_json(path, params, cache_key)
 
     response.raise_for_status()
     payload = response.json()
@@ -501,19 +633,25 @@ def get_overview(symbol: str) -> dict | None:
 
 
 def screen(where: str | None, limit: int = 200, offset: int = 0) -> dict:
-    """Screener terstruktur. Parameter `q` sengaja tidak didukung: 3 kredit versus 1."""
+    """Screener terstruktur. Parameter `q` sengaja tidak didukung: 3 kredit versus 1.
+
+    Cache key memakai digest seluruh parameter, bukan potongan `where` saja.
+    Dua query yang berbeda hanya pada `limit` — atau yang berbeda hanya pada
+    tanda baca di dalam `where` — akan menulis ke file yang sama kalau digest
+    tidak dipakai, dan pemanggil kedua diam-diam menerima hasil pemanggil pertama.
+    """
     params = {"limit": limit, "offset": offset}
     slug = "all"
     if where:
         params["where"] = where
-        slug = "".join(c if c.isalnum() else "_" for c in where)[:80]
-    return get_json("/companies/", params, f"companies/{slug}_offset_{offset}")
+        slug = "".join(c if c.isalnum() else "_" for c in where)[:40]
+    return get_json("/companies/", params, f"companies/{slug}_{_params_digest(params)}")
 ```
 
 - [ ] **Step 4: Jalankan test untuk memastikan lulus**
 
 Run: `python -m pytest tests/test_client.py -v`
-Expected: 4 passed
+Expected: 12 passed
 
 - [ ] **Step 5: Tulis script pengambil fixture**
 
