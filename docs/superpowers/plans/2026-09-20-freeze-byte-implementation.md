@@ -1340,7 +1340,7 @@ def classify(reason: str | None) -> str:
 - [ ] **Step 4: Jalankan test untuk memastikan lulus**
 
 Run: `python -m pytest tests/test_reasons.py -v`
-Expected: 11 passed
+Expected: 10 passed
 
 - [ ] **Step 5: Tulis script ETL**
 
@@ -1363,17 +1363,40 @@ MAX_PAGES = 40  # pengaman terhadap loop paginasi yang tidak berhenti
 
 
 def fetch_all() -> list[dict]:
-    records, offset, pages = [], 0, 0
+    """Ambil seluruh halaman suspensi.
 
-    while pages < MAX_PAGES:
+    Paginasi ditangani defensif karena script ini menghabiskan kredit sungguhan:
+    `next_offset` yang hilang, null, atau tidak maju akan menghentikan loop
+    dengan bunyi, bukan mengirim permintaan cacat atau berputar selamanya.
+    """
+    records, offset, pages = [], 0, 0
+    truncated = False
+
+    while True:
+        if pages >= MAX_PAGES:
+            truncated = True
+            break
+
         page = client.get_suspensions_page(limit=PAGE_SIZE, offset=offset)
-        records.extend(page["results"])
+        records.extend(page.get("results") or [])
         pages += 1
 
-        pagination = page["pagination"]
-        if not pagination.get("has_next"):
+        pagination = page.get("pagination") or {}
+        next_offset = pagination.get("next_offset")
+        if not pagination.get("has_next") or next_offset is None:
             break
-        offset = pagination["next_offset"]
+        if next_offset <= offset:
+            raise SystemExit(
+                f"Paginasi tidak maju: next_offset {next_offset} <= offset {offset}. "
+                "Berhenti daripada mengulang halaman yang sama tanpa henti."
+            )
+        offset = next_offset
+
+    if truncated:
+        print(
+            f"PERINGATAN: berhenti di batas {MAX_PAGES} halaman dan API masih "
+            "melaporkan halaman berikutnya. Data di bawah ini TIDAK lengkap."
+        )
 
     return records
 
@@ -1594,6 +1617,7 @@ from freezebyte.sampling import pick_controls, pick_events
 N_EVENTS = 60
 N_CONTROLS = 60
 WINDOW_DAYS = 90
+MAX_SCREENER_PAGES = 20  # 200 emiten per halaman; IDX punya sekitar 960
 
 
 def load_suspensions() -> list[dict]:
@@ -1604,14 +1628,31 @@ def load_suspensions() -> list[dict]:
 
 
 def all_listed_symbols() -> list[str]:
-    symbols, offset = [], 0
-    while True:
+    """Daftar seluruh emiten lewat screener terstruktur.
+
+    Dibatasi jumlah halaman dan menolak `next_offset` yang tidak maju. Loop
+    paginasi tanpa batas di script berbayar adalah cara termahal untuk salah.
+    """
+    symbols, offset, pages = [], 0, 0
+    while pages < MAX_SCREENER_PAGES:
         page = client.screen(where=None, limit=200, offset=offset)
-        symbols.extend(r["symbol"] for r in page["results"])
-        pagination = page["pagination"]
-        if not pagination.get("has_next"):
+        symbols.extend(r["symbol"] for r in page.get("results") or [])
+        pages += 1
+
+        pagination = page.get("pagination") or {}
+        next_offset = pagination.get("next_offset")
+        if not pagination.get("has_next") or next_offset is None:
             break
-        offset = pagination["next_offset"]
+        if next_offset <= offset:
+            raise SystemExit(
+                f"Paginasi screener tidak maju: next_offset {next_offset} <= offset {offset}."
+            )
+        offset = next_offset
+    else:
+        print(
+            f"PERINGATAN: berhenti di batas {MAX_SCREENER_PAGES} halaman screener. "
+            "Daftar emiten TIDAK lengkap."
+        )
     return symbols
 
 
