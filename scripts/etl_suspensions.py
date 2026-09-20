@@ -14,17 +14,40 @@ MAX_PAGES = 40  # pengaman terhadap loop paginasi yang tidak berhenti
 
 
 def fetch_all() -> list[dict]:
-    records, offset, pages = [], 0, 0
+    """Ambil seluruh halaman suspensi.
 
-    while pages < MAX_PAGES:
+    Paginasi ditangani defensif karena script ini menghabiskan kredit sungguhan:
+    `next_offset` yang hilang, null, atau tidak maju akan menghentikan loop
+    dengan bunyi, bukan mengirim permintaan cacat atau berputar selamanya.
+    """
+    records, offset, pages = [], 0, 0
+    truncated = False
+
+    while True:
+        if pages >= MAX_PAGES:
+            truncated = True
+            break
+
         page = client.get_suspensions_page(limit=PAGE_SIZE, offset=offset)
-        records.extend(page["results"])
+        records.extend(page.get("results") or [])
         pages += 1
 
-        pagination = page["pagination"]
-        if not pagination.get("has_next"):
+        pagination = page.get("pagination") or {}
+        next_offset = pagination.get("next_offset")
+        if not pagination.get("has_next") or next_offset is None:
             break
-        offset = pagination["next_offset"]
+        if next_offset <= offset:
+            raise SystemExit(
+                f"Paginasi tidak maju: next_offset {next_offset} <= offset {offset}. "
+                "Berhenti daripada mengulang halaman yang sama tanpa henti."
+            )
+        offset = next_offset
+
+    if truncated:
+        print(
+            f"PERINGATAN: berhenti di batas {MAX_PAGES} halaman dan API masih "
+            "melaporkan halaman berikutnya. Data di bawah ini TIDAK lengkap."
+        )
 
     return records
 
