@@ -1686,18 +1686,30 @@ def main():
     suspended = {r["symbol"] for r in records}
     controls = pick_controls(all_listed_symbols(), suspended, N_CONTROLS)
 
-    reference_end = events[0]["suspension_date"] if events else None
-    for symbol in controls:
-        start, end = window_for(reference_end)
+    if not events:
+        raise SystemExit(
+            "Tidak ada kejadian suspensi, jadi kontrol tidak punya window pembanding."
+        )
+
+    # Setiap kontrol dipasangkan ke satu kejadian dan memakai window kejadian itu.
+    # Memakai satu window global untuk semua kontrol akan menghadapkan kontrol
+    # milik suspensi Januari pada kondisi pasar September, dan perbandingannya
+    # kehilangan artinya. Pasangannya dicatat di manifest supaya bisa diaudit.
+    for i, symbol in enumerate(controls):
+        paired = events[i % len(events)]
+        start, end = window_for(paired["suspension_date"])
         rows = client.get_prices(symbol, start, end)
         if not rows:
             manifest["failures"].append(
                 {"symbol": symbol, "role": "control",
-                 "reason": "harga tidak tersedia", "window": [start, end]}
+                 "reason": "harga tidak tersedia", "window": [start, end],
+                 "paired_event": paired["symbol"]}
             )
             continue
         manifest["controls"].append(
-            {"symbol": symbol, "window": [start, end], "n_rows": len(rows)}
+            {"symbol": symbol, "window": [start, end], "n_rows": len(rows),
+             "paired_event": paired["symbol"],
+             "paired_suspension_date": paired["suspension_date"]}
         )
 
     path = config.RAW_DIR / "manifest_prices.json"
