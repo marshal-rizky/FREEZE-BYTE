@@ -1,8 +1,10 @@
 """Satu-satunya modul yang menyentuh jaringan.
 
 Aturan keras: setiap respons ditulis ke disk sebelum dikembalikan ke pemanggil,
-dan endpoint yang sama tidak pernah dipanggil dua kali.
+dan data yang sudah ada di cache tidak pernah ditarik ulang. Satu-satunya
+pengecualian adalah percobaan ulang saat kena 429, dan itu pun dibatasi.
 """
+import hashlib
 import json
 import time
 from pathlib import Path
@@ -13,11 +15,24 @@ import requests
 from freezebyte import config
 
 TIMEOUT = 30
+MAX_RETRIES = 3
+RETRY_SLEEP = 5
 NETWORK_CALLS: list[str] = []
 
 
 def _cache_path(cache_key: str) -> Path:
     return config.RAW_DIR / f"{cache_key}.json"
+
+
+def _params_digest(params: dict) -> str:
+    """Sidik jari pendek dari seluruh parameter.
+
+    Dipakai untuk endpoint yang parameternya bebas bentuk. Menyusun cache key
+    dari potongan parameter yang dipilih tangan pernah membuat dua query berbeda
+    menulis ke file yang sama; digest menutup itu.
+    """
+    blob = json.dumps(params, sort_keys=True, ensure_ascii=False)
+    return hashlib.sha256(blob.encode("utf-8")).hexdigest()[:16]
 
 
 def get_json(path: str, params: dict, cache_key: str) -> Any:
@@ -33,26 +48,36 @@ def get_json(path: str, params: dict, cache_key: str) -> Any:
             return None
         return envelope["payload"]
 
-    response = requests.get(
-        config.BASE_URL + path,
-        headers={"Authorization": config.api_key()},
-        params=params,
-        timeout=TIMEOUT,
-    )
-    NETWORK_CALLS.append(path)
+    for attempt in range(MAX_RETRIES + 1):
+        response = requests.get(
+            config.BASE_URL + path,
+            headers={"Authorization": config.api_key()},
+            params=params,
+            timeout=TIMEOUT,
+        )
+        NETWORK_CALLS.append(path)
+
+        if response.status_code != 429:
+            break
+
+        if attempt == MAX_RETRIES:
+            raise RuntimeError(
+                f"Masih kena 429 setelah {MAX_RETRIES} percobaan ulang untuk {path}. "
+                "Berhenti daripada terus memakan kredit tanpa batas."
+            )
+        time.sleep(RETRY_SLEEP * (attempt + 1))
 
     cached.parent.mkdir(parents=True, exist_ok=True)
 
     if response.status_code == 404:
         cached.write_text(
-            json.dumps({"endpoint": path, "params": params, "unavailable": 404}),
+            json.dumps(
+                {"endpoint": path, "params": params, "unavailable": 404},
+                ensure_ascii=False,
+            ),
             encoding="utf-8",
         )
         return None
-
-    if response.status_code == 429:
-        time.sleep(5)
-        return get_json(path, params, cache_key)
 
     response.raise_for_status()
     payload = response.json()
@@ -93,10 +118,16 @@ def get_overview(symbol: str) -> dict | None:
 
 
 def screen(where: str | None, limit: int = 200, offset: int = 0) -> dict:
-    """Screener terstruktur. Parameter `q` sengaja tidak didukung: 3 kredit versus 1."""
+    """Screener terstruktur. Parameter `q` sengaja tidak didukung: 3 kredit versus 1.
+
+    Cache key memakai digest seluruh parameter, bukan potongan `where` saja.
+    Dua query yang berbeda hanya pada `limit` — atau yang berbeda hanya pada
+    tanda baca di dalam `where` — akan menulis ke file yang sama kalau digest
+    tidak dipakai, dan pemanggil kedua diam-diam menerima hasil pemanggil pertama.
+    """
     params = {"limit": limit, "offset": offset}
     slug = "all"
     if where:
         params["where"] = where
-        slug = "".join(c if c.isalnum() else "_" for c in where)[:80]
-    return get_json("/companies/", params, f"companies/{slug}_offset_{offset}")
+        slug = "".join(c if c.isalnum() else "_" for c in where)[:40]
+    return get_json("/companies/", params, f"companies/{slug}_{_params_digest(params)}")
