@@ -614,19 +614,25 @@ def _row(day, close, volume):
             "open": close, "low": close, "volume": volume, "market_cap": 0}
 
 
-def test_detects_two_windows_in_alka(alka_rows):
+def test_detects_four_zero_volume_runs_in_alka(alka_rows):
+    """Fixture nyata punya empat deret volume nol, bukan dua.
+
+    Dua di antaranya (2026-07-27 sehari, dan 2026-07-29..2026-08-05) tidak punya
+    record suspensi resmi — persis kasus yang membuat flag `confirmed` ada.
+    """
     windows = detect_freeze_windows(alka_rows)
-    assert len(windows) == 2
-    assert windows[0].start_date == date(2026, 8, 24)
-    assert windows[0].end_date == date(2026, 9, 2)
-    assert windows[1].start_date == date(2026, 9, 16)
+    assert len(windows) == 4
+    assert [w.n_days for w in windows] == [1, 6, 7, 3]
+    assert windows[2].start_date == date(2026, 8, 24)
+    assert windows[2].end_date == date(2026, 9, 2)
+    assert windows[3].start_date == date(2026, 9, 16)
 
 
-def test_reopen_return_of_first_alka_window(alka_rows):
-    first = detect_freeze_windows(alka_rows)[0]
-    assert first.price_at_freeze == 4580
-    assert first.reopen_close == 4130
-    assert first.reopen_return == pytest.approx(-0.0983, abs=5e-4)
+def test_reopen_return_of_the_august_alka_window(alka_rows):
+    august = detect_freeze_windows(alka_rows)[2]
+    assert august.price_at_freeze == 4580
+    assert august.reopen_close == 4130
+    assert august.reopen_return == pytest.approx(-0.0983, abs=5e-4)
 
 
 def test_open_window_has_no_reopen_values(alka_rows):
@@ -783,7 +789,18 @@ def detect_freeze_windows(
 Run: `python -m pytest tests/test_freeze.py -v`
 Expected: 8 passed
 
-Kalau `test_reopen_return_of_first_alka_window` gagal karena nilai `close` berbeda dari 4580 atau 4130, **jangan ubah implementasinya**. Periksa dulu fixture: kemungkinan tanggal jendela pertama sedikit bergeser. Perbaiki angka di test agar cocok dengan fixture, lalu catat nilai sebenarnya di sini.
+Angka di test sudah diverifikasi terhadap fixture yang di-commit (63 baris, 2026-06-22 sampai 2026-09-18). Deret volume nol yang sebenarnya:
+
+| # | Mulai | Selesai | Baris | Harga beku | Harga buka | Return |
+|---|---|---|---|---|---|---|
+| 0 | 2026-07-27 | 2026-07-27 | 1 | 1375 | 1715 | +24,73% |
+| 1 | 2026-07-29 | 2026-08-05 | 6 | 1715 | 1885 | +9,91% |
+| 2 | 2026-08-24 | 2026-09-02 | 7 | 4580 | 4130 | −9,83% |
+| 3 | 2026-09-16 | 2026-09-18 | 3 | 7400 | — | masih terbuka |
+
+Catatan: 2026-08-25 tidak ada barisnya sama sekali di data, dan 2026-09-18 punya `open`/`high`/`low` bernilai 0. Keduanya sengaja dibiarkan apa adanya di fixture — itu bentuk data yang nyata.
+
+Kalau ada test yang gagal karena angka `close` berbeda, **jangan ubah implementasinya**. Periksa fixture dulu, perbaiki angka di test agar cocok, lalu catat nilai sebenarnya di tabel ini.
 
 - [ ] **Step 5: Commit**
 
@@ -918,12 +935,22 @@ def test_compute_features_returns_every_documented_key(alka_rows):
     }
 
 
-def test_prior_freeze_count_only_counts_windows_before_as_of(alka_rows):
-    """Pada 2026-09-15 ALKA sudah punya satu jendela beku yang selesai (24 Agu - 2 Sep)."""
+def test_prior_freeze_count_only_counts_confirmed_windows_before_as_of(alka_rows):
+    """Hanya jendela confirmed yang dihitung.
+
+    Fixture punya empat deret volume nol; tiga di antaranya selesai sebelum
+    2026-09-15. Dengan satu tanggal suspensi resmi (24 Agustus), hanya satu yang
+    confirmed. Dua sisanya inferred dan tidak boleh ikut dihitung.
+    """
     result = compute_features(
         alka_rows, date(2026, 9, 15), suspension_dates=["2026-08-24"]
     )
     assert result["prior_freeze_count"] == 1
+
+
+def test_prior_freeze_count_is_zero_without_official_suspension_dates(alka_rows):
+    result = compute_features(alka_rows, date(2026, 9, 15))
+    assert result["prior_freeze_count"] == 0
 
 
 def test_as_of_not_in_series_raises():
@@ -1026,6 +1053,13 @@ def compute_features(
     `structural` berisi kondisi dari endpoint overview dan bersifat KONDISI
     SEKARANG, bukan historis. Tidak ada cara menanyakan tag apa yang dimiliki
     sebuah emiten pada tanggal lampau. UI wajib menandainya.
+
+    `prior_freeze_count` hanya menghitung jendela `confirmed`. Deret volume nol
+    tanpa record suspensi resmi bisa berarti saham itu cuma tidak ditransaksikan
+    hari itu — ALKA punya dua deret seperti itu di fixture. Menghitungnya akan
+    menggelembungkan fitur ini dan melanggar aturan bahwa angka forensik hanya
+    berasal dari jendela confirmed. Konsekuensinya: tanpa `suspension_dates`,
+    nilainya selalu 0. Itu disengaja.
     """
     ordered = _ordered(rows)
     target = as_date(as_of)
@@ -1034,7 +1068,7 @@ def compute_features(
     prior_windows = [
         w
         for w in detect_freeze_windows(ordered, suspension_dates)
-        if w.end_date < target
+        if w.confirmed and w.end_date < target
     ]
 
     return {
@@ -1052,7 +1086,7 @@ def compute_features(
 - [ ] **Step 4: Jalankan test untuk memastikan lulus**
 
 Run: `python -m pytest tests/test_features.py -v`
-Expected: 11 passed
+Expected: 12 passed
 
 - [ ] **Step 5: Jalankan seluruh test suite**
 
