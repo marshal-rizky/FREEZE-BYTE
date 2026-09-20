@@ -19,6 +19,7 @@ python -m http.server 8000
 ```bash
 cp .env.example .env    # isi SECTORS_API_KEY
 pip install -r requirements.txt
+pip install -e .        # supaya `freezebyte` bisa di-import dari scripts/
 python scripts/etl_suspensions.py
 python scripts/etl_prices.py
 python scripts/etl_overviews.py
