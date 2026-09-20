@@ -10,6 +10,26 @@
 
 **Dokumen acuan:** `docs/superpowers/specs/2026-09-20-freeze-byte-design.md`. Spec adalah otoritas untuk keputusan desain; plan ini adalah urutan eksekusinya.
 
+
+## Status per 2026-09-21
+
+Seluruh bagian offline dari Task 1 sampai Task 7 selesai dan `python -m pytest`
+lulus 58 test tanpa API key. Belum ada satu pun kredit API yang dipakai untuk ETL:
+direktori `data/` belum terbentuk.
+
+| Task | Keadaan |
+|---|---|
+| 1 Scaffold | Selesai |
+| 2 `client.py` + fixture ALKA | Selesai |
+| 3 `freeze.py` | Selesai |
+| 4 `features.py` | Selesai |
+| 5 ETL suspensi | `reasons.py` dan script siap; ETL belum dijalankan (Step 6-9) |
+| 6 ETL harga | `sampling.py` dan script siap; ETL belum dijalankan (Step 6-9) |
+| 7 ETL overview | `structural.py` dan script siap; ETL belum dijalankan (Step 6-8) |
+| 8-13 | Belum mulai |
+
+Langkah berikutnya adalah Task 5 Step 6 — menjalankan `scripts/etl_suspensions.py`,
+yang menghabiskan sekitar 20 kredit dan membuka gerbang keputusan di Task 6 Step 8.
 ---
 
 ## Global Constraints
@@ -117,7 +137,7 @@ Task 1–4 dan 8–9 bisa dikerjakan offline setelah fixture ALKA turun. Hanya T
 - Consumes: tidak ada.
 - Produces: `freezebyte.config.BASE_URL: str`, `config.api_key() -> str`, `config.RAW_DIR: Path`, `config.WEB_DIR: Path`, `config.FIXTURE_DIR: Path`.
 
-- [ ] **Step 1: Buat `requirements.txt`**
+- [x] **Step 1: Buat `requirements.txt`**
 
 ```
 requests==2.32.3
@@ -125,7 +145,7 @@ python-dotenv==1.0.1
 pytest==8.3.3
 ```
 
-- [ ] **Step 2: Buat `pyproject.toml`**
+- [x] **Step 2: Buat `pyproject.toml`**
 
 ```toml
 [tool.pytest.ini_options]
@@ -136,7 +156,7 @@ addopts = "-q"
 include = ["freezebyte*"]
 ```
 
-- [ ] **Step 3: Buat `.env.example`**
+- [x] **Step 3: Buat `.env.example`**
 
 ```
 # Salin file ini jadi .env lalu isi dengan key dari portal hackathon Sectors.
@@ -144,7 +164,7 @@ include = ["freezebyte*"]
 SECTORS_API_KEY=
 ```
 
-- [ ] **Step 4: Tulis test yang gagal**
+- [x] **Step 4: Tulis test yang gagal**
 
 File `tests/test_config.py`:
 
@@ -175,12 +195,12 @@ def test_api_key_raises_clear_error_when_missing(monkeypatch):
         raise AssertionError("api_key() harus melempar RuntimeError kalau key tidak ada")
 ```
 
-- [ ] **Step 5: Jalankan test untuk memastikan gagal**
+- [x] **Step 5: Jalankan test untuk memastikan gagal**
 
 Run: `python -m pytest tests/test_config.py -v`
 Expected: FAIL dengan `ModuleNotFoundError: No module named 'freezebyte'`
 
-- [ ] **Step 6: Tulis implementasi minimal**
+- [x] **Step 6: Tulis implementasi minimal**
 
 File `freezebyte/__init__.py`: kosong.
 
@@ -223,12 +243,12 @@ def api_key() -> str:
 
 File `tests/__init__.py`: kosong.
 
-- [ ] **Step 7: Jalankan test untuk memastikan lulus**
+- [x] **Step 7: Jalankan test untuk memastikan lulus**
 
 Run: `python -m pip install -r requirements.txt && python -m pytest tests/test_config.py -v`
 Expected: 3 passed
 
-- [ ] **Step 8: Tulis `README.md`**
+- [x] **Step 8: Tulis `README.md`**
 
 ```markdown
 # FREEZE BYTE
@@ -273,7 +293,7 @@ serta frekuensi kondisional. Produk ini tidak merekomendasikan pembelian atau pe
 efek apa pun, dan tidak mengeksekusi order.
 ```
 
-- [ ] **Step 9: Commit dan push**
+- [x] **Step 9: Commit dan push**
 
 ```bash
 git add requirements.txt pyproject.toml .env.example freezebyte/ tests/ README.md docs/superpowers/plans/
@@ -303,7 +323,7 @@ Push ini penting: juri memeriksa commit history dan commit pertama harus tercata
   - `client.screen(where: str | None, limit: int, offset: int) -> dict`
   - `client.NETWORK_CALLS: list[str]` — setiap cache miss menambahkan satu entri.
 
-- [ ] **Step 1: Tulis test yang gagal**
+- [x] **Step 1: Tulis test yang gagal**
 
 File `tests/test_client.py`:
 
@@ -503,12 +523,12 @@ def test_screen_distinguishes_where_clauses_that_differ_only_in_punctuation(tmp_
     assert len(list((tmp_path / "companies").glob("*.json"))) == 2
 ```
 
-- [ ] **Step 2: Jalankan test untuk memastikan gagal**
+- [x] **Step 2: Jalankan test untuk memastikan gagal**
 
 Run: `python -m pytest tests/test_client.py -v`
 Expected: FAIL dengan `ModuleNotFoundError: No module named 'freezebyte.client'`
 
-- [ ] **Step 3: Tulis implementasi**
+- [x] **Step 3: Tulis implementasi**
 
 File `freezebyte/client.py`:
 
@@ -648,12 +668,12 @@ def screen(where: str | None, limit: int = 200, offset: int = 0) -> dict:
     return get_json("/companies/", params, f"companies/{slug}_{_params_digest(params)}")
 ```
 
-- [ ] **Step 4: Jalankan test untuk memastikan lulus**
+- [x] **Step 4: Jalankan test untuk memastikan lulus**
 
 Run: `python -m pytest tests/test_client.py -v`
 Expected: 12 passed
 
-- [ ] **Step 5: Tulis script pengambil fixture**
+- [x] **Step 5: Tulis script pengambil fixture**
 
 File `scripts/fetch_fixture_alka.py`:
 
@@ -695,7 +715,7 @@ if __name__ == "__main__":
     main()
 ```
 
-- [ ] **Step 6: Jalankan script dan periksa hasilnya**
+- [x] **Step 6: Jalankan script dan periksa hasilnya**
 
 Run: `python scripts/fetch_fixture_alka.py`
 Expected: sekitar 60 baris tersimpan, `panggilan jaringan: 1`, dan daftar baris volume nol memuat 2026-09-16, 2026-09-17, 2026-09-18 serta rentang 2026-08-24 sampai 2026-09-02.
@@ -704,7 +724,7 @@ Kalau daftar volume nol kosong, berhenti dan laporkan — seluruh asumsi forensi
 
 Catat nilai `close` pada 2026-09-05 dan 2026-09-01 dari fixture; dua angka itu dipakai di Task 4 Step 1.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add freezebyte/client.py tests/test_client.py scripts/fetch_fixture_alka.py tests/fixtures/alka_daily.json
@@ -728,7 +748,7 @@ git commit -m "feat: add caching API client and commit ALKA price fixture"
 
 **Catatan desain:** spec §5 menulis signature tanpa `suspension_dates`, tapi flag `confirmed` butuh data suspensi. Menaruhnya sebagai parameter mempertahankan fungsi ini tetap murni dan tetap bisa dites tanpa jaringan. Ini penyimpangan yang disengaja dari spec dan lebih baik daripada memanggil client dari dalam fungsi.
 
-- [ ] **Step 1: Tulis test yang gagal**
+- [x] **Step 1: Tulis test yang gagal**
 
 File `tests/test_freeze.py`:
 
@@ -833,12 +853,12 @@ def test_min_days_filters_short_windows():
     assert detect_freeze_windows(rows, min_days=2) == []
 ```
 
-- [ ] **Step 2: Jalankan test untuk memastikan gagal**
+- [x] **Step 2: Jalankan test untuk memastikan gagal**
 
 Run: `python -m pytest tests/test_freeze.py -v`
 Expected: FAIL dengan `ModuleNotFoundError: No module named 'freezebyte.freeze'`
 
-- [ ] **Step 3: Tulis implementasi**
+- [x] **Step 3: Tulis implementasi**
 
 File `freezebyte/freeze.py`:
 
@@ -922,7 +942,7 @@ def detect_freeze_windows(
     return windows
 ```
 
-- [ ] **Step 4: Jalankan test untuk memastikan lulus**
+- [x] **Step 4: Jalankan test untuk memastikan lulus**
 
 Run: `python -m pytest tests/test_freeze.py -v`
 Expected: 8 passed
@@ -940,7 +960,7 @@ Catatan: 2026-08-25 tidak ada barisnya sama sekali di data, dan 2026-09-18 punya
 
 Kalau ada test yang gagal karena angka `close` berbeda, **jangan ubah implementasinya**. Periksa fixture dulu, perbaiki angka di test agar cocok, lalu catat nilai sebenarnya di tabel ini.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add freezebyte/freeze.py tests/test_freeze.py
@@ -968,7 +988,7 @@ git commit -m "feat: detect freeze windows with confirmed vs inferred cross-chec
 
 **Semantik `dist_from_high`:** mengikuti spec §5, nilainya adalah rasio `close / max(high)`, bukan selisih. 1,0 berarti sedang berada di puncak. Ini didokumentasikan di docstring dan di tooltip situs supaya tidak salah baca.
 
-- [ ] **Step 1: Tulis test yang gagal**
+- [x] **Step 1: Tulis test yang gagal**
 
 File `tests/test_features.py`:
 
@@ -1097,12 +1117,12 @@ def test_as_of_not_in_series_raises():
         compute_features(rows, date(2026, 3, 6))
 ```
 
-- [ ] **Step 2: Jalankan test untuk memastikan gagal**
+- [x] **Step 2: Jalankan test untuk memastikan gagal**
 
 Run: `python -m pytest tests/test_features.py -v`
 Expected: FAIL dengan `ModuleNotFoundError: No module named 'freezebyte.features'`
 
-- [ ] **Step 3: Tulis implementasi**
+- [x] **Step 3: Tulis implementasi**
 
 File `freezebyte/features.py`:
 
@@ -1221,17 +1241,17 @@ def compute_features(
     }
 ```
 
-- [ ] **Step 4: Jalankan test untuk memastikan lulus**
+- [x] **Step 4: Jalankan test untuk memastikan lulus**
 
 Run: `python -m pytest tests/test_features.py -v`
 Expected: 12 passed
 
-- [ ] **Step 5: Jalankan seluruh test suite**
+- [x] **Step 5: Jalankan seluruh test suite**
 
 Run: `python -m pytest -v`
 Expected: semua lulus, dan tidak ada test yang menyentuh jaringan
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add freezebyte/features.py tests/test_features.py
@@ -1256,7 +1276,7 @@ git commit -m "feat: add pure feature engine with zero-volume and null-high guar
 
 **Biaya: 20 kredit** (592 record dibagi 30 per halaman).
 
-- [ ] **Step 1: Tulis test yang gagal**
+- [x] **Step 1: Tulis test yang gagal**
 
 File `tests/test_reasons.py`:
 
@@ -1295,12 +1315,12 @@ def test_price_surge_wins_when_text_mentions_both_surge_and_special_board():
     assert classify(text) == "lonjakan_harga"
 ```
 
-- [ ] **Step 2: Jalankan test untuk memastikan gagal**
+- [x] **Step 2: Jalankan test untuk memastikan gagal**
 
 Run: `python -m pytest tests/test_reasons.py -v`
 Expected: FAIL dengan `ModuleNotFoundError: No module named 'freezebyte.reasons'`
 
-- [ ] **Step 3: Tulis implementasi**
+- [x] **Step 3: Tulis implementasi**
 
 File `freezebyte/reasons.py`:
 
@@ -1337,12 +1357,12 @@ def classify(reason: str | None) -> str:
     return UNKNOWN
 ```
 
-- [ ] **Step 4: Jalankan test untuk memastikan lulus**
+- [x] **Step 4: Jalankan test untuk memastikan lulus**
 
 Run: `python -m pytest tests/test_reasons.py -v`
 Expected: 10 passed
 
-- [ ] **Step 5: Tulis script ETL**
+- [x] **Step 5: Tulis script ETL**
 
 File `scripts/etl_suspensions.py`:
 
@@ -1501,7 +1521,7 @@ git commit -m "feat: fetch full suspension dataset and classify official reasons
 
 **Definisi kelompok kontrol:** emiten yang tidak pernah muncul di dataset suspensi sama sekali, disampel acak dengan seed tetap supaya hasilnya bisa direproduksi. Definisi ini disebutkan terbuka di halaman coverage. Kontrol diambil pada window tanggal yang sama dengan kejadian pasangannya agar kondisi pasar sebanding.
 
-- [ ] **Step 1: Tulis test yang gagal**
+- [x] **Step 1: Tulis test yang gagal**
 
 File `tests/test_sampling.py`:
 
@@ -1547,12 +1567,12 @@ def test_pick_controls_respects_limit():
     assert len(pick_controls(universe, set(), limit=20, seed=42)) == 20
 ```
 
-- [ ] **Step 2: Jalankan test untuk memastikan gagal**
+- [x] **Step 2: Jalankan test untuk memastikan gagal**
 
 Run: `python -m pytest tests/test_sampling.py -v`
 Expected: FAIL dengan `ModuleNotFoundError: No module named 'freezebyte.sampling'`
 
-- [ ] **Step 3: Tulis implementasi**
+- [x] **Step 3: Tulis implementasi**
 
 File `freezebyte/sampling.py`:
 
@@ -1592,12 +1612,12 @@ def pick_controls(
     return sorted(rng.sample(eligible, limit))
 ```
 
-- [ ] **Step 4: Jalankan test untuk memastikan lulus**
+- [x] **Step 4: Jalankan test untuk memastikan lulus**
 
 Run: `python -m pytest tests/test_sampling.py -v`
 Expected: 5 passed
 
-- [ ] **Step 5: Tulis script ETL harga**
+- [x] **Step 5: Tulis script ETL harga**
 
 File `scripts/etl_prices.py`:
 
@@ -1787,7 +1807,7 @@ git commit -m "feat: sample suspension events and controls, fetch price history"
 
 **Biaya: sekitar 140 kredit** — 60 emiten sampel untuk kosakata tag dan sekitar 80 kandidat aktif.
 
-- [ ] **Step 1: Tulis test yang gagal**
+- [x] **Step 1: Tulis test yang gagal**
 
 File `tests/test_structural.py`:
 
@@ -1860,12 +1880,12 @@ def test_absent_market_cap_and_listing_board_stay_none():
     assert result["listing_board"] is None
 ```
 
-- [ ] **Step 2: Jalankan test untuk memastikan gagal**
+- [x] **Step 2: Jalankan test untuk memastikan gagal**
 
 Run: `python -m pytest tests/test_structural.py -v`
 Expected: FAIL dengan `ModuleNotFoundError: No module named 'freezebyte.structural'`
 
-- [ ] **Step 3: Tulis implementasi**
+- [x] **Step 3: Tulis implementasi**
 
 File `freezebyte/structural.py`:
 
@@ -1922,12 +1942,12 @@ def extract(overview: dict | None) -> dict:
     return result
 ```
 
-- [ ] **Step 4: Jalankan test untuk memastikan lulus**
+- [x] **Step 4: Jalankan test untuk memastikan lulus**
 
 Run: `python -m pytest tests/test_structural.py -v`
 Expected: 4 passed
 
-- [ ] **Step 5: Tulis script ETL overview**
+- [x] **Step 5: Tulis script ETL overview**
 
 File `scripts/etl_overviews.py`:
 

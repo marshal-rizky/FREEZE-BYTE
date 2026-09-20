@@ -4,6 +4,9 @@
 
 data/raw/
 
+# Salinan aturan resmi panitia, bukan karya sendiri.
+Sectors Hackathon 2026.pdf
+
 __pycache__/
 *.py[cod]
 .venv/
