@@ -48,6 +48,9 @@ const CATEGORY_LABELS = {
   papan_pemantauan_khusus: "Papan Pemantauan Khusus >1 tahun",
   kelangsungan_usaha: "Ketidakpastian kelangsungan usaha",
   keterbukaan_informasi: "Keterbukaan informasi / laporan keuangan",
+  suspensi_berkepanjangan: "Suspensi berjalan lebih dari 6 bulan",
+  ketentuan_pencatatan: "Belum memenuhi ketentuan pencatatan bursa",
+  aksi_korporasi_delisting: "Aksi korporasi menuju delisting",
   lainnya: "Lainnya",
   tanpa_alasan: "Tanpa keterangan alasan",
 };
