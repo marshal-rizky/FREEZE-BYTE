@@ -87,3 +87,37 @@ Setiap kata kunci diverifikasi dengan menghitung kemunculannya pada seluruh 592
 teks alasan (bukan hanya pada 93 record `lainnya` semula) untuk memastikan tidak
 ada kecocokan tak terduga di kategori lain, termasuk pada 467 record
 `lonjakan_harga`.
+
+## Cacat jendela harga dan perbaikannya
+
+Jendela harga yang dipakai untuk menghitung `reopen_return` semula berakhir tepat
+di tanggal suspensi (`[susp − 59d, susp]`), sehingga tidak ada satu pun baris
+sesudah pembekuan untuk dibaca — setiap `reopen_return` tidak pernah teramati.
+Diperbaiki di komit `ec586de` (`fix(etl): span suspension date in price windows to
+enable reopen_return`): jendela sekarang membentang `[susp − 59d, susp + 30d]`,
+yang memungkinkan reopen teramati untuk **48 dari 55 kejadian**.
+
+Perbaikan ini juga yang membuka temuan bahwa jendela zero-volume ALKA 24 Agustus –
+2 September tidak punya record suspensi resmi di dalamnya (lihat koreksi di
+`notes.md`) — cross-check `confirmed` vs `inferred` hanya berarti sesuatu kalau
+jendela harganya benar-benar mencakup periode sesudah pembekuan.
+
+## Temuan utama — median reopen return per bucket
+
+Base rate dipool dari 55 kejadian + 58 kontrol. Lima dari sembilan bucket mencapai
+`MIN_SAMPLE=10`:
+
+| Bucket | n | dari arm kejadian | median reopen |
+|---|---|---|---|
+| r1v1 (paling sepi) | 19 | 3 | **+17,3%** |
+| r1v2 | 16 | 6 | +2,5% |
+| r2v1 | 17 | 1 | +1,0% |
+| r2v2 | 12 | 2 | +0,0% |
+| r3v3 (paling ramai) | 27 | 27 | **−3,0%** |
+
+Saham yang lari paling kencang dan paling ramai sebelum dibekukan cenderung
+reopen **turun**; yang paling sepi cenderung reopen naik. Kolom "dari arm kejadian"
+menggambarkan komposisi desain sampel case-control ~1:1, bukan probabilitas beku
+di dunia nyata — di r3v3, "27 dari 27" berarti seluruh anggota bucket itu berasal
+dari kelompok kejadian (tidak ada kontrol yang jatuh ke bucket ini), bukan "100%
+saham seperti ini akan dibekukan".

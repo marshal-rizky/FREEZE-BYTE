@@ -26,6 +26,14 @@ suspensi resmi. Jendela `confirmed` punya record resmi di dalam rentangnya; jend
 Sectors API v2: `/v2/suspensions/`, `/v2/daily/{symbol}/`, `/v2/company/report/{symbol}/`,
 `/v2/companies/`. Produk ini kehilangan seluruh fungsinya tanpa data Sectors.
 
+## Coverage
+
+Dataset suspensi penuh berisi **592 record**. Dari situ, **120 masuk sampel forensik**
+(60 kejadian + 60 kontrol, dibatasi anggaran kredit API), dan dari 120 itu **113
+dianalisis, 7 dikecualikan**. Rincian lengkap alasan pengecualian per emiten, daftar
+pantau terpisah, dan distribusi kategori alasan suspensi ada di bagian coverage pada
+situs (`site/`, dibangun dari `data/web/coverage.json`).
+
 ## Batasan yang diakui
 
 - Tag emiten bersifat kondisi sekarang. Tidak ada cara menanyakan tag pada tanggal
@@ -35,6 +43,9 @@ Sectors API v2: `/v2/suspensions/`, `/v2/daily/{symbol}/`, `/v2/company/report/{
   berbasis frekuensi, bukan prediksi individual.
 - Data order book tidak tersedia, jadi spoofing dan wash trade tidak bisa dideteksi.
 - Sampel forensik dibatasi kejadian terbaru karena anggaran kredit API.
+- Sampel base rate adalah desain case-control ~1:1 (kejadian vs kontrol), bukan
+  sampel populasi acak. Porsi bucket memisahkan kedua kelompok itu, bukan
+  frekuensi di dunia nyata.
 
 ## Menjalankan situs tanpa API key
 

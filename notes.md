@@ -18,18 +18,16 @@ Modul yang sudah jadi dan lulus test:
 - `freezebyte/reasons.py` — klasifikasi teks alasan suspensi
 - `freezebyte/sampling.py` — pemilihan kejadian dan kontrol berpasangan
 - `freezebyte/structural.py` — fitur struktural dari overview
-- `scripts/etl_suspensions.py`, `etl_prices.py`, `etl_overviews.py` — siap jalan, belum dijalankan
-- `tests/` — 58 test, `python -m pytest` lulus offline tanpa API key
+- `scripts/etl_suspensions.py`, `etl_prices.py`, `etl_overviews.py` — sudah dijalankan, ETL selesai
+- `tests/` — 91 test, `python -m pytest` lulus
 
-Belum ada: `baserates.py`, `coverage.py`, `build.py`, seluruh `site/`, README final, `docs/SUBMISSION.md`, video, postingan media sosial.
+Belum ada: video, teaser, postingan media sosial, pengecekan clean-clone, dan tekan submit.
 
-**Belum ada satu kredit pun yang dipakai untuk ETL.** Direktori `data/` belum terbentuk.
+**ETL sudah selesai. Total kredit terpakai: 361 dari 1.000.** Terciles (`RET10_TERCILES`, `VOL_TERCILES`) sudah diisi angka sebenarnya dari `scripts/report_discovery.py`, bukan placeholder lagi. `python -m freezebyte.build` menghasilkan ketujuh file JSON di `data/web/` (`alka.json`, `baserates.json`, `coverage.json`, `distribution.json`, `events.json`, `meta.json`, `watchlist.json`), semuanya sudah di-commit.
 
 ## Langkah berikutnya
 
-Task 5 Step 6 di plan: jalankan `scripts/etl_suspensions.py`, sekitar 20 kredit. Hasilnya dipakai menyetel aturan klasifikasi sampai kategori `lainnya` turun di bawah 10% (Task 5 Step 7, yang sekaligus keputusan Jev di bawah), lalu membuka Task 6.
-
-Gerbang keputusan risiko ada di Task 6 Step 8, dijalankan segera setelah ETL harga selesai — bukan ditunda ke minggu kedua.
+Sisa pekerjaan murni non-teknis: rekam video judging (maks 3 menit) dan teaser (1 menit), buat postingan media sosial dengan template thumbnail, jalankan pengecekan clean-clone (`python -m pytest` dari clone bersih tanpa `.env`), lalu tekan submit sebelum 30 September 2026 23:59 WIB.
 
 Deadline: **submit 30 September 2026 23:59 WIB.** Registrasi dan onboarding sudah selesai, jadi tidak ada urusan administrasi lagi. Batas registrasi resmi 22 September, tapi itu sudah tidak relevan.
 
@@ -56,7 +54,20 @@ Mengembalikan **2 emiten dari 962** — INPS dan MGLV. Keduanya disuspensi dalam
 
 **n=2 bukan bukti.** Tidak boleh ditampilkan sebagai angka akurasi di video atau README. Ini pengamatan yang memicu investigasi.
 
-Studi kasus utama: **ALKA.** Naik +97,3% dalam 6 hari bursa (3.750 pada 7 Sep ke 7.400 pada 15 Sep), lalu volume nol dari 16 Sep. Sebelumnya sudah pernah beku 24 Agustus – 2 September, buka di −9,8%. Fixture-nya sudah ditarik dan di-commit di `tests/fixtures/alka_daily.json`. Ini juga pembuka video.
+Studi kasus utama: **ALKA.** Naik +97,3% dalam 6 hari bursa (3.750 pada 7 Sep ke 7.400 pada 15 Sep), lalu resmi disuspensi 16 September dan **masih beku** — baris data terakhir, 18 September, tutup di 7.400 dengan volume nol. Fixture-nya sudah ditarik dan di-commit di `tests/fixtures/alka_daily.json`. Ini juga pembuka video.
+
+**Koreksi 2026-09-21:** draft sebelumnya menyebut ALKA "sebelumnya sudah pernah beku 24 Agustus – 2 September, buka di −9,8%" dan memperlakukannya sebagai bukti utama. Itu salah. Record suspensi resmi ALKA hanya ada tiga: 2026-09-16, 2026-07-29, 2026-03-13 — **tidak ada record resmi untuk 24 Agustus**. Jendela zero-volume 24 Agustus – 2 September adalah `inferred` (tersimpulkan dari volume nol), bukan `confirmed` (ada record resmi di dalamnya), sehingga menurut aturan inti proyek sendiri — angka forensik dan base rate hanya datang dari jendela `confirmed`, jendela `inferred` hanya jadi konteks grafik dengan gaya visual berbeda — angka −9,8% itu tidak boleh disajikan sebagai reopen suspensi. Ini baru ketahuan karena build melakukan cross-check setiap jendela zero-volume terhadap record suspensi resmi; tanpa cross-check itu, klaim salah ini akan lolos ke video dan README.
+
+Keempat jendela ALKA yang terdeteksi, dengan status resmi:
+
+| Jendela | Confirmed? | Reopen |
+|---|---|---|
+| 2026-07-27 (1 hari) | inferred | +24,7% |
+| 2026-07-29 → 2026-08-05 | **confirmed** | **+9,9%** |
+| 2026-08-24 → 2026-09-02 | inferred | −9,8% (tanpa pengumuman IDX) |
+| 2026-09-16 → 2026-09-18 | **confirmed** | masih beku, belum ada reopen |
+
+Cerita yang jujur dan lebih kuat: pembekuan *confirmed* 29 Juli reopen di **+9,9%**; ALKA lalu naik +97,3% dalam 6 hari bursa, disuspensi resmi 16 September, dan masih beku sampai baris data terakhir (18 September, 7.400, volume nol). Episode −9,8% boleh tetap ditampilkan di grafik tapi hanya berlabel jendela zero-volume tak terkonfirmasi, tanpa pengumuman IDX di baliknya.
 
 ## Yang sudah dites dan GAGAL — jangan ulangi
 
@@ -103,7 +114,7 @@ Yang penting: **suspensi dan papan pemantauan khusus nol entri.** Penumpukan ada
 
 ## Kredit API
 
-Terpakai sejauh ini: sekitar **15 dari 1.000** — riset eksplorasi ditambah satu panggilan untuk fixture ALKA. ETL sungguhan belum jalan. Anggaran rencana 455, sisanya cadangan. Rinciannya di §9 spec.
+Terpakai: **361 dari 1.000** — riset eksplorasi, fixture ALKA, dan seluruh ETL (suspensions, prices, overviews) sudah selesai. Anggaran rencana 455, sisanya jadi cadangan yang tidak terpakai. Rinciannya di §9 spec.
 
 Aturan keras yang mudah dilanggar:
 

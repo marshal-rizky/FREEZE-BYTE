@@ -3,8 +3,10 @@
 ## Judging video (maks 3 menit)
 
 ### 0:00–0:25 — Masalahnya, lewat ALKA
-Tampilkan grafik ALKA. Harga naik hampir dua kali lipat dalam enam hari bursa,
-lalu volume jadi nol. Pada titik itu pemegang saham tidak bisa keluar.
+Tampilkan grafik ALKA. Harga naik +97,3% dalam enam hari bursa (3.750 pada
+7 September ke 7.400 pada 15 September), lalu ALKA resmi disuspensi IDX pada
+16 September — dan masih beku sampai baris data terakhir, 18 September, tutup
+di 7.400 dengan volume nol. Pada titik itu pemegang saham tidak bisa keluar.
 Ucapkan problem statement satu kalimat.
 
 ### 0:25–1:10 — Anatomi kejadian yang tercatat
@@ -38,3 +40,10 @@ dan disclaimer di akhir.
 - Angka akurasi apa pun yang berasal dari temuan n=2 (INPS dan MGLV)
 - Kata "prediksi", "sinyal beli", "hindari saham ini", "rekomendasi"
 - Klaim bahwa produk memprediksi suspensi emiten tertentu
+- Menyajikan reopen −9,8% ALKA (jendela 24 Agustus – 2 September) sebagai
+  reopen suspensi terkonfirmasi — jendela itu `inferred`, tidak ada
+  pengumuman IDX di baliknya, dan hanya boleh muncul berlabel jendela
+  zero-volume tak terkonfirmasi
+- Menyajikan porsi arm kejadian sebuah bucket (mis. "27 dari 27 di r3v3
+  berasal dari arm kejadian") sebagai probabilitas beku di dunia nyata —
+  itu komposisi desain sampel case-control ~1:1, bukan frekuensi populasi

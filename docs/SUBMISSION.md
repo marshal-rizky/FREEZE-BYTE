@@ -23,13 +23,13 @@ Track 03 — Market Intelligence.
 
 ## Pemeriksaan akhir sebelum submit
 
-- [ ] `RET10_TERCILES` dan `VOL_TERCILES` di `freezebyte/baserates.py` masih
+- [x] `RET10_TERCILES` dan `VOL_TERCILES` di `freezebyte/baserates.py` masih
   placeholder `(0.0, 0.0)` -- isi dengan tercile sebenarnya dari output
   `scripts/report_discovery.py` SEBELUM build terakhir. Dengan placeholder,
   `build.main()` menolak menulis `baserates.json` (kecuali
   `FREEZEBYTE_ALLOW_PLACEHOLDER_TERCILES=1` diset), dan kalau dipaksa,
   kesembilan bucket kolaps jadi satu (`r3v3`).
-- [ ] Bagian `## Coverage` masih harus ditambahkan ke README.md dengan angka
+- [x] Bagian `## Coverage` masih harus ditambahkan ke README.md dengan angka
   sebenarnya dari `data/web/coverage.json`, setelah pipeline build dijalankan
 - [ ] `git grep -i "SECTORS_API_KEY=" -- ':!*.example'` tidak mengembalikan apa pun
 - [ ] `.env` tidak ada di `git ls-files`
