@@ -4,12 +4,15 @@ Deadline: 30 September 2026, 23:59 WIB. Setelah submit, repo freeze total.
 
 | Syarat | Status |
 |---|---|
-| Link repo publik (wajib tetap publik 90 hari setelah pengumuman) | |
-| Video teaser 1 menit, publik di YouTube atau media sosial | |
-| Video judging maks 3 menit, walkthrough lengkap | |
-| Problem statement satu kalimat | |
-| Pilihan track dan daftar nama peserta | |
-| Postingan media sosial (Instagram / LinkedIn / Threads / TikTok) tag akun Sectors, pakai template thumbnail | |
+| Link repo publik (wajib tetap publik 90 hari setelah pengumuman) | **Siap** — `github.com/marshal-rizky/FREEZE-BYTE`, publik |
+| Video teaser 1 menit, publik di YouTube atau media sosial | **Belum** — naskah ada di `docs/video-script.md` |
+| Video judging maks 3 menit, walkthrough lengkap | **Belum** — naskah ada di `docs/video-script.md` |
+| Problem statement satu kalimat | **Siap** — lihat bagian di bawah |
+| Pilihan track dan daftar nama peserta | **Siap** — Track 03, solo |
+| Postingan media sosial (Instagram / LinkedIn / Threads / TikTok) tag akun Sectors, pakai template thumbnail | **Belum** |
+
+Sisa pekerjaan murni non-teknis: dua video dan satu postingan media sosial.
+Seluruh bagian teknis sudah lolos pemeriksaan di bawah.
 
 ## Problem statement
 
@@ -23,14 +26,17 @@ Track 03 — Market Intelligence.
 
 ## Pemeriksaan akhir sebelum submit
 
-- [x] `RET10_TERCILES` dan `VOL_TERCILES` di `freezebyte/baserates.py` masih
-  placeholder `(0.0, 0.0)` -- isi dengan tercile sebenarnya dari output
-  `scripts/report_discovery.py` SEBELUM build terakhir. Dengan placeholder,
-  `build.main()` menolak menulis `baserates.json` (kecuali
-  `FREEZEBYTE_ALLOW_PLACEHOLDER_TERCILES=1` diset), dan kalau dipaksa,
+- [x] `RET10_TERCILES` dan `VOL_TERCILES` di `freezebyte/baserates.py` sudah diisi
+  tercile sebenarnya dari output `scripts/report_discovery.py`:
+  `(-0.011506, 0.315874)` dan `(0.655936, 1.689015)`, dihitung dari 113 window
+  yang riwayat perdagangannya cukup panjang. Bukan placeholder lagi.
+  Penjaganya tetap ada: kalau nilainya kembali ke `(0.0, 0.0)`, `build.main()`
+  menolak menulis `baserates.json` (kecuali
+  `FREEZEBYTE_ALLOW_PLACEHOLDER_TERCILES=1` diset), karena dengan placeholder
   kesembilan bucket kolaps jadi satu (`r3v3`).
-- [x] Bagian `## Coverage` masih harus ditambahkan ke README.md dengan angka
-  sebenarnya dari `data/web/coverage.json`, setelah pipeline build dijalankan
+- [x] Bagian `## Coverage` sudah ada di README.md dengan angka sebenarnya dari
+  `data/web/coverage.json`: 592 record total, 120 masuk sampel forensik
+  (60 kejadian + 60 kontrol), 113 dianalisis dan 7 gugur.
 - [x] `git grep -nE "SECTORS_API_KEY=[\"']?[A-Za-z0-9_-]{8,}"` tidak mengembalikan
   apa pun (dipersempit dari pola sebelumnya: pola lama juga kena tiga hit palsu --
   baris checklist ini sendiri, dikutip di sini dan di implementation plan, plus
@@ -39,7 +45,7 @@ Track 03 — Market Intelligence.
   Hasil: nihil.
 - [x] `.env` tidak ada di `git ls-files` -- 0 match.
 - [x] `python -m pytest` lulus dari clone bersih tanpa `.env` -- di-clone ke
-  direktori sementara, 91 passed.
+  direktori sementara, 93 passed.
 - [x] Situs terbuka dan lengkap dari clone bersih tanpa API key -- disajikan dari
   clone bersih, halaman + 3 aset + ketujuh file JSON semuanya HTTP 200.
 - [x] Disclaimer ada di halaman dan di README -- "Bukan saran investasi" ada di
