@@ -34,6 +34,17 @@ function renderPriceChart(container, data) {
   });
 
   // Shading jendela beku. Confirmed dan inferred dibedakan secara visual.
+  //
+  // Label ditempatkan dalam dua tahap. Jendela yang berdekatan -- ALKA punya
+  // jendela 27 Juli dan 29 Juli yang hampir bersentuhan -- akan menabrakkan
+  // labelnya kalau semuanya dipasang di baris yang sama, dan jendela di tepi
+  // kanan akan terpotong batas viewBox. Jadi setiap label dijepit ke dalam
+  // area plot lalu diturunkan satu baris sampai tidak lagi bertabrakan.
+  const CHAR_W = 5.2;   // perkiraan lebar karakter pada font-size 10px
+  const LABEL_GAP = 6;  // jarak minimum antar label di baris yang sama
+  const ROW_H = 13;
+  const placed = [];    // { row, from, to } dalam koordinat viewBox
+
   data.windows.forEach((win) => {
     const from = indexOf(win.start_date);
     const to = indexOf(win.end_date);
@@ -49,11 +60,29 @@ function renderPriceChart(container, data) {
         class: win.confirmed ? "freeze-band confirmed" : "freeze-band inferred",
       })
     );
+
+    const text = win.confirmed ? "beku (terkonfirmasi)" : "volume nol (tersimpulkan)";
+    const halfW = (text.length * CHAR_W) / 2;
+    // Jepit ke dalam area plot supaya label tepi tidak terpotong.
+    const cx = Math.min(
+      Math.max(left + width / 2, PAD.left + halfW),
+      W - PAD.right - halfW
+    );
+    const span = { from: cx - halfW - LABEL_GAP, to: cx + halfW + LABEL_GAP };
+
+    let row = 0;
+    while (
+      placed.some((p) => p.row === row && p.from < span.to && span.from < p.to)
+    ) {
+      row += 1;
+    }
+    placed.push({ row, from: span.from, to: span.to });
+
     svg.appendChild(
       el(
         "text",
-        { x: left + width / 2, y: PAD.top + 14, class: "freeze-label" },
-        win.confirmed ? "beku (terkonfirmasi)" : "volume nol (tersimpulkan)"
+        { x: cx, y: PAD.top + 14 + row * ROW_H, class: "freeze-label" },
+        text
       )
     );
   });

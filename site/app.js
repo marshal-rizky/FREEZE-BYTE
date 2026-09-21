@@ -132,8 +132,8 @@ function renderWatchlist(container, watchlist, baserates) {
         // kontrol di bawah definisi pick_controls saat ini). Jadi angka ini
         // adalah komposisi sampel case-control, bukan frekuensi pembekuan
         // yang teramati di populasi pasar -- lihat caveat di bawah tabel.
-        rateCell = `${rate.n_events} dari ${rate.n} emiten di kelompok ini
-                    berasal dari arm kejadian. Sampel disusun berpasangan
+        rateCell = `${rate.n_events} dari ${rate.n} emiten di bucket ini adalah
+                    kejadian suspensi, sisanya kontrol. Sampel disusun berpasangan
                     (${baserates.n_events} kejadian, ${baserates.n_controls} kontrol),
                     jadi angka ini membedakan kelompok &mdash; bukan frekuensi populasi.`;
       }
@@ -156,7 +156,7 @@ function renderWatchlist(container, watchlist, baserates) {
       ditampilkan sebagai "sampel tidak cukup", bukan angka. Kolom terakhir
       BUKAN base rate populasi: sampel forensik disusun berpasangan 1:1
       (${baserates.n_events} kejadian, ${baserates.n_controls} kontrol) by
-      design, sehingga pecahan arm kejadian di tiap bucket bergravitasi ke
+      design, sehingga pecahan kejadian di tiap bucket bergravitasi ke
       sekitar 50% terlepas dari seberapa jarang pembekuan sungguhan terjadi
       di pasar &mdash; base rate pembekuan yang sebenarnya jauh lebih rendah
       dari itu. Penanda "kondisi sekarang" berarti nilai itu diambil hari
