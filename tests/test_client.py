@@ -117,6 +117,50 @@ def test_429_then_success_returns_the_payload(tmp_path, monkeypatch):
     assert client.get_json("/suspensions/", {}, "suspensions/recovered") == {"ok": True}
 
 
+def test_connection_error_then_success_returns_the_payload(tmp_path, monkeypatch):
+    monkeypatch.setattr(client.config, "RAW_DIR", tmp_path)
+    monkeypatch.setattr(client.config, "api_key", lambda: "dummy")
+    monkeypatch.setattr(client.time, "sleep", lambda _: None)
+    client.NETWORK_CALLS.clear()
+
+    responses = [
+        client.requests.exceptions.ConnectionError("connection forcibly closed"),
+        FakeResponse({"ok": True}),
+    ]
+
+    def fake_get(url, headers, params, timeout):
+        item = responses.pop(0)
+        if isinstance(item, Exception):
+            raise item
+        return item
+
+    monkeypatch.setattr(client.requests, "get", fake_get)
+
+    assert client.get_json("/suspensions/", {}, "suspensions/reconnected") == {"ok": True}
+    assert len(client.NETWORK_CALLS) == 2
+
+
+def test_connection_error_gives_up_after_max_retries_instead_of_looping_forever(tmp_path, monkeypatch):
+    """Kegagalan transport (tanpa respons sama sekali) harus berhenti, bukan diam-diam hilang."""
+    monkeypatch.setattr(client.config, "RAW_DIR", tmp_path)
+    monkeypatch.setattr(client.config, "api_key", lambda: "dummy")
+    monkeypatch.setattr(client.time, "sleep", lambda _: None)
+    client.NETWORK_CALLS.clear()
+
+    def fake_get(url, headers, params, timeout):
+        raise client.requests.exceptions.ConnectionError(
+            "An existing connection was forcibly closed by the remote host"
+        )
+
+    monkeypatch.setattr(client.requests, "get", fake_get)
+
+    with pytest.raises(RuntimeError, match="Gagal terhubung"):
+        client.get_json("/suspensions/", {}, "suspensions/unreachable")
+
+    assert len(client.NETWORK_CALLS) == client.MAX_RETRIES + 1
+    assert not (tmp_path / "suspensions" / "unreachable.json").exists()
+
+
 def _record_calls(monkeypatch, tmp_path):
     """Tangkap url dan params yang dikirim wrapper, tanpa menyentuh jaringan."""
     monkeypatch.setattr(client.config, "RAW_DIR", tmp_path)

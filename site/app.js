@@ -134,8 +134,8 @@ function renderWatchlist(container, watchlist, baserates) {
         // yang teramati di populasi pasar -- lihat caveat di bawah tabel.
         rateCell = `${rate.n_events} dari ${rate.n} emiten di kelompok ini
                     berasal dari arm kejadian. Sampel disusun berpasangan
-                    (~60 kejadian, ~60 kontrol), jadi angka ini membedakan
-                    kelompok &mdash; bukan frekuensi populasi.`;
+                    (${baserates.n_events} kejadian, ${baserates.n_controls} kontrol),
+                    jadi angka ini membedakan kelompok &mdash; bukan frekuensi populasi.`;
       }
       return `<tr>
         <td><strong>${row.symbol}</strong><br>${chips(row.structural)}</td>

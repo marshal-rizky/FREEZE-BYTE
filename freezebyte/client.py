@@ -2,7 +2,8 @@
 
 Aturan keras: setiap respons ditulis ke disk sebelum dikembalikan ke pemanggil,
 dan data yang sudah ada di cache tidak pernah ditarik ulang. Satu-satunya
-pengecualian adalah percobaan ulang saat kena 429, dan itu pun dibatasi.
+pengecualian adalah percobaan ulang saat kena 429 atau saat koneksi transport
+gagal (ConnectionError/Timeout tanpa respons sama sekali), dan itu pun dibatasi.
 """
 import hashlib
 import json
@@ -55,12 +56,28 @@ def get_json(path: str, params: dict, cache_key: str) -> Any:
         return envelope["payload"]
 
     for attempt in range(MAX_RETRIES + 1):
-        response = requests.get(
-            config.BASE_URL + path,
-            headers={"Authorization": config.api_key()},
-            params=params,
-            timeout=TIMEOUT,
-        )
+        try:
+            response = requests.get(
+                config.BASE_URL + path,
+                headers={"Authorization": config.api_key()},
+                params=params,
+                timeout=TIMEOUT,
+            )
+        except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as exc:
+            # Permintaan sudah benar-benar terkirim (dan mungkin sudah kena
+            # tagihan) walau tidak ada respons yang kembali, jadi tetap
+            # dihitung di NETWORK_CALLS. Tidak ada respons berarti tidak ada
+            # 404 asli untuk dicek, jadi ini TIDAK ditulis ke cache sebagai
+            # unavailable -- itu dicadangkan untuk 404 sungguhan.
+            NETWORK_CALLS.append(path)
+            if attempt == MAX_RETRIES:
+                raise RuntimeError(
+                    f"Gagal terhubung setelah {MAX_RETRIES} percobaan ulang untuk {path}: "
+                    f"{exc}. Berhenti daripada terus mencoba tanpa batas."
+                ) from exc
+            time.sleep(RETRY_SLEEP * (attempt + 1))
+            continue
+
         NETWORK_CALLS.append(path)
 
         if response.status_code != 429:
