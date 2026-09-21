@@ -15,8 +15,14 @@ import requests
 from freezebyte import config
 
 TIMEOUT = 30
-MAX_RETRIES = 3
-RETRY_SLEEP = 5
+
+# Backoff dinaikkan setelah ETL harga 2026-09-21 kena 429 pada panggilan ke-50.
+# Backoff lama (5, 10, 15 detik) total hanya 30 detik, terlalu pendek untuk
+# melewati kuota per menit. Sekarang 20, 40, 60, 80, 100 detik, jadi satu
+# jendela kuota pasti terlewati sebelum script menyerah. Menyerah tetap lebih
+# baik daripada terus memanggil: kredit tidak bisa dikembalikan.
+MAX_RETRIES = 5
+RETRY_SLEEP = 20
 NETWORK_CALLS: list[str] = []
 
 
