@@ -31,9 +31,18 @@ Track 03 — Market Intelligence.
   kesembilan bucket kolaps jadi satu (`r3v3`).
 - [x] Bagian `## Coverage` masih harus ditambahkan ke README.md dengan angka
   sebenarnya dari `data/web/coverage.json`, setelah pipeline build dijalankan
-- [ ] `git grep -i "SECTORS_API_KEY=" -- ':!*.example'` tidak mengembalikan apa pun
-- [ ] `.env` tidak ada di `git ls-files`
-- [ ] `python -m pytest` lulus dari clone bersih tanpa `.env`
-- [ ] Situs terbuka dan lengkap dari clone bersih tanpa API key
-- [ ] Disclaimer ada di halaman dan di README
-- [ ] Tidak ada klaim akurasi berbasis n=2 di mana pun
+- [x] `git grep -nE "SECTORS_API_KEY=[\"']?[A-Za-z0-9_-]{8,}"` tidak mengembalikan
+  apa pun (dipersempit dari pola sebelumnya: pola lama juga kena tiga hit palsu --
+  baris checklist ini sendiri, dikutip di sini dan di implementation plan, plus
+  `.env.example` yang direproduksi kosong di plan -- tidak satu pun berisi key
+  sungguhan, jadi kotaknya tidak pernah bisa dicentang jujur dengan pola lama).
+  Hasil: nihil.
+- [x] `.env` tidak ada di `git ls-files` -- 0 match.
+- [x] `python -m pytest` lulus dari clone bersih tanpa `.env` -- di-clone ke
+  direktori sementara, 91 passed.
+- [x] Situs terbuka dan lengkap dari clone bersih tanpa API key -- disajikan dari
+  clone bersih, halaman + 3 aset + ketujuh file JSON semuanya HTTP 200.
+- [x] Disclaimer ada di halaman dan di README -- "Bukan saran investasi" ada di
+  `site/index.html` maupun `README.md`.
+- [x] Tidak ada klaim akurasi berbasis n=2 di mana pun -- tidak ada frasa akurasi
+  INPS/MGLV di `site/` maupun README.md.

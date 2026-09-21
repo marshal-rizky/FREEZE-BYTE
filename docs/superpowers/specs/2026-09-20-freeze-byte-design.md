@@ -62,9 +62,17 @@ Semantik: `tags in [...]` dalam satu klausa berlaku **OR**; untuk AND rangkai kl
 | 2026-09-17 | 7.400 | 0 |
 | 2026-09-18 | 7.400 | 0 |
 
+> **Koreksi 2026-09-21 (setelah ETL penuh).** Jendela 24 Agustus – 2 September
+> ternyata **tidak punya record suspensi resmi**; record ALKA hanya
+> 2026-09-16, 2026-07-29, dan 2026-03-13. Jendela itu karena itu `inferred`,
+> bukan `confirmed`, sehingga −9,8% tidak boleh disajikan sebagai reopen
+> suspensi. Jendela `confirmed` 29 Juli reopen di +9,9%; pembekuan 16
+> September masih berlangsung sampai baris data terakhir (18 September,
+> 7.400, volume nol). Angka +97,3% dalam 6 hari bursa tetap benar.
+
 Naik +97,3% dari 7 ke 15 September (6 hari bursa), lalu volume nol. Jendela beku sebelumnya di window yang sama: 24 Agustus – 2 September di 4.580, buka 3 September di 4.130 = **−9,8% saat dibuka**.
 
-Data ini jadi fixture test utama. Jawaban yang benar sudah diketahui: dua jendela beku, dan reopen return −9,8%.
+Data ini jadi fixture test utama. Jawaban yang benar sudah diketahui: dua jendela beku, dan reopen return −9,8%. (Lihat koreksi 2026-09-21 di atas: jendela 24 Agustus itu `inferred`, bukan `confirmed` — `test_reopen_return_alka` tetap benar karena hanya memverifikasi aritmetika reopen, bukan status konfirmasinya.)
 
 ### 3.4 Tag di `overview`
 
@@ -212,7 +220,7 @@ Halaman punya satu bagian coverage: dari 592 kejadian, berapa yang benar-benar b
 | Test | Yang diuji | Jawaban yang sudah diketahui |
 |---|---|---|
 | `test_freeze_alka` | `detect_freeze_windows` pada fixture ALKA | 2 jendela: 2026-08-24 s/d 2026-09-02, dan 2026-09-16 ke depan |
-| `test_reopen_return_alka` | reopen return jendela pertama | −9,8% (4.580 → 4.130) |
+| `test_reopen_return_alka` | reopen return jendela pertama | −9,8% (4.580 → 4.130) (jendela `inferred`, bukan `confirmed` — lihat koreksi 2026-09-21 di §3.3) |
 | `test_features_alka` | `ret_10d` pada as_of 2026-09-15 | +97,3% dari 3.750 (2026-09-07) |
 | `test_vol_ratio_excludes_frozen` | baris volume nol tidak masuk rata-rata | rata-rata dihitung dari baris berdagang saja |
 | `test_dist_from_high_ignores_zero_high` | baris `high == 0` dibuang | tidak ada pembagian dengan nol atau hasil sesat |
@@ -225,7 +233,7 @@ Test untuk `freeze.py` dan `features.py` ditulis **sebelum** implementasinya, ka
 
 Satu halaman, tiga bagian, urutan menentukan.
 
-**Bagian 1 — studi kasus ALKA, terbuka saat halaman dimuat.** Grafik harga 20 Agustus – 19 September, dua jendela beku diberi shading dan label, anotasi +97,3% dan −9,8% saat dibuka. Pembaca harus paham produknya dalam sepuluh detik tanpa mengklik apa pun.
+**Bagian 1 — studi kasus ALKA, terbuka saat halaman dimuat.** Grafik harga 20 Agustus – 19 September, dua jendela beku diberi shading dan label, anotasi +97,3% dan −9,8% saat dibuka (jendela −9,8% itu `inferred`, bukan `confirmed` — lihat koreksi 2026-09-21 di §3.3). Pembaca harus paham produknya dalam sepuluh detik tanpa mengklik apa pun.
 
 **Bagian 2 — anatomi pembekuan.** Distribusi alasan resmi, sebaran kenaikan harga sebelum pembekuan dibanding kelompok kontrol, median perubahan harga saat dibuka. Setiap kejadian menampilkan `pdf_url` ke pengumuman resmi IDX. Link itu aset kredibilitas terbesar produk ini — tampilkan, jangan sembunyikan di tooltip.
 
