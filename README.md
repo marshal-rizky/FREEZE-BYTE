@@ -45,6 +45,10 @@ python -m http.server 8000
 # buka http://localhost:8000/site/
 ```
 
+Situs harus dibuka lewat server lokal ini, bukan dengan membuka `site/index.html`
+langsung sebagai file `file://`: `fetch()` diblokir CORS pada skema `file://`,
+dan halaman akan menampilkan pesan "gagal memuat".
+
 ## Menjalankan ulang pipeline (butuh API key)
 
 ```bash
