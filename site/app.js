@@ -16,7 +16,18 @@ function annotate(container, alka) {
     const last = reopened[reopened.length - 1];
     cards.push({
       value: fmtPct(last.reopen_return),
-      label: `perubahan harga saat dibuka kembali (${last.end_date})`,
+      // M3: end_date adalah hari terakhir jendela BEKU, bukan hari saham
+      // benar-benar dibuka kembali (itu baris pertama setelahnya). Label
+      // "jendela berakhir" supaya tanggalnya tidak dibaca sebagai tanggal
+      // reopen.
+      label: `perubahan harga saat dibuka kembali (jendela berakhir ${last.end_date})`,
+    });
+  }
+
+  if (alka.pre_freeze_rally_return !== null && alka.pre_freeze_rally_return !== undefined) {
+    cards.push({
+      value: fmtPct(alka.pre_freeze_rally_return),
+      label: `kenaikan harga ${alka.pre_freeze_rally_rows} hari bursa sebelum dibekukan`,
     });
   }
 
@@ -112,8 +123,16 @@ function renderWatchlist(container, watchlist, baserates) {
       const rate = lookup[row.bucket];
       let rateCell = `<span class="insufficient">sampel tidak cukup</span>`;
       if (rate && rate.sufficient) {
-        rateCell = `${rate.n_frozen_within_30d} dari ${rate.n} kejadian dengan
-                    profil serupa berakhir dibekukan dalam 30 hari`;
+        // C2: n_frozen_within_30d di sini SELALU sama dengan jumlah anggota
+        // bucket yang berasal dari arm kejadian (frozen_within_30d dipatok
+        // True untuk seluruh arm kejadian dan tidak pernah True untuk
+        // kontrol di bawah definisi pick_controls saat ini). Jadi angka ini
+        // adalah komposisi sampel case-control, bukan frekuensi pembekuan
+        // yang teramati di populasi pasar -- lihat caveat di bawah tabel.
+        rateCell = `${rate.n_events} dari ${rate.n} emiten di kelompok ini
+                    berasal dari arm kejadian. Sampel disusun berpasangan
+                    (~60 kejadian, ~60 kontrol), jadi angka ini membedakan
+                    kelompok &mdash; bukan frekuensi populasi.`;
       }
       return `<tr>
         <td><strong>${row.symbol}</strong><br>${chips(row.structural)}</td>
@@ -128,26 +147,57 @@ function renderWatchlist(container, watchlist, baserates) {
   container.innerHTML = `
     <table><thead><tr>
       <th>Emiten dan kondisi struktural</th><th>Return 10 baris</th>
-      <th>Rasio volume</th><th>Pernah beku</th><th>Base rate kelompoknya</th>
+      <th>Rasio volume</th><th>Pernah beku</th><th>Komposisi kelompoknya</th>
     </tr></thead><tbody>${rows}</tbody></table>
     <p class="caveat">Bucket dengan kurang dari ${baserates.min_sample} kejadian
-      ditampilkan sebagai "sampel tidak cukup", bukan angka. Penanda
-      "kondisi sekarang" berarti nilai itu diambil hari ini, bukan pada tanggal
-      historis &mdash; tag emiten tidak tersedia secara historis.</p>`;
+      ditampilkan sebagai "sampel tidak cukup", bukan angka. Kolom terakhir
+      BUKAN base rate populasi: sampel forensik disusun berpasangan 1:1
+      (${baserates.n_events} kejadian, ${baserates.n_controls} kontrol) by
+      design, sehingga pecahan arm kejadian di tiap bucket bergravitasi ke
+      sekitar 50% terlepas dari seberapa jarang pembekuan sungguhan terjadi
+      di pasar &mdash; base rate pembekuan yang sebenarnya jauh lebih rendah
+      dari itu. Penanda "kondisi sekarang" berarti nilai itu diambil hari
+      ini, bukan pada tanggal historis &mdash; tag emiten tidak tersedia
+      secara historis.</p>`;
 }
 
 function renderCoverage(container, coverage, meta) {
+  // I1: tiga angka yang bisa dijumlahkan pembaca sendiri -- total record
+  // suspensi (592-an), berapa yang masuk sampel forensik ~120 (60 kejadian +
+  // 60 kontrol, dibatasi anggaran kredit API), dan dari situ berapa yang
+  // benar-benar bisa dianalisis versus gugur. Semua dibaca dari JSON, tidak
+  // ada angka yang ditulis tangan di sini.
   const reasons = Object.entries(coverage.by_reason)
     .sort((a, b) => b[1] - a[1])
     .map(([reason, count]) => `<tr><td>${reason}</td><td>${count}</td></tr>`)
     .join("");
 
+  const watchlist = coverage.watchlist || { total: 0, analyzed: 0, excluded: 0, by_reason: {} };
+  const watchlistReasons = Object.entries(watchlist.by_reason)
+    .sort((a, b) => b[1] - a[1])
+    .map(([reason, count]) => `<tr><td>${reason}</td><td>${count}</td></tr>`)
+    .join("");
+  const watchlistSection = watchlist.total > 0
+    ? `<h3>Kandidat daftar pantau</h3>
+       <p>Terpisah dari sampel forensik di atas: dari
+          <strong>${watchlist.total}</strong> <em>kandidat daftar pantau</em>
+          (bukan record suspensi), <strong>${watchlist.analyzed}</strong>
+          bisa dianalisis dan <strong>${watchlist.excluded}</strong> gugur.</p>
+       <table><thead><tr><th>Alasan gugur (kandidat daftar pantau)</th><th>Jumlah</th></tr></thead>
+       <tbody>${watchlistReasons}</tbody></table>`
+    : `<h3>Kandidat daftar pantau</h3>
+       <p class="caveat">Belum ada kandidat daftar pantau yang diproses pada build ini.</p>`;
+
   container.innerHTML = `
-    <p>Dari <strong>${coverage.total}</strong> record suspensi,
-       <strong>${coverage.analyzed}</strong> benar-benar bisa dianalisis dan
+    <p>Dari <strong>${coverage.total_suspension_records}</strong> record suspensi,
+       <strong>${coverage.total}</strong> masuk sampel forensik
+       (${coverage.sample_events} kejadian + ${coverage.sample_controls} kontrol,
+       dibatasi anggaran kredit API). Dari <strong>${coverage.total}</strong> itu,
+       <strong>${coverage.analyzed}</strong> bisa dianalisis dan
        <strong>${coverage.excluded}</strong> gugur.</p>
-    <table><thead><tr><th>Alasan gugur</th><th>Jumlah</th></tr></thead>
+    <table><thead><tr><th>Alasan gugur (sampel forensik)</th><th>Jumlah</th></tr></thead>
     <tbody>${reasons}</tbody></table>
+    ${watchlistSection}
     <p class="caveat">${coverage.sample_note}</p>
     <p class="caveat">Data dibangun ${meta.built_at}.
        Jendela yang hanya disimpulkan dari volume nol tidak pernah masuk statistik;
@@ -155,6 +205,11 @@ function renderCoverage(container, coverage, meta) {
 }
 
 function summarise(values) {
+  // M2: `at()` below uses a nearest-rank percentile over whatever n happens
+  // to land here. Fine for the two ~60-item pooled arms this is called on
+  // (events vs. controls) where n is large enough for p25/p75 to mean
+  // something; do not reuse this for a per-bucket breakdown, where n can be
+  // single digits and nearest-rank on a handful of points is misleading.
   const clean = values.filter((v) => v !== null && v !== undefined).sort((a, b) => a - b);
   if (!clean.length) return null;
   const at = (p) => clean[Math.min(clean.length - 1, Math.floor(p * clean.length))];
@@ -208,6 +263,20 @@ function renderRegulatoryContext(container) {
       papan pemantauan khusus &rarr; 1 tahun &rarr; suspensi.</p>`;
 }
 
+// I6: setiap render dibungkus try/catch sendiri, menulis kegagalan ke
+// container bagiannya sendiri saja -- supaya satu bagian yang gagal tidak
+// menimpa grafik yang sudah berhasil digambar atau membuat enam bagian lain
+// tampil kosong tanpa keterangan.
+function renderSection(id, render) {
+  const container = document.getElementById(id);
+  if (!container) return;
+  try {
+    render(container);
+  } catch (err) {
+    container.textContent = `Gagal merender bagian ini: ${err.message}`;
+  }
+}
+
 async function main() {
   const [alka, events, baserates, watchlist, coverage, meta, distribution] =
     await Promise.all([
@@ -215,16 +284,22 @@ async function main() {
       load("coverage"), load("meta"), load("distribution"),
     ]);
 
-  renderPriceChart(document.getElementById("alka-chart"), alka);
-  annotate(document.getElementById("alka-annotations"), alka);
-  renderReasons(document.getElementById("reason-distribution"), coverage.reason_distribution);
-  renderRegulatoryContext(document.getElementById("regulatory-context"));
-  renderDistribution(document.getElementById("distribution-compare"), distribution);
-  renderEvents(document.getElementById("event-table"), events);
-  renderWatchlist(document.getElementById("watchlist-table"), watchlist, baserates);
-  renderCoverage(document.getElementById("coverage-report"), coverage, meta);
+  renderSection("alka-chart", (c) => renderPriceChart(c, alka));
+  renderSection("alka-annotations", (c) => annotate(c, alka));
+  renderSection("reason-distribution", (c) => renderReasons(c, coverage.reason_distribution));
+  renderSection("regulatory-context", (c) => renderRegulatoryContext(c));
+  renderSection("distribution-compare", (c) => renderDistribution(c, distribution));
+  renderSection("event-table", (c) => renderEvents(c, events));
+  renderSection("watchlist-table", (c) => renderWatchlist(c, watchlist, baserates));
+  renderSection("coverage-report", (c) => renderCoverage(c, coverage, meta));
 }
 
 main().catch((err) => {
-  document.getElementById("alka-chart").textContent = err.message;
+  // Kegagalan di sini berarti load() (fetch JSON) sendiri gagal -- misalnya
+  // dibuka lewat file:// tanpa server lokal -- sebelum satu pun bagian
+  // sempat dirender. Banner di atas <main>, bukan ditimpakan ke slot grafik.
+  const banner = document.createElement("div");
+  banner.className = "error-banner";
+  banner.textContent = `Gagal memuat halaman: ${err.message}`;
+  document.querySelector("main").prepend(banner);
 });

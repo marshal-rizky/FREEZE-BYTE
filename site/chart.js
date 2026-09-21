@@ -20,7 +20,9 @@ function renderPriceChart(container, data) {
   const yMin = Math.min(...closes) * 0.95;
   const yMax = Math.max(...closes) * 1.05;
 
-  const x = (i) => PAD.left + (i / (rows.length - 1)) * plotW;
+  // M1: rows.length - 1 is 0 for a single-row series, which would divide by
+  // zero and produce NaN coordinates for every point.
+  const x = (i) => PAD.left + (i / (rows.length - 1 || 1)) * plotW;
   const y = (v) => PAD.top + plotH - ((v - yMin) / (yMax - yMin)) * plotH;
   const indexOf = (date) => rows.findIndex((r) => r.date === date);
 

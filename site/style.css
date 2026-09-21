@@ -60,5 +60,10 @@ th { color: var(--muted); font-weight: 500; }
 .caveat, .disclaimer { color: var(--muted); font-size: 0.9rem; }
 .insufficient { color: var(--muted); font-style: italic; }
 
+.error-banner {
+  background: #3a1414; color: #ffb4b4; border: 1px solid #7a2b2b;
+  border-radius: 6px; padding: 12px 16px; margin: 16px; font-size: 0.9rem;
+}
+
 footer { border-top: 1px solid var(--border); padding: 24px; }
 footer .disclaimer { max-width: 900px; margin: 0 auto; }
