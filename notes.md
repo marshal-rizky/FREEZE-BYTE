@@ -89,9 +89,18 @@ Cerita yang jujur dan lebih kuat: pembekuan *confirmed* 29 Juli reopen di **+9,9
 
 Yang penting: **suspensi dan papan pemantauan khusus nol entri.** Penumpukan ada di mining (3) dan aliran dana (2).
 
-## Keputusan yang masih menggantung
+## Keputusan yang sudah diambil
 
-1. **Pakai Jev untuk `reasons.py`?** Ditunda ke Task 5 Step 7, diputuskan dari angka nyata.
+1. **Pakai Jev untuk `reasons.py`? — TIDAK. Diputuskan 2026-09-21, dari angka nyata.**
+
+   Aturan keputusannya sudah ditetapkan di muka: kalau aturan kata kunci saja bisa
+   menekan kategori `lainnya` di bawah 10%, pertahankan kata kunci dan lupakan Jev.
+   Setelah ETL penuh 592 record, `lainnya` turun dari 15,7% ke **0,2% (1 record)**
+   hanya dengan menambah tiga kategori kata kunci — jauh di bawah ambang. Jadi Jev
+   tidak dipakai: ia tidak menambah apa pun yang bisa dilihat juri, sementara
+   klasifikasinya jadi lebih sulit diaudit dan pipeline dapat satu titik gagal baru.
+   Aturan kata kunci terbaca langsung di diff. Catatan riset di bawah disimpan apa
+   adanya sebagai jejak pertimbangan, bukan sebagai rencana.
 
    Jev adalah model dari TypeSafe AI, bukan LLM — mereka menyebutnya System One Model. Tidak autoregresif, output keluar sekali jalan secara paralel. Tidak bisa menghasilkan string sama sekali; yang keluar hanya nilai terstruktur sesuai skema yang ditetapkan di muka (pilihan, skor, atau probabilitas) berikut angka kalibrasi kepercayaan. Karena output dibatasi secara matematis ke skema, klaimnya tidak bisa halusinasi dan tidak pernah salah tipe. Batas keras: maksimal 255 opsi per pilihan, dan dirancang untuk state program terstruktur. Harga input 0,042 dolar per juta token, output gratis. Klaim internal 193x lebih cepat dan 444x lebih murah dari LLM frontier; uji independen Every mengukur sekitar 25x lebih cepat dan 580x lebih murah dari Claude Fable 5.1 untuk tugas ekstraksi.
 
