@@ -13,9 +13,12 @@
 
 ## Status per 2026-09-21
 
-Seluruh bagian offline dari Task 1 sampai Task 7 selesai dan `python -m pytest`
-lulus 58 test tanpa API key. Belum ada satu pun kredit API yang dipakai untuk ETL:
-direktori `data/` belum terbentuk.
+Task 1 sampai 12 selesai. `python -m pytest` lulus **93 test**, dan
+`python -m freezebyte.build` menghasilkan ketujuh file di `data/web/` dengan
+`network_calls_this_build: 0`, jadi juri bisa clone dan membuka tanpa API key.
+Verifikasi clone bersih sudah dijalankan dan tercatat di `docs/SUBMISSION.md`.
+
+Kredit terpakai **361 dari 1.000**.
 
 | Task | Keadaan |
 |---|---|
@@ -23,13 +26,19 @@ direktori `data/` belum terbentuk.
 | 2 `client.py` + fixture ALKA | Selesai |
 | 3 `freeze.py` | Selesai |
 | 4 `features.py` | Selesai |
-| 5 ETL suspensi | `reasons.py` dan script siap; ETL belum dijalankan (Step 6-9) |
-| 6 ETL harga | `sampling.py` dan script siap; ETL belum dijalankan (Step 6-9) |
-| 7 ETL overview | `structural.py` dan script siap; ETL belum dijalankan (Step 6-8) |
-| 8-13 | Belum mulai |
+| 5 ETL suspensi | Selesai — 592 record, `lainnya` turun ke 0,2% |
+| 6 ETL harga | Selesai — 60 kejadian + 60 kontrol, 113 dianalisis |
+| 7 ETL overview | Step 6 dan 8 selesai; **Step 7 belum** (kosakata tag belum dicatat di dokumen discovery) |
+| 8 `baserates.py` | Selesai — tercile nyata, bukan placeholder |
+| 9 `coverage.py` + `build.py` | Selesai |
+| 10 Situs bagian 1 | Selesai |
+| 11 Situs bagian 2 dan 3 | Selesai |
+| 12 README, SUBMISSION, clean clone | Selesai |
+| 13 Video, teaser, postingan sosmed, submit | Belum mulai |
 
-Langkah berikutnya adalah Task 5 Step 6 — menjalankan `scripts/etl_suspensions.py`,
-yang menghabiskan sekitar 20 kredit dan membuka gerbang keputusan di Task 6 Step 8.
+Sisa pekerjaan teknis hanya Task 7 Step 7. Selebihnya Task 13, yang non-teknis:
+rekam judging video maks 3 menit dan teaser 1 menit, buat postingan media sosial
+yang menandai akun Sectors, lalu submit sebelum 30 September 2026 23:59 WIB.
 ---
 
 ## Global Constraints
@@ -1453,12 +1462,12 @@ if __name__ == "__main__":
     main()
 ```
 
-- [ ] **Step 6: Jalankan ETL**
+- [x] **Step 6: Jalankan ETL**
 
 Run: `python scripts/etl_suspensions.py`
 Expected: `total record: 592` (atau lebih kalau ada suspensi baru sejak 2026-09-19), `panggilan jaringan: 20`
 
-- [ ] **Step 7: Perluas aturan klasifikasi sampai kategori `lainnya` di bawah 10%**
+- [x] **Step 7: Perluas aturan klasifikasi sampai kategori `lainnya` di bawah 10%**
 
 Baca daftar "contoh teks yang belum terklasifikasi" dari output. Tambahkan kata kunci baru ke `RULES` di `freezebyte/reasons.py`, tambahkan satu kasus test baru per kata kunci di `tests/test_reasons.py`, lalu jalankan ulang:
 
@@ -1467,7 +1476,7 @@ Expected: proporsi `lainnya` turun di bawah 10%, dan `panggilan jaringan: 0` pad
 
 Angka `panggilan jaringan: 0` itu bukti caching bekerja. Kalau bukan nol, hentikan dan perbaiki `client.get_json` sebelum lanjut — setiap eksekusi ulang akan membakar 20 kredit.
 
-- [ ] **Step 8: Tulis catatan discovery**
+- [x] **Step 8: Tulis catatan discovery**
 
 File `docs/discovery/2026-09-21-suspensions.md` — salin angka sebenarnya dari output ke tabel berikut:
 
@@ -1494,7 +1503,7 @@ Dijalankan <tanggal>. Sumber: `GET /v2/suspensions/`, 20 halaman, 20 kredit.
 <daftar contoh teks>
 ```
 
-- [ ] **Step 9: Commit**
+- [x] **Step 9: Commit**
 
 ```bash
 git add scripts/etl_suspensions.py freezebyte/reasons.py tests/test_reasons.py docs/discovery/
@@ -1748,19 +1757,19 @@ if __name__ == "__main__":
     main()
 ```
 
-- [ ] **Step 6: Jalankan ETL harga**
+- [x] **Step 6: Jalankan ETL harga**
 
 Run: `python scripts/etl_prices.py`
 Expected: sekitar 125 panggilan jaringan, dan `manifest_prices.json` berisi daftar kejadian, kontrol, serta kegagalan.
 
-- [ ] **Step 7: Jalankan ulang untuk membuktikan cache bekerja**
+- [x] **Step 7: Jalankan ulang untuk membuktikan cache bekerja**
 
 Run: `python scripts/etl_prices.py`
 Expected: `panggilan jaringan (kredit terpakai): 0`
 
 Kalau bukan nol, hentikan dan perbaiki sebelum lanjut.
 
-- [ ] **Step 8: Gerbang keputusan risiko**
+- [x] **Step 8: Gerbang keputusan risiko**
 
 Spec §13 mewajibkan keputusan ini diambil **segera setelah ETL pertama**, bukan di minggu kedua.
 
@@ -1783,7 +1792,7 @@ Keputusan:
 
 Catat hasilnya di `docs/discovery/2026-09-21-suspensions.md`.
 
-- [ ] **Step 9: Commit**
+- [x] **Step 9: Commit**
 
 ```bash
 git add scripts/etl_prices.py freezebyte/sampling.py tests/test_sampling.py docs/discovery/
@@ -2013,7 +2022,7 @@ if __name__ == "__main__":
     main()
 ```
 
-- [ ] **Step 6: Jalankan ETL overview**
+- [x] **Step 6: Jalankan ETL overview**
 
 Run: `python scripts/etl_overviews.py`
 Expected: sekitar 140 panggilan jaringan, dan daftar kosakata tag tercetak.
@@ -2024,7 +2033,7 @@ Periksa apakah keempat tag di `TAG_FLAGS` benar-benar muncul di kosakata. Kalau 
 
 Tambahkan bagian "Kosakata tag teramati" ke `docs/discovery/2026-09-21-suspensions.md` berisi tabel tag dan frekuensinya.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add scripts/etl_overviews.py freezebyte/structural.py tests/test_structural.py docs/discovery/
@@ -2053,7 +2062,7 @@ git commit -m "feat: fetch company overviews and map observed tag vocabulary"
   - `baserates.base_rate(events: list[Event], bucket: str) -> BaseRate`
   - `baserates.terciles(values: list[float]) -> tuple[float, float]`
 
-- [ ] **Step 1: Tulis test yang gagal**
+- [x] **Step 1: Tulis test yang gagal**
 
 File `tests/test_baserates.py`:
 
@@ -2132,12 +2141,12 @@ def test_median_reopen_is_none_when_no_event_has_reopened(monkeypatch):
     assert base_rate(events, "r3v3").median_reopen_return is None
 ```
 
-- [ ] **Step 2: Jalankan test untuk memastikan gagal**
+- [x] **Step 2: Jalankan test untuk memastikan gagal**
 
 Run: `python -m pytest tests/test_baserates.py -v`
 Expected: FAIL dengan `ModuleNotFoundError: No module named 'freezebyte.baserates'`
 
-- [ ] **Step 3: Tulis implementasi dengan konstanta sementara**
+- [x] **Step 3: Tulis implementasi dengan konstanta sementara**
 
 File `freezebyte/baserates.py`:
 
@@ -2225,14 +2234,14 @@ def base_rate(events: list[Event], target: str) -> BaseRate:
     )
 ```
 
-- [ ] **Step 4: Jalankan test untuk memastikan lulus**
+- [x] **Step 4: Jalankan test untuk memastikan lulus**
 
 Run: `python -m pytest tests/test_baserates.py -v`
 Expected: 7 passed
 
 Test memakai `monkeypatch` untuk batas tercile, jadi lulus meskipun konstanta modulnya masih placeholder.
 
-- [ ] **Step 5: Tulis script penghitung tercile**
+- [x] **Step 5: Tulis script penghitung tercile**
 
 File `scripts/report_discovery.py`:
 
@@ -2293,7 +2302,7 @@ if __name__ == "__main__":
     main()
 ```
 
-- [ ] **Step 6: Jalankan script dan isi konstanta**
+- [x] **Step 6: Jalankan script dan isi konstanta**
 
 Run: `python scripts/report_discovery.py`
 Expected: `panggilan jaringan: 0` (seluruh harga sudah di cache), dan dua pasang angka tercile tercetak.
@@ -2308,12 +2317,12 @@ RET10_TERCILES: tuple[float, float] = (<isi>, <isi>)
 VOL_TERCILES: tuple[float, float] = (<isi>, <isi>)
 ```
 
-- [ ] **Step 7: Jalankan seluruh test suite**
+- [x] **Step 7: Jalankan seluruh test suite**
 
 Run: `python -m pytest -v`
 Expected: semua lulus
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add freezebyte/baserates.py tests/test_baserates.py scripts/report_discovery.py
@@ -2337,7 +2346,7 @@ git commit -m "feat: add base rate buckets with terciles from observed distribut
   - `build.main()` menulis `data/web/alka.json`, `events.json`, `distribution.json`, `baserates.json`, `watchlist.json`, `coverage.json`, `meta.json`.
   - `build.frozen_within_30d(symbol, as_of, suspensions) -> bool`
 
-- [ ] **Step 1: Tulis test yang gagal**
+- [x] **Step 1: Tulis test yang gagal**
 
 File `tests/test_coverage.py`:
 
@@ -2402,12 +2411,12 @@ def test_other_symbols_do_not_count():
     assert frozen_within_30d("ZZZZ", date(2026, 9, 1), SUSPENSIONS) is False
 ```
 
-- [ ] **Step 2: Jalankan test untuk memastikan gagal**
+- [x] **Step 2: Jalankan test untuk memastikan gagal**
 
 Run: `python -m pytest tests/test_coverage.py tests/test_build.py -v`
 Expected: FAIL dengan `ModuleNotFoundError`
 
-- [ ] **Step 3: Tulis `coverage.py`**
+- [x] **Step 3: Tulis `coverage.py`**
 
 File `freezebyte/coverage.py`:
 
@@ -2443,7 +2452,7 @@ class Coverage:
         }
 ```
 
-- [ ] **Step 4: Tulis `build.py`**
+- [x] **Step 4: Tulis `build.py`**
 
 File `freezebyte/build.py`:
 
@@ -2711,17 +2720,17 @@ if __name__ == "__main__":
     main()
 ```
 
-- [ ] **Step 5: Jalankan test untuk memastikan lulus**
+- [x] **Step 5: Jalankan test untuk memastikan lulus**
 
 Run: `python -m pytest tests/test_coverage.py tests/test_build.py -v`
 Expected: 7 passed
 
-- [ ] **Step 6: Jalankan build**
+- [x] **Step 6: Jalankan build**
 
 Run: `python -m freezebyte.build`
 Expected: tujuh file tertulis di `data/web/`, dan `panggilan jaringan selama build` mendekati nol kecuali untuk harga kandidat watchlist yang tanggalnya baru.
 
-- [ ] **Step 7: Periksa isi output**
+- [x] **Step 7: Periksa isi output**
 
 Run:
 ```bash
@@ -2738,7 +2747,7 @@ print('bucket dengan sampel cukup:', [b['bucket'] for b in br['buckets'] if b['s
 
 Kalau tidak ada satu pun bucket yang `sufficient`, itu hasil yang sah dan wajib ditampilkan apa adanya sebagai "sampel tidak cukup". Jangan turunkan `MIN_SAMPLE` untuk memaksa angka muncul.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add freezebyte/coverage.py freezebyte/build.py tests/test_coverage.py tests/test_build.py data/web/
@@ -2760,7 +2769,7 @@ git commit -m "feat: orchestrate build pipeline and emit committed web JSON"
 
 Grafik digambar sebagai SVG buatan sendiri, bukan library. Alasannya bukan ideologi: shading jendela beku dan anotasi persentase jauh lebih mudah dikendalikan dengan SVG langsung, dan tidak ada dependensi eksternal berarti juri bisa membuka halaman tanpa jaringan.
 
-- [ ] **Step 1: Tulis `site/chart.js`**
+- [x] **Step 1: Tulis `site/chart.js`**
 
 ```javascript
 // Grafik harga SVG tanpa dependensi. Jendela beku diberi shading.
@@ -2860,7 +2869,7 @@ function renderPriceChart(container, data) {
 window.renderPriceChart = renderPriceChart;
 ```
 
-- [ ] **Step 2: Tulis kerangka `site/index.html` dengan bagian 1**
+- [x] **Step 2: Tulis kerangka `site/index.html` dengan bagian 1**
 
 ```html
 <!DOCTYPE html>
@@ -2927,7 +2936,7 @@ window.renderPriceChart = renderPriceChart;
 </html>
 ```
 
-- [ ] **Step 3: Tulis `site/style.css`**
+- [x] **Step 3: Tulis `site/style.css`**
 
 ```css
 :root {
@@ -2996,7 +3005,7 @@ footer { border-top: 1px solid var(--border); padding: 24px; }
 footer .disclaimer { max-width: 900px; margin: 0 auto; }
 ```
 
-- [ ] **Step 4: Tulis `site/app.js` bagian ALKA saja**
+- [x] **Step 4: Tulis `site/app.js` bagian ALKA saja**
 
 ```javascript
 const fmtPct = (v) =>
@@ -3044,7 +3053,7 @@ main().catch((err) => {
 });
 ```
 
-- [ ] **Step 5: Buka situs dan periksa secara visual**
+- [x] **Step 5: Buka situs dan periksa secara visual**
 
 Run: `python -m http.server 8000`
 Buka `http://localhost:8000/site/`
@@ -3053,7 +3062,7 @@ Expected: grafik ALKA tampil, dua jendela beku diberi shading, jendela terkonfir
 
 Kalau grafik kosong, buka konsol browser. Penyebab paling mungkin adalah path relatif `../data/web/` yang tidak cocok dengan direktori tempat server dijalankan — server harus dijalankan dari akar repo, bukan dari dalam `site/`.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add site/
@@ -3070,7 +3079,7 @@ git commit -m "feat: add ALKA case study section with hand-rolled SVG chart"
 **Interfaces:**
 - Consumes: `data/web/events.json`, `baserates.json`, `watchlist.json`, `coverage.json`, `meta.json`, `distribution.json`.
 
-- [ ] **Step 1: Tambahkan render distribusi alasan dan tabel kejadian**
+- [x] **Step 1: Tambahkan render distribusi alasan dan tabel kejadian**
 
 Sisipkan ke `site/app.js` sebelum `async function main()`:
 
@@ -3128,7 +3137,7 @@ function renderEvents(container, events) {
 }
 ```
 
-- [ ] **Step 2: Tambahkan render daftar pantau dengan base rate**
+- [x] **Step 2: Tambahkan render daftar pantau dengan base rate**
 
 ```javascript
 const STRUCTURAL_LABELS = {
@@ -3184,7 +3193,7 @@ function renderWatchlist(container, watchlist, baserates) {
 }
 ```
 
-- [ ] **Step 3: Tambahkan render coverage**
+- [x] **Step 3: Tambahkan render coverage**
 
 ```javascript
 function renderCoverage(container, coverage, meta) {
@@ -3206,7 +3215,7 @@ function renderCoverage(container, coverage, meta) {
 }
 ```
 
-- [ ] **Step 4: Tambahkan perbandingan sebaran kejadian dan kontrol**
+- [x] **Step 4: Tambahkan perbandingan sebaran kejadian dan kontrol**
 
 Spec §8 mensyaratkan bagian 2 menampilkan sebaran kenaikan harga sebelum pembekuan
 **dibanding kelompok kontrol**. Tanpa pembanding, angka kejadian tidak bermakna.
@@ -3267,7 +3276,7 @@ function renderRegulatoryContext(container) {
 }
 ```
 
-- [ ] **Step 5: Perbarui `main()`**
+- [x] **Step 5: Perbarui `main()`**
 
 Ganti fungsi `main()` di `site/app.js`:
 
@@ -3290,7 +3299,7 @@ async function main() {
 }
 ```
 
-- [ ] **Step 6: Periksa secara visual**
+- [x] **Step 6: Periksa secara visual**
 
 Run: `python -m http.server 8000`
 Buka `http://localhost:8000/site/`
@@ -3307,7 +3316,7 @@ Checklist yang harus lulus sebelum lanjut:
 Run: `grep -riE "(hindari|jual sekarang|rekomendasi beli|sebaiknya beli)" site/ README.md`
 Expected: tidak ada hasil
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add site/index.html site/app.js
@@ -3322,7 +3331,7 @@ git commit -m "feat: add anatomy, watchlist, and coverage sections"
 - Modify: `README.md`
 - Create: `docs/SUBMISSION.md`
 
-- [ ] **Step 1: Jalankan refresh data final**
+- [x] **Step 1: Jalankan refresh data final**
 
 Hapus cache harga kandidat watchlist saja supaya angkanya mutakhir, lalu build ulang:
 
@@ -3334,12 +3343,12 @@ python -m freezebyte.build
 
 Expected: `panggilan jaringan` tercetak dan masih di bawah sisa anggaran. Cek sisa kredit di portal hackathon sebelum menjalankan ini.
 
-- [ ] **Step 2: Jalankan seluruh test suite sekali lagi**
+- [x] **Step 2: Jalankan seluruh test suite sekali lagi**
 
 Run: `python -m pytest -v`
 Expected: semua lulus
 
-- [ ] **Step 3: Lengkapi README**
+- [x] **Step 3: Lengkapi README**
 
 Tambahkan bagian berikut ke `README.md` setelah judul, isi angka dari `data/web/coverage.json` yang sebenarnya:
 
@@ -3381,7 +3390,7 @@ kenapa ada di halaman, bagian "Coverage dan batasan".
 - Sampel forensik dibatasi kejadian terbaru karena anggaran kredit API.
 ```
 
-- [ ] **Step 4: Tulis `docs/SUBMISSION.md`**
+- [x] **Step 4: Tulis `docs/SUBMISSION.md`**
 
 Aturan hackathon §08 mensyaratkan lima hal. Dokumen ini jadi checklist supaya tidak ada yang terlewat di menit terakhir.
 
@@ -3419,7 +3428,7 @@ Track 03 — Market Intelligence.
 - [ ] Tidak ada klaim akurasi berbasis n=2 di mana pun
 ```
 
-- [ ] **Step 5: Verifikasi dari clone bersih**
+- [x] **Step 5: Verifikasi dari clone bersih**
 
 ```bash
 cd /tmp && rm -rf freeze-check && git clone <url-repo> freeze-check
@@ -3431,7 +3440,7 @@ Expected: test lulus tanpa `.env`, dan `http://localhost:8010/site/` tampil leng
 
 Ini simulasi persis apa yang dilakukan juri. Kalau gagal di sini, produk gagal di eligibility check.
 
-- [ ] **Step 6: Commit dan push**
+- [x] **Step 6: Commit dan push**
 
 ```bash
 git add README.md docs/SUBMISSION.md data/web/
