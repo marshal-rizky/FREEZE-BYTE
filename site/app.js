@@ -1,6 +1,19 @@
 const fmtPct = (v) =>
   v === null || v === undefined ? "—" : `${(v * 100).toFixed(1).replace(".", ",")}%`;
 
+// Warna hanya menegaskan tanda yang sudah tertulis di angkanya, jadi pembaca
+// yang tidak membedakan warna tidak kehilangan informasi apa pun.
+const sign = (v) =>
+  v === null || v === undefined ? "" : v > 0 ? " pos" : v < 0 ? " neg" : "";
+
+const pctCell = (v) => `<td class="num${sign(v)}">${fmtPct(v)}</td>`;
+
+const ratio = (v) =>
+  v === null || v === undefined ? "—" : `${v.toFixed(1).replace(".", ",")}&times;`;
+
+const wrapTable = (head, body) =>
+  `<div class="table-wrap"><table><thead>${head}</thead><tbody>${body}</tbody></table></div>`;
+
 async function load(name) {
   const response = await fetch(`../data/web/${name}.json`);
   if (!response.ok) throw new Error(`gagal memuat ${name}.json`);
@@ -62,14 +75,14 @@ function renderReasons(container, distribution) {
     .map(([key, count]) => {
       const label = CATEGORY_LABELS[key] || key;
       const pct = ((count / total) * 100).toFixed(1).replace(".", ",");
-      return `<tr><td>${label}</td><td>${count}</td><td>${pct}%</td></tr>`;
+      return `<tr><td>${label}</td><td class="num">${count}</td><td class="num">${pct}%</td></tr>`;
     })
     .join("");
 
   container.innerHTML = `
     <p>Alasan resmi dari ${total} record suspensi.</p>
-    <table><thead><tr><th>Alasan</th><th>Jumlah</th><th>Proporsi</th></tr></thead>
-    <tbody>${rows}</tbody></table>`;
+    ${wrapTable(
+      `<tr><th>Alasan</th><th>Jumlah</th><th>Proporsi</th></tr>`, rows)}`;
 }
 
 function renderEvents(container, events) {
@@ -80,10 +93,10 @@ function renderEvents(container, events) {
         : "—";
       return `<tr>
         <td><strong>${e.symbol}</strong></td>
-        <td>${e.suspension_date}</td>
-        <td>${fmtPct(e.features.ret_10d)}</td>
-        <td>${e.features.vol_ratio === null ? "—" : e.features.vol_ratio.toFixed(1).replace(".", ",")}&times;</td>
-        <td>${fmtPct(e.reopen_return)}</td>
+        <td class="num">${e.suspension_date}</td>
+        ${pctCell(e.features.ret_10d)}
+        <td class="num">${ratio(e.features.vol_ratio)}</td>
+        ${pctCell(e.reopen_return)}
         <td>${pdf}</td>
       </tr>`;
     })
@@ -92,10 +105,9 @@ function renderEvents(container, events) {
   container.innerHTML = `
     <p>Kondisi setiap emiten pada hari bursa terakhir sebelum dibekukan.
        Setiap baris tertaut ke PDF pengumuman resmi IDX.</p>
-    <table><thead><tr>
-      <th>Emiten</th><th>Tanggal suspensi</th><th>Return 10 baris</th>
-      <th>Rasio volume</th><th>Saat dibuka</th><th>Bukti</th>
-    </tr></thead><tbody>${rows}</tbody></table>`;
+    ${wrapTable(
+      `<tr><th>Emiten</th><th>Tanggal suspensi</th><th>Return 10 baris</th>
+       <th>Rasio volume</th><th>Saat dibuka</th><th>Bukti</th></tr>`, rows)}`;
 }
 
 const STRUCTURAL_LABELS = {
@@ -139,19 +151,18 @@ function renderWatchlist(container, watchlist, baserates) {
       }
       return `<tr>
         <td><strong>${row.symbol}</strong><br>${chips(row.structural)}</td>
-        <td>${fmtPct(row.features.ret_10d)}</td>
-        <td>${row.features.vol_ratio === null ? "—" : row.features.vol_ratio.toFixed(1).replace(".", ",")}&times;</td>
-        <td>${row.features.prior_freeze_count}</td>
+        ${pctCell(row.features.ret_10d)}
+        <td class="num">${ratio(row.features.vol_ratio)}</td>
+        <td class="num">${row.features.prior_freeze_count}</td>
         <td>${rateCell}</td>
       </tr>`;
     })
     .join("");
 
   container.innerHTML = `
-    <table><thead><tr>
-      <th>Emiten dan kondisi struktural</th><th>Return 10 baris</th>
-      <th>Rasio volume</th><th>Pernah beku</th><th>Komposisi kelompoknya</th>
-    </tr></thead><tbody>${rows}</tbody></table>
+    ${wrapTable(
+      `<tr><th>Emiten dan kondisi struktural</th><th>Return 10 baris</th>
+       <th>Rasio volume</th><th>Pernah beku</th><th>Komposisi kelompoknya</th></tr>`, rows)}
     <p class="caveat">Bucket dengan kurang dari ${baserates.min_sample} kejadian
       ditampilkan sebagai "sampel tidak cukup", bukan angka. Kolom terakhir
       BUKAN base rate populasi: sampel forensik disusun berpasangan 1:1
@@ -172,13 +183,13 @@ function renderCoverage(container, coverage, meta) {
   // ada angka yang ditulis tangan di sini.
   const reasons = Object.entries(coverage.by_reason)
     .sort((a, b) => b[1] - a[1])
-    .map(([reason, count]) => `<tr><td>${reason}</td><td>${count}</td></tr>`)
+    .map(([reason, count]) => `<tr><td>${reason}</td><td class="num">${count}</td></tr>`)
     .join("");
 
   const watchlist = coverage.watchlist || { total: 0, analyzed: 0, excluded: 0, by_reason: {} };
   const watchlistReasons = Object.entries(watchlist.by_reason)
     .sort((a, b) => b[1] - a[1])
-    .map(([reason, count]) => `<tr><td>${reason}</td><td>${count}</td></tr>`)
+    .map(([reason, count]) => `<tr><td>${reason}</td><td class="num">${count}</td></tr>`)
     .join("");
   const watchlistSection = watchlist.total > 0
     ? `<h3>Kandidat daftar pantau</h3>
@@ -186,8 +197,9 @@ function renderCoverage(container, coverage, meta) {
           <strong>${watchlist.total}</strong> <em>kandidat daftar pantau</em>
           (bukan record suspensi), <strong>${watchlist.analyzed}</strong>
           bisa dianalisis dan <strong>${watchlist.excluded}</strong> gugur.</p>
-       <table><thead><tr><th>Alasan gugur (kandidat daftar pantau)</th><th>Jumlah</th></tr></thead>
-       <tbody>${watchlistReasons}</tbody></table>`
+       ${wrapTable(
+         `<tr><th>Alasan gugur (kandidat daftar pantau)</th><th>Jumlah</th></tr>`,
+         watchlistReasons)}`
     : `<h3>Kandidat daftar pantau</h3>
        <p class="caveat">Belum ada kandidat daftar pantau yang diproses pada build ini.</p>`;
 
@@ -198,8 +210,8 @@ function renderCoverage(container, coverage, meta) {
        dibatasi anggaran kredit API). Dari <strong>${coverage.total}</strong> itu,
        <strong>${coverage.analyzed}</strong> bisa dianalisis dan
        <strong>${coverage.excluded}</strong> gugur.</p>
-    <table><thead><tr><th>Alasan gugur (sampel forensik)</th><th>Jumlah</th></tr></thead>
-    <tbody>${reasons}</tbody></table>
+    ${wrapTable(
+      `<tr><th>Alasan gugur (sampel forensik)</th><th>Jumlah</th></tr>`, reasons)}
     ${watchlistSection}
     <p class="caveat">${coverage.sample_note}</p>
     <p class="caveat">Data dibangun ${meta.built_at}.
@@ -230,22 +242,23 @@ function renderDistribution(container, distribution) {
       const stats = summarise(items.map((i) => i.ret_10d));
       if (!stats) return `<tr><td>${label}</td><td colspan="5" class="insufficient">tidak ada data</td></tr>`;
       return `<tr>
-        <td>${label}</td><td>${stats.n}</td><td>${fmtPct(stats.p25)}</td>
-        <td><strong>${fmtPct(stats.median)}</strong></td><td>${fmtPct(stats.p75)}</td>
-        <td>${fmtPct(stats.max)}</td>
+        <td>${label}</td><td class="num">${stats.n}</td>${pctCell(stats.p25)}
+        <td class="num${sign(stats.median)}"><strong>${fmtPct(stats.median)}</strong></td>
+        ${pctCell(stats.p75)}${pctCell(stats.max)}
       </tr>`;
     })
     .join("");
 
   container.innerHTML = `
     <h3>Return 10 baris bursa: kejadian dibanding kontrol</h3>
-    <table><thead><tr>
-      <th>Kelompok</th><th>n</th><th>p25</th><th>median</th><th>p75</th><th>maks</th>
-    </tr></thead><tbody>${rows}</tbody></table>
+    ${wrapTable(
+      `<tr><th>Kelompok</th><th>n</th><th>p25</th><th>median</th><th>p75</th>
+       <th>maks</th></tr>`, rows)}
     <p class="caveat">${distribution.control_definition}</p>`;
 }
 
 function renderRegulatoryContext(container) {
+  container.className = "panel";
   container.innerHTML = `
     <h3>Kenapa Papan Pemantauan Khusus penting dibaca di sini</h3>
     <p>Sejak 25 Maret 2024 seluruh saham di Papan Pemantauan Khusus (notasi
@@ -287,7 +300,8 @@ async function main() {
       load("coverage"), load("meta"), load("distribution"),
     ]);
 
-  renderSection("alka-chart", (c) => renderPriceChart(c, alka));
+  renderSection("alka-chart", (c) =>
+    renderPriceChart(c, alka, document.getElementById("alka-readout")));
   renderSection("alka-annotations", (c) => annotate(c, alka));
   renderSection("reason-distribution", (c) => renderReasons(c, coverage.reason_distribution));
   renderSection("regulatory-context", (c) => renderRegulatoryContext(c));
