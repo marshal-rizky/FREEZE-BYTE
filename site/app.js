@@ -32,10 +32,197 @@ function annotate(container, alka) {
     .join("");
 }
 
+const CATEGORY_LABELS = {
+  lonjakan_harga: "Lonjakan harga / cooling down",
+  papan_pemantauan_khusus: "Papan Pemantauan Khusus >1 tahun",
+  kelangsungan_usaha: "Ketidakpastian kelangsungan usaha",
+  keterbukaan_informasi: "Keterbukaan informasi / laporan keuangan",
+  lainnya: "Lainnya",
+  tanpa_alasan: "Tanpa keterangan alasan",
+};
+
+function renderReasons(container, distribution) {
+  const total = Object.values(distribution).reduce((a, b) => a + b, 0);
+  const rows = Object.entries(distribution)
+    .sort((a, b) => b[1] - a[1])
+    .map(([key, count]) => {
+      const label = CATEGORY_LABELS[key] || key;
+      const pct = ((count / total) * 100).toFixed(1).replace(".", ",");
+      return `<tr><td>${label}</td><td>${count}</td><td>${pct}%</td></tr>`;
+    })
+    .join("");
+
+  container.innerHTML = `
+    <p>Alasan resmi dari ${total} record suspensi.</p>
+    <table><thead><tr><th>Alasan</th><th>Jumlah</th><th>Proporsi</th></tr></thead>
+    <tbody>${rows}</tbody></table>`;
+}
+
+function renderEvents(container, events) {
+  const rows = events
+    .map((e) => {
+      const pdf = e.pdf_url
+        ? `<a href="${e.pdf_url}" target="_blank" rel="noopener">pengumuman IDX</a>`
+        : "—";
+      return `<tr>
+        <td><strong>${e.symbol}</strong></td>
+        <td>${e.suspension_date}</td>
+        <td>${fmtPct(e.features.ret_10d)}</td>
+        <td>${e.features.vol_ratio === null ? "—" : e.features.vol_ratio.toFixed(1).replace(".", ",")}&times;</td>
+        <td>${fmtPct(e.reopen_return)}</td>
+        <td>${pdf}</td>
+      </tr>`;
+    })
+    .join("");
+
+  container.innerHTML = `
+    <p>Kondisi setiap emiten pada hari bursa terakhir sebelum dibekukan.
+       Setiap baris tertaut ke PDF pengumuman resmi IDX.</p>
+    <table><thead><tr>
+      <th>Emiten</th><th>Tanggal suspensi</th><th>Return 10 baris</th>
+      <th>Rasio volume</th><th>Saat dibuka</th><th>Bukti</th>
+    </tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+const STRUCTURAL_LABELS = {
+  float_under_25: "float &lt;25%",
+  single_entity_70: "satu entitas &ge;70%",
+  insider_1m_sell: "insider menjual 1 bulan",
+  at_52w_high: "di puncak 52 minggu",
+};
+
+function chips(structural) {
+  return Object.entries(STRUCTURAL_LABELS)
+    .filter(([key]) => structural[key])
+    .map(([, label]) => `<span class="chip now">${label} &middot; kondisi sekarang</span>`)
+    .join("");
+}
+
+function renderWatchlist(container, watchlist, baserates) {
+  if (!watchlist.length) {
+    container.innerHTML = `<p class="insufficient">Tidak ada kandidat yang lolos
+      syarat data pada build terakhir.</p>`;
+    return;
+  }
+
+  const lookup = Object.fromEntries(baserates.buckets.map((b) => [b.bucket, b]));
+
+  const rows = watchlist
+    .map((row) => {
+      const rate = lookup[row.bucket];
+      let rateCell = `<span class="insufficient">sampel tidak cukup</span>`;
+      if (rate && rate.sufficient) {
+        rateCell = `${rate.n_frozen_within_30d} dari ${rate.n} kejadian dengan
+                    profil serupa berakhir dibekukan dalam 30 hari`;
+      }
+      return `<tr>
+        <td><strong>${row.symbol}</strong><br>${chips(row.structural)}</td>
+        <td>${fmtPct(row.features.ret_10d)}</td>
+        <td>${row.features.vol_ratio === null ? "—" : row.features.vol_ratio.toFixed(1).replace(".", ",")}&times;</td>
+        <td>${row.features.prior_freeze_count}</td>
+        <td>${rateCell}</td>
+      </tr>`;
+    })
+    .join("");
+
+  container.innerHTML = `
+    <table><thead><tr>
+      <th>Emiten dan kondisi struktural</th><th>Return 10 baris</th>
+      <th>Rasio volume</th><th>Pernah beku</th><th>Base rate kelompoknya</th>
+    </tr></thead><tbody>${rows}</tbody></table>
+    <p class="caveat">Bucket dengan kurang dari ${baserates.min_sample} kejadian
+      ditampilkan sebagai "sampel tidak cukup", bukan angka. Penanda
+      "kondisi sekarang" berarti nilai itu diambil hari ini, bukan pada tanggal
+      historis &mdash; tag emiten tidak tersedia secara historis.</p>`;
+}
+
+function renderCoverage(container, coverage, meta) {
+  const reasons = Object.entries(coverage.by_reason)
+    .sort((a, b) => b[1] - a[1])
+    .map(([reason, count]) => `<tr><td>${reason}</td><td>${count}</td></tr>`)
+    .join("");
+
+  container.innerHTML = `
+    <p>Dari <strong>${coverage.total}</strong> record suspensi,
+       <strong>${coverage.analyzed}</strong> benar-benar bisa dianalisis dan
+       <strong>${coverage.excluded}</strong> gugur.</p>
+    <table><thead><tr><th>Alasan gugur</th><th>Jumlah</th></tr></thead>
+    <tbody>${reasons}</tbody></table>
+    <p class="caveat">${coverage.sample_note}</p>
+    <p class="caveat">Data dibangun ${meta.built_at}.
+       Jendela yang hanya disimpulkan dari volume nol tidak pernah masuk statistik;
+       jendela itu hanya tampil sebagai konteks pada grafik per emiten.</p>`;
+}
+
+function summarise(values) {
+  const clean = values.filter((v) => v !== null && v !== undefined).sort((a, b) => a - b);
+  if (!clean.length) return null;
+  const at = (p) => clean[Math.min(clean.length - 1, Math.floor(p * clean.length))];
+  return { n: clean.length, p25: at(0.25), median: at(0.5), p75: at(0.75), max: clean[clean.length - 1] };
+}
+
+function renderDistribution(container, distribution) {
+  const groups = [
+    ["Sebelum dibekukan", distribution.events],
+    ["Kelompok kontrol", distribution.controls],
+  ];
+
+  const rows = groups
+    .map(([label, items]) => {
+      const stats = summarise(items.map((i) => i.ret_10d));
+      if (!stats) return `<tr><td>${label}</td><td colspan="5" class="insufficient">tidak ada data</td></tr>`;
+      return `<tr>
+        <td>${label}</td><td>${stats.n}</td><td>${fmtPct(stats.p25)}</td>
+        <td><strong>${fmtPct(stats.median)}</strong></td><td>${fmtPct(stats.p75)}</td>
+        <td>${fmtPct(stats.max)}</td>
+      </tr>`;
+    })
+    .join("");
+
+  container.innerHTML = `
+    <h3>Return 10 baris bursa: kejadian dibanding kontrol</h3>
+    <table><thead><tr>
+      <th>Kelompok</th><th>n</th><th>p25</th><th>median</th><th>p75</th><th>maks</th>
+    </tr></thead><tbody>${rows}</tbody></table>
+    <p class="caveat">${distribution.control_definition}</p>`;
+}
+
+function renderRegulatoryContext(container) {
+  container.innerHTML = `
+    <h3>Kenapa Papan Pemantauan Khusus penting dibaca di sini</h3>
+    <p>Sejak 25 Maret 2024 seluruh saham di Papan Pemantauan Khusus (notasi
+      <strong>X</strong>) diperdagangkan lewat Full Call Auction &mdash; lelang berkala,
+      bukan tawar-menawar kontinu. Likuiditas turun, order tidak langsung tereksekusi,
+      dan batas bawah harga dilonggarkan sampai Rp1.</p>
+    <p>Ada sekitar 11 kriteria masuk dan cukup memenuhi satu. Pemicu tersering adalah
+      harga rata-rata 6 bulan di bawah sekitar Rp51, likuiditas sangat tipis selama
+      6 bulan, opini auditor disclaimer, dan ekuitas negatif. Notasi lain yang sering
+      menyertai: <strong>B</strong> permohonan pailit atau PKPU, <strong>E</strong>
+      ekuitas negatif, <strong>L</strong> belum menyampaikan laporan keuangan,
+      <strong>M</strong> sedang PKPU, <strong>S</strong> tidak ada pendapatan usaha.</p>
+    <p class="caveat">Status Papan Pemantauan Khusus <strong>bukan field</strong> di
+      Sectors API. <code>listing_board</code> INPS berbunyi "Development" padahal INPS
+      disuspensi justru karena berada di papan pemantauan khusus lebih dari satu tahun.
+      Status itu hanya bisa disimpulkan dari teks alasan resmi, dan itulah yang
+      dilakukan klasifikasi di atas. Jalur eskalasi yang terlihat di data:
+      papan pemantauan khusus &rarr; 1 tahun &rarr; suspensi.</p>`;
+}
+
 async function main() {
-  const alka = await load("alka");
+  const [alka, events, baserates, watchlist, coverage, meta, distribution] =
+    await Promise.all([
+      load("alka"), load("events"), load("baserates"), load("watchlist"),
+      load("coverage"), load("meta"), load("distribution"),
+    ]);
+
   renderPriceChart(document.getElementById("alka-chart"), alka);
   annotate(document.getElementById("alka-annotations"), alka);
+  renderReasons(document.getElementById("reason-distribution"), coverage.reason_distribution);
+  renderRegulatoryContext(document.getElementById("regulatory-context"));
+  renderDistribution(document.getElementById("distribution-compare"), distribution);
+  renderEvents(document.getElementById("event-table"), events);
+  renderWatchlist(document.getElementById("watchlist-table"), watchlist, baserates);
+  renderCoverage(document.getElementById("coverage-report"), coverage, meta);
 }
 
 main().catch((err) => {
