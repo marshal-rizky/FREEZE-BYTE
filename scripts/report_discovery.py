@@ -35,7 +35,24 @@ def main():
             skipped.append((entry["symbol"], f"hanya {len(trading)} baris berdagang"))
             continue
 
-        as_of = as_date(trading[-1]["date"])
+        # as_of harus meniru build_events di freezebyte/build.py persis: untuk
+        # kejadian (punya suspension_date), as_of adalah hari bursa terakhir
+        # SEBELUM suspensi -- bukan baris terakhir di window, yang sekarang
+        # jatuh SESUDAH suspensi karena window melewati tanggal itu. Memakai
+        # baris terakhir di sini akan mengalibrasi tercile pada harga
+        # pasca-beku, persis kegagalan "batas bucket dikarang" yang dilarang
+        # spec. Kontrol (tidak punya suspension_date) tetap memakai baris
+        # terakhir seperti sebelumnya.
+        suspension_date = entry.get("suspension_date")
+        if suspension_date is not None:
+            before = [r for r in trading if as_date(r["date"]) < as_date(suspension_date)]
+            if not before:
+                skipped.append((entry["symbol"], "tidak ada hari bursa sebelum suspensi"))
+                continue
+            as_of = as_date(before[-1]["date"])
+        else:
+            as_of = as_date(trading[-1]["date"])
+
         computed = compute_features(ordered, as_of)
         if computed["ret_10d"] is not None:
             ret10_values.append(computed["ret_10d"])

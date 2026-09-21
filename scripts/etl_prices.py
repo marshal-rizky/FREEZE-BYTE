@@ -4,7 +4,7 @@ Biaya: sekitar 125 kredit pada eksekusi pertama. Nol pada eksekusi ulang.
 Window kontrol disamakan dengan kejadian pasangannya agar kondisi pasar sebanding.
 """
 import json
-from datetime import timedelta
+from datetime import date, timedelta
 
 from freezebyte import client, config
 from freezebyte.freeze import as_date
@@ -12,7 +12,9 @@ from freezebyte.sampling import pick_controls, pick_events
 
 N_EVENTS = 60
 N_CONTROLS = 60
-WINDOW_DAYS = 90
+DAYS_BEFORE = 59
+DAYS_AFTER = 30
+TODAY = date.today()
 MAX_SCREENER_PAGES = 20  # 200 emiten per halaman; IDX punya sekitar 960
 
 
@@ -52,9 +54,19 @@ def all_listed_symbols() -> list[str]:
     return symbols
 
 
-def window_for(end_date) -> tuple[str, str]:
-    end = as_date(end_date)
-    start = end - timedelta(days=WINDOW_DAYS - 1)
+def window_for(suspension_date) -> tuple[str, str]:
+    """Jendela harga yang MELEWATI tanggal suspensi.
+
+    Jendela lama berakhir tepat di tanggal suspensi, sehingga pembekuan yang
+    sedang diteliti tidak pernah punya baris sesudahnya dan reopen return-nya
+    mustahil terhitung. 59 hari sebelum masih menyisakan sekitar 40 baris bursa
+    untuk fitur (butuh minimal 21), dan 30 hari sesudah cukup untuk melihat
+    harga saat dibuka kembali. Total 89 hari, masih di bawah batas 90 hari
+    per panggilan.
+    """
+    susp = as_date(suspension_date)
+    start = susp - timedelta(days=DAYS_BEFORE)
+    end = min(susp + timedelta(days=DAYS_AFTER), TODAY)
     return start.isoformat(), end.isoformat()
 
 

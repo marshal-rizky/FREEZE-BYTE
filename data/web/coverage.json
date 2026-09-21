@@ -1,0 +1,49 @@
+{
+  "total": 120,
+  "analyzed": 113,
+  "excluded": 7,
+  "by_reason": {
+    "riwayat perdagangan terlalu pendek": 5,
+    "riwayat kontrol terlalu pendek": 2
+  },
+  "symbols": {
+    "riwayat perdagangan terlalu pendek": [
+      "BIMA.JK",
+      "INCF.JK",
+      "LCKM.JK",
+      "WBSA.JK",
+      "ZINC.JK"
+    ],
+    "riwayat kontrol terlalu pendek": [
+      "ADCP.JK",
+      "IBST.JK"
+    ]
+  },
+  "total_suspension_records": 592,
+  "sample_events": 60,
+  "sample_controls": 60,
+  "watchlist": {
+    "total": 17,
+    "analyzed": 16,
+    "excluded": 1,
+    "by_reason": {
+      "riwayat kandidat terlalu pendek": 1
+    },
+    "symbols": {
+      "riwayat kandidat terlalu pendek": [
+        "BIKE.JK"
+      ]
+    }
+  },
+  "reason_distribution": {
+    "papan_pemantauan_khusus": 8,
+    "lonjakan_harga": 467,
+    "kelangsungan_usaha": 8,
+    "suspensi_berkepanjangan": 56,
+    "ketentuan_pencatatan": 32,
+    "keterbukaan_informasi": 16,
+    "aksi_korporasi_delisting": 4,
+    "lainnya": 1
+  },
+  "sample_note": "Sampel forensik dibatasi kejadian terbaru dari total record karena anggaran kredit API. Kelompok kontrol adalah emiten yang tidak pernah muncul di dataset suspensi, disampel acak dengan seed tetap."
+}

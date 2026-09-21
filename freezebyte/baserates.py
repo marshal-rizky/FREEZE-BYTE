@@ -7,10 +7,15 @@ import statistics
 from dataclasses import dataclass
 from datetime import date
 
-# Batas tercile. Nilai di bawah adalah PLACEHOLDER sementara dan diganti di
-# Step 6 dengan angka dari distribusi yang benar-benar teramati.
-RET10_TERCILES: tuple[float, float] = (0.0, 0.0)
-VOL_TERCILES: tuple[float, float] = (0.0, 0.0)
+# Batas tercile dihitung dari distribusi yang benar-benar teramati pada
+# 2026-09-21 oleh scripts/report_discovery.py: 60 kejadian suspensi + 60 emiten
+# kontrol, 113 di antaranya punya riwayat perdagangan cukup panjang (7 gugur --
+# LCKM 13 baris, INCF 10 baris, ZINC 13 baris, dan WBSA 20 baris berdagang;
+# BIMA, ADCP, dan IBST nol baris).
+# Angka ini TIDAK dikarang di muka. Untuk menghitung ulang setelah menarik data
+# baru, jalankan scripts/report_discovery.py lalu salin hasilnya ke sini.
+RET10_TERCILES: tuple[float, float] = (-0.011506, 0.315874)
+VOL_TERCILES: tuple[float, float] = (0.655936, 1.689015)
 
 MIN_SAMPLE = 10
 UNKNOWN_BUCKET = "unknown"

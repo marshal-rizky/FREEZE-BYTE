@@ -1,0 +1,2740 @@
+[
+  {
+    "symbol": "INPS.JK",
+    "as_of": "2026-09-16",
+    "suspension_date": "2026-09-17",
+    "reason": "Efek Perseroan telah berada dalam papan pemantauan khusus selama lebih dari 1 (satu) tahun berturut-turut",
+    "reason_category": "papan_pemantauan_khusus",
+    "pdf_url": "https://www.idx.co.id/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/From_EREP/202609/18f86ab7b5_1744737ca2.pdf",
+    "features": {
+      "ret_5d": 0.16867469879518082,
+      "ret_10d": 0.35664335664335667,
+      "ret_20d": 0.31081081081081074,
+      "vol_ratio": 3.2050990900970464,
+      "dist_from_high": 1.0,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 2,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": true,
+        "insider_1m_sell": true,
+        "at_52w_high": true,
+        "tags": [
+          "52-w-high",
+          "90-d-high",
+          "insider-1-month-sell",
+          "public-float-under-25",
+          "single-entity-holding-70",
+          "ytd-high"
+        ],
+        "market_cap": 692250000000,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "reopen_return": null,
+    "windows": [
+      {
+        "start_date": "2026-09-18",
+        "end_date": "2026-09-18",
+        "n_days": 1,
+        "price_at_freeze": 1065,
+        "reopen_close": null,
+        "reopen_return": null,
+        "confirmed": false
+      }
+    ]
+  },
+  {
+    "symbol": "ALKA.JK",
+    "as_of": "2026-09-15",
+    "suspension_date": "2026-09-16",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham ALKA.JK",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/SEP/20260915-WAS_Suspensi_ALKA.pdf",
+    "features": {
+      "ret_5d": 0.796116504854369,
+      "ret_10d": 0.6157205240174672,
+      "ret_20d": 1.8352490421455938,
+      "vol_ratio": 3.1279141681680067,
+      "dist_from_high": 0.9932885906040269,
+      "prior_freeze_count": 1,
+      "consecutive_up_days": 2,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": true,
+        "insider_1m_sell": false,
+        "at_52w_high": true,
+        "tags": [
+          "52-w-high",
+          "90-d-high",
+          "all-time-high",
+          "public-float-under-25",
+          "single-entity-holding-70",
+          "top-30-yoy-revenue-growth",
+          "top-30-yoy-ttm-earning-growth",
+          "top-ten-1m-leaders",
+          "top-ten-1y-leaders",
+          "ytd-high"
+        ],
+        "market_cap": 3756721407000,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "reopen_return": null,
+    "windows": [
+      {
+        "start_date": "2026-07-27",
+        "end_date": "2026-07-27",
+        "n_days": 1,
+        "price_at_freeze": 1375,
+        "reopen_close": 1715,
+        "reopen_return": 0.2472727272727273,
+        "confirmed": false
+      },
+      {
+        "start_date": "2026-07-29",
+        "end_date": "2026-08-05",
+        "n_days": 6,
+        "price_at_freeze": 1715,
+        "reopen_close": 1885,
+        "reopen_return": 0.0991253644314869,
+        "confirmed": true
+      },
+      {
+        "start_date": "2026-08-24",
+        "end_date": "2026-09-02",
+        "n_days": 7,
+        "price_at_freeze": 4580,
+        "reopen_close": 4130,
+        "reopen_return": -0.09825327510917026,
+        "confirmed": false
+      },
+      {
+        "start_date": "2026-09-16",
+        "end_date": "2026-09-18",
+        "n_days": 3,
+        "price_at_freeze": 7400,
+        "reopen_close": null,
+        "reopen_return": null,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "SEMA.JK",
+    "as_of": "2026-09-15",
+    "suspension_date": "2026-09-16",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham SEMA.JK, dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/SEP/20260915-WAS_Suspensi_SEMA.pdf",
+    "features": {
+      "ret_5d": 1.0,
+      "ret_10d": 1.0707964601769913,
+      "ret_20d": 1.4375,
+      "vol_ratio": 5.324027374888531,
+      "dist_from_high": 0.9,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 6,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": true,
+        "tags": [
+          "52-w-high",
+          "90-d-high",
+          "top-30-yoy-revenue-growth",
+          "top-ten-1m-leaders",
+          "ytd-high"
+        ],
+        "market_cap": 355676334288,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "reopen_return": 0.05128205128205132,
+    "windows": [
+      {
+        "start_date": "2026-09-16",
+        "end_date": "2026-09-16",
+        "n_days": 1,
+        "price_at_freeze": 234,
+        "reopen_close": 246,
+        "reopen_return": 0.05128205128205132,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "UDNG.JK",
+    "as_of": "2026-09-15",
+    "suspension_date": "2026-09-16",
+    "reason": "Dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/SEP/20260915-WAS_Suspensi_UDNG.pdf",
+    "features": {
+      "ret_5d": -0.4,
+      "ret_10d": -0.6232558139534884,
+      "ret_20d": -0.6261538461538462,
+      "vol_ratio": 6.5564981342559205,
+      "dist_from_high": 0.2793103448275862,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "52-w-low",
+          "90-d-low",
+          "last-volume-above-10d-volume-average",
+          "top-ten-1m-laggards",
+          "top-ten-1y-laggards",
+          "ytd-low"
+        ],
+        "market_cap": 857519635280,
+        "listing_board": "Acceleration",
+        "available": true
+      }
+    },
+    "bucket": "r1v3",
+    "reopen_return": 0.004115226337448652,
+    "windows": [
+      {
+        "start_date": "2026-09-16",
+        "end_date": "2026-09-16",
+        "n_days": 1,
+        "price_at_freeze": 486,
+        "reopen_close": 488,
+        "reopen_return": 0.004115226337448652,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "JARR.JK",
+    "as_of": "2026-09-10",
+    "suspension_date": "2026-09-11",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham JARR.JK, dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/SEP/20260910-WAS_Suspensi_JARR.pdf",
+    "features": {
+      "ret_5d": 0.12084592145015116,
+      "ret_10d": 0.138036809815951,
+      "ret_20d": 0.9892761394101877,
+      "vol_ratio": 2.7253823146020495,
+      "dist_from_high": 0.9392405063291139,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 3,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": true,
+        "insider_1m_sell": true,
+        "at_52w_high": false,
+        "tags": [
+          "90-d-high",
+          "insider-1-month-sell",
+          "last-volume-above-10d-volume-average",
+          "public-float-under-25",
+          "single-entity-holding-70",
+          "ytd-high"
+        ],
+        "market_cap": 33230394180000,
+        "listing_board": "Main",
+        "available": true
+      }
+    },
+    "bucket": "r2v3",
+    "reopen_return": 0.032345013477088846,
+    "windows": [
+      {
+        "start_date": "2026-09-11",
+        "end_date": "2026-09-11",
+        "n_days": 1,
+        "price_at_freeze": 3710,
+        "reopen_close": 3830,
+        "reopen_return": 0.032345013477088846,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "GRPH.JK",
+    "as_of": "2026-09-09",
+    "suspension_date": "2026-09-10",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham GRPH.JK",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/SEP/20260909-WAS_Suspensi_GRPH.pdf",
+    "features": {
+      "ret_5d": 0.42708333333333326,
+      "ret_10d": 0.9295774647887325,
+      "ret_20d": 1.140625,
+      "vol_ratio": 1.0257351577585663,
+      "dist_from_high": 0.9133333333333333,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": true,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "public-float-under-25",
+          "single-entity-holding-70"
+        ],
+        "market_cap": 137000000000,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r3v2",
+    "reopen_return": null,
+    "windows": [
+      {
+        "start_date": "2026-09-08",
+        "end_date": "2026-09-08",
+        "n_days": 1,
+        "price_at_freeze": 132,
+        "reopen_close": 137,
+        "reopen_return": 0.037878787878787845,
+        "confirmed": false
+      },
+      {
+        "start_date": "2026-09-10",
+        "end_date": "2026-09-18",
+        "n_days": 7,
+        "price_at_freeze": 137,
+        "reopen_close": null,
+        "reopen_return": null,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "MGLV.JK",
+    "as_of": "2026-09-08",
+    "suspension_date": "2026-09-09",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham MGLV.JK, dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/SEP/20260908-WAS_Suspensi_MGLV.pdf",
+    "features": {
+      "ret_5d": 0.29130434782608705,
+      "ret_10d": 0.3112582781456954,
+      "ret_20d": 0.7626112759643917,
+      "vol_ratio": 0.07264257774832734,
+      "dist_from_high": 1.0,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 4,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": true,
+        "insider_1m_sell": true,
+        "at_52w_high": true,
+        "tags": [
+          "52-w-high",
+          "90-d-high",
+          "all-time-high",
+          "insider-1-month-sell",
+          "public-float-under-25",
+          "single-entity-holding-70",
+          "top-ten-1y-leaders",
+          "ytd-high"
+        ],
+        "market_cap": 27430321118400,
+        "listing_board": "Acceleration",
+        "available": true
+      }
+    },
+    "bucket": "r2v1",
+    "reopen_return": 0.010101010101010166,
+    "windows": [
+      {
+        "start_date": "2026-09-09",
+        "end_date": "2026-09-09",
+        "n_days": 1,
+        "price_at_freeze": 14850,
+        "reopen_close": 15000,
+        "reopen_return": 0.010101010101010166,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "UANG.JK",
+    "as_of": "2026-09-08",
+    "suspension_date": "2026-09-09",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham UANG.JK, dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/SEP/20260908-WAS_Suspensi_UANG.pdf",
+    "features": {
+      "ret_5d": 0.736,
+      "ret_10d": 0.7429718875502007,
+      "ret_20d": 0.75,
+      "vol_ratio": 8.606247831977432,
+      "dist_from_high": 0.9253731343283582,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "public-float-under-25"
+        ],
+        "market_cap": 4779500000000,
+        "listing_board": "Watchlist",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "reopen_return": -0.05299539170506917,
+    "windows": [
+      {
+        "start_date": "2026-09-09",
+        "end_date": "2026-09-09",
+        "n_days": 1,
+        "price_at_freeze": 4340,
+        "reopen_close": 4110,
+        "reopen_return": -0.05299539170506917,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "ASLI.JK",
+    "as_of": "2026-09-03",
+    "suspension_date": "2026-09-04",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham ASLI.JK, dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/SEP/20260903-WAS_Suspensi_ASLI.pdf",
+    "features": {
+      "ret_5d": 0.5798319327731092,
+      "ret_10d": 0.6068376068376069,
+      "ret_20d": 0.898989898989899,
+      "vol_ratio": 1.1830539103673983,
+      "dist_from_high": 0.9641025641025641,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 6,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "last-volume-above-10d-volume-average",
+          "top-ten-1y-leaders"
+        ],
+        "market_cap": 2262500000000,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r3v2",
+    "reopen_return": 0.06382978723404253,
+    "windows": [
+      {
+        "start_date": "2026-09-04",
+        "end_date": "2026-09-04",
+        "n_days": 1,
+        "price_at_freeze": 376,
+        "reopen_close": 400,
+        "reopen_return": 0.06382978723404253,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "LIFE.JK",
+    "as_of": "2026-09-03",
+    "suspension_date": "2026-09-04",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham LIFE.JK",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/SEP/20260903-WAS_Suspensi_LIFE.pdf",
+    "features": {
+      "ret_5d": 0.5613496932515338,
+      "ret_10d": 1.2227074235807862,
+      "ret_20d": 1.1297071129707112,
+      "vol_ratio": 3.640985529917873,
+      "dist_from_high": 0.9187725631768953,
+      "prior_freeze_count": 1,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": true,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "public-float-under-25",
+          "single-entity-holding-70",
+          "top-30-yoy-revenue-growth",
+          "top-ten-1m-leaders"
+        ],
+        "market_cap": 26722500000000,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "reopen_return": null,
+    "windows": [
+      {
+        "start_date": "2026-07-08",
+        "end_date": "2026-07-08",
+        "n_days": 1,
+        "price_at_freeze": 5975,
+        "reopen_close": 5975,
+        "reopen_return": 0.0,
+        "confirmed": false
+      },
+      {
+        "start_date": "2026-09-02",
+        "end_date": "2026-09-02",
+        "n_days": 1,
+        "price_at_freeze": 11550,
+        "reopen_close": 12725,
+        "reopen_return": 0.10173160173160167,
+        "confirmed": true
+      },
+      {
+        "start_date": "2026-09-04",
+        "end_date": "2026-09-18",
+        "n_days": 11,
+        "price_at_freeze": 12725,
+        "reopen_close": null,
+        "reopen_return": null,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "NICK.JK",
+    "as_of": "2026-09-03",
+    "suspension_date": "2026-09-04",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham NICK.JK, dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/SEP/20260903-WAS_Suspensi_NICK.pdf",
+    "features": {
+      "ret_5d": 0.2642487046632125,
+      "ret_10d": 0.7428571428571429,
+      "ret_20d": 0.9365079365079365,
+      "vol_ratio": 2.7736106375724514,
+      "dist_from_high": 1.0,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 4,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "insider-1-month-buy",
+          "public-float-under-25"
+        ],
+        "market_cap": 1836243000000,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "reopen_return": -0.016393442622950838,
+    "windows": [
+      {
+        "start_date": "2026-07-21",
+        "end_date": "2026-07-21",
+        "n_days": 1,
+        "price_at_freeze": 1070,
+        "reopen_close": 1080,
+        "reopen_return": 0.009345794392523255,
+        "confirmed": false
+      },
+      {
+        "start_date": "2026-09-04",
+        "end_date": "2026-09-04",
+        "n_days": 1,
+        "price_at_freeze": 2440,
+        "reopen_close": 2400,
+        "reopen_return": -0.016393442622950838,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "TRUK.JK",
+    "as_of": "2026-09-03",
+    "suspension_date": "2026-09-04",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham TRUK.JK",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/SEP/20260903-WAS_Suspensi_TRUK.pdf",
+    "features": {
+      "ret_5d": 0.3271604938271604,
+      "ret_10d": 0.7338709677419355,
+      "ret_20d": 0.9907407407407407,
+      "vol_ratio": 1.063337760752533,
+      "dist_from_high": 1.0,
+      "prior_freeze_count": 1,
+      "consecutive_up_days": 2,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": true,
+        "tags": [
+          "52-w-high",
+          "90-d-high",
+          "all-time-high",
+          "last-volume-above-10d-volume-average",
+          "top-ten-1m-leaders",
+          "ytd-high"
+        ],
+        "market_cap": 617700000000,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r3v2",
+    "reopen_return": 0.0976744186046512,
+    "windows": [
+      {
+        "start_date": "2026-08-11",
+        "end_date": "2026-08-11",
+        "n_days": 1,
+        "price_at_freeze": 805,
+        "reopen_close": 780,
+        "reopen_return": -0.03105590062111796,
+        "confirmed": true
+      },
+      {
+        "start_date": "2026-09-04",
+        "end_date": "2026-09-15",
+        "n_days": 8,
+        "price_at_freeze": 1075,
+        "reopen_close": 1180,
+        "reopen_return": 0.0976744186046512,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "PPGL.JK",
+    "as_of": "2026-09-01",
+    "suspension_date": "2026-09-02",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham PPGL.JK, dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/SEP/20260901-WAS_Suspensi_PPGL.pdf",
+    "features": {
+      "ret_5d": 0.5772357723577235,
+      "ret_10d": 0.8476190476190477,
+      "ret_20d": 0.8476190476190477,
+      "vol_ratio": 1.7876357387697817,
+      "dist_from_high": 1.0,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 6,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "majority-shareholders-in-control-50",
+          "public-float-under-25",
+          "top-ten-1m-leaders"
+        ],
+        "market_cap": 360911313360,
+        "listing_board": "Acceleration",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "reopen_return": 0.097938144329897,
+    "windows": [
+      {
+        "start_date": "2026-09-02",
+        "end_date": "2026-09-02",
+        "n_days": 1,
+        "price_at_freeze": 388,
+        "reopen_close": 426,
+        "reopen_return": 0.097938144329897,
+        "confirmed": true
+      },
+      {
+        "start_date": "2026-09-07",
+        "end_date": "2026-09-18",
+        "n_days": 10,
+        "price_at_freeze": 468,
+        "reopen_close": null,
+        "reopen_return": null,
+        "confirmed": false
+      }
+    ]
+  },
+  {
+    "symbol": "SAFE.JK",
+    "as_of": "2026-09-01",
+    "suspension_date": "2026-09-02",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham SAFE.JK",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/SEP/20260901-WAS_Suspensi_SAFE.pdf",
+    "features": {
+      "ret_5d": 0.7784552845528456,
+      "ret_10d": 1.1135265700483092,
+      "ret_20d": 1.364864864864865,
+      "vol_ratio": 1.692616115500598,
+      "dist_from_high": 1.0,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": true,
+        "tags": [
+          "52-w-high",
+          "90-d-high",
+          "all-time-high",
+          "last-volume-above-10d-volume-average",
+          "public-float-under-25",
+          "top-ten-1m-leaders",
+          "ytd-high"
+        ],
+        "market_cap": 858161850040,
+        "listing_board": "Watchlist",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "reopen_return": 0.0971428571428572,
+    "windows": [
+      {
+        "start_date": "2026-08-31",
+        "end_date": "2026-08-31",
+        "n_days": 1,
+        "price_at_freeze": 700,
+        "reopen_close": 875,
+        "reopen_return": 0.25,
+        "confirmed": false
+      },
+      {
+        "start_date": "2026-09-02",
+        "end_date": "2026-09-14",
+        "n_days": 9,
+        "price_at_freeze": 875,
+        "reopen_close": 960,
+        "reopen_return": 0.0971428571428572,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "PACK.JK",
+    "as_of": "2026-08-31",
+    "suspension_date": "2026-09-01",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham PACK.JK",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/AGU/20260831-WAS_Suspensi_PACK.pdf",
+    "features": {
+      "ret_5d": 0.4507772020725389,
+      "ret_10d": 1.0437956204379564,
+      "ret_20d": 1.4778761061946901,
+      "vol_ratio": 0.8619723688151198,
+      "dist_from_high": 1.0,
+      "prior_freeze_count": 1,
+      "consecutive_up_days": 2,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "90-d-high",
+          "last-volume-above-10d-volume-average"
+        ],
+        "market_cap": 19274647159315,
+        "listing_board": "Acceleration",
+        "available": true
+      }
+    },
+    "bucket": "r3v2",
+    "reopen_return": 0.09821428571428581,
+    "windows": [
+      {
+        "start_date": "2026-08-27",
+        "end_date": "2026-08-27",
+        "n_days": 1,
+        "price_at_freeze": 466,
+        "reopen_close": 510,
+        "reopen_return": 0.09442060085836901,
+        "confirmed": true
+      },
+      {
+        "start_date": "2026-09-01",
+        "end_date": "2026-09-16",
+        "n_days": 12,
+        "price_at_freeze": 560,
+        "reopen_close": 615,
+        "reopen_return": 0.09821428571428581,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "CSMI.JK",
+    "as_of": "2026-08-27",
+    "suspension_date": "2026-08-28",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham CSMI.JK",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/AGU/20260827-WAS_Suspensi_CSMI.pdf",
+    "features": {
+      "ret_5d": 0.4296875,
+      "ret_10d": 0.6944444444444444,
+      "ret_20d": 1.4078947368421053,
+      "vol_ratio": 1.7190769359438118,
+      "dist_from_high": 0.9384615384615385,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "90-d-high",
+          "ytd-high"
+        ],
+        "market_cap": 141994701000,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "reopen_return": 0.09289617486338808,
+    "windows": [
+      {
+        "start_date": "2026-08-24",
+        "end_date": "2026-08-24",
+        "n_days": 1,
+        "price_at_freeze": 167,
+        "reopen_close": 156,
+        "reopen_return": -0.06586826347305386,
+        "confirmed": false
+      },
+      {
+        "start_date": "2026-08-28",
+        "end_date": "2026-09-09",
+        "n_days": 9,
+        "price_at_freeze": 183,
+        "reopen_close": 200,
+        "reopen_return": 0.09289617486338808,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "EKAD.JK",
+    "as_of": "2026-08-26",
+    "suspension_date": "2026-08-27",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham EKAD.JK, dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/AGU/20260826-WAS_Suspensi_EKAD.pdf",
+    "features": {
+      "ret_5d": 0.3439490445859872,
+      "ret_10d": 1.3707865168539324,
+      "ret_20d": 1.5269461077844313,
+      "vol_ratio": 7.7991042678139255,
+      "dist_from_high": 0.9055793991416309,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 4,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": true,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "public-float-under-25",
+          "single-entity-holding-70"
+        ],
+        "market_cap": 1390562250000,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "reopen_return": -0.009478672985781977,
+    "windows": [
+      {
+        "start_date": "2026-08-27",
+        "end_date": "2026-08-27",
+        "n_days": 1,
+        "price_at_freeze": 422,
+        "reopen_close": 418,
+        "reopen_return": -0.009478672985781977,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "TMPO.JK",
+    "as_of": "2026-08-26",
+    "suspension_date": "2026-08-27",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham TMPO.JK, dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/AGU/20260826-WAS_Suspensi_TMPO.pdf",
+    "features": {
+      "ret_5d": 0.35483870967741926,
+      "ret_10d": 0.5949367088607596,
+      "ret_20d": 1.210526315789474,
+      "vol_ratio": 3.8580447235831987,
+      "dist_from_high": 1.0,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 2,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": 159808320750,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "reopen_return": -0.1428571428571429,
+    "windows": [
+      {
+        "start_date": "2026-08-27",
+        "end_date": "2026-08-27",
+        "n_days": 1,
+        "price_at_freeze": 252,
+        "reopen_close": 216,
+        "reopen_return": -0.1428571428571429,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "AGAR.JK",
+    "as_of": "2026-08-18",
+    "suspension_date": "2026-08-19",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham AGAR.JK",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/AGU/20260818-WAS_Suspensi_AGAR.pdf",
+    "features": {
+      "ret_5d": 0.6454545454545455,
+      "ret_10d": 1.6231884057971016,
+      "ret_20d": 2.5841584158415842,
+      "vol_ratio": 4.261113222724099,
+      "dist_from_high": 0.905,
+      "prior_freeze_count": 1,
+      "consecutive_up_days": 3,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": true,
+        "tags": [
+          "52-w-high",
+          "90-d-high",
+          "all-time-high",
+          "top-30-yoy-ttm-earning-growth",
+          "top-ten-1y-leaders",
+          "ytd-high"
+        ],
+        "market_cap": 1840000000000,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "reopen_return": -0.09944751381215466,
+    "windows": [
+      {
+        "start_date": "2026-07-20",
+        "end_date": "2026-07-20",
+        "n_days": 1,
+        "price_at_freeze": 505,
+        "reopen_close": 630,
+        "reopen_return": 0.24752475247524752,
+        "confirmed": false
+      },
+      {
+        "start_date": "2026-07-22",
+        "end_date": "2026-07-31",
+        "n_days": 8,
+        "price_at_freeze": 630,
+        "reopen_close": 690,
+        "reopen_return": 0.09523809523809534,
+        "confirmed": true
+      },
+      {
+        "start_date": "2026-08-19",
+        "end_date": "2026-09-02",
+        "n_days": 10,
+        "price_at_freeze": 1810,
+        "reopen_close": 1630,
+        "reopen_return": -0.09944751381215466,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "BEEF.JK",
+    "as_of": "2026-08-18",
+    "suspension_date": "2026-08-19",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham BEEF.JK, dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/AGU/20260818-WAS_Suspensi_BEEF.pdf",
+    "features": {
+      "ret_5d": 0.09677419354838701,
+      "ret_10d": 0.1959798994974875,
+      "ret_20d": 0.7629629629629631,
+      "vol_ratio": 3.1194684325389046,
+      "dist_from_high": 0.9754098360655737,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": true,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "last-volume-above-10d-volume-average",
+          "public-float-under-25",
+          "single-entity-holding-70"
+        ],
+        "market_cap": 3394264331964,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r2v3",
+    "reopen_return": 0.021008403361344463,
+    "windows": [
+      {
+        "start_date": "2026-08-19",
+        "end_date": "2026-08-19",
+        "n_days": 1,
+        "price_at_freeze": 476,
+        "reopen_close": 486,
+        "reopen_return": 0.021008403361344463,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "DOOH.JK",
+    "as_of": "2026-08-18",
+    "suspension_date": "2026-08-19",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham DOOH.JK",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/AGU/20260818-WAS_Suspensi_DOOH.pdf",
+    "features": {
+      "ret_5d": 0.2734375,
+      "ret_10d": 0.2442748091603053,
+      "ret_20d": 1.295774647887324,
+      "vol_ratio": 4.257726825976857,
+      "dist_from_high": 0.9157303370786517,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 2,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": true,
+        "tags": [
+          "52-w-high",
+          "90-d-high",
+          "all-time-high",
+          "last-volume-above-10d-volume-average",
+          "top-30-yoy-ttm-earning-growth",
+          "ytd-high"
+        ],
+        "market_cap": 3157467542688,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r2v3",
+    "reopen_return": 0.09815950920245409,
+    "windows": [
+      {
+        "start_date": "2026-08-06",
+        "end_date": "2026-08-06",
+        "n_days": 1,
+        "price_at_freeze": 274,
+        "reopen_close": 270,
+        "reopen_return": -0.014598540145985384,
+        "confirmed": false
+      },
+      {
+        "start_date": "2026-08-19",
+        "end_date": "2026-09-08",
+        "n_days": 14,
+        "price_at_freeze": 326,
+        "reopen_close": 358,
+        "reopen_return": 0.09815950920245409,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "YPAS.JK",
+    "as_of": "2026-08-18",
+    "suspension_date": "2026-08-19",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham YPAS.JK, dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/AGU/20260818-WAS_Suspensi_YPAS.pdf",
+    "features": {
+      "ret_5d": 1.15748031496063,
+      "ret_10d": 1.2276422764227641,
+      "ret_20d": 1.2644628099173554,
+      "vol_ratio": 5.919875889760905,
+      "dist_from_high": 0.9133333333333333,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 3,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": true,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "public-float-under-25",
+          "single-entity-holding-70",
+          "top-30-yoy-ttm-earning-growth"
+        ],
+        "market_cap": 895120119260,
+        "listing_board": "Watchlist",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "reopen_return": 0.06934306569343063,
+    "windows": [
+      {
+        "start_date": "2026-08-19",
+        "end_date": "2026-08-19",
+        "n_days": 1,
+        "price_at_freeze": 1370,
+        "reopen_close": 1465,
+        "reopen_return": 0.06934306569343063,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "MDIA.JK",
+    "as_of": "2026-08-12",
+    "suspension_date": "2026-08-13",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham MDIA.JK",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/AGU/20260812-WAS_Suspensi_MDIA.pdf",
+    "features": {
+      "ret_5d": 0.2962962962962963,
+      "ret_10d": 1.1538461538461537,
+      "ret_20d": 3.057971014492754,
+      "vol_ratio": 1.4223661731124737,
+      "dist_from_high": 0.9459459459459459,
+      "prior_freeze_count": 1,
+      "consecutive_up_days": 3,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": true,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "public-float-under-25",
+          "single-entity-holding-70",
+          "top-90d-transaction-volume",
+          "top-ten-1m-laggards"
+        ],
+        "market_cap": 7490167834400,
+        "listing_board": "Watchlist",
+        "available": true
+      }
+    },
+    "bucket": "r3v2",
+    "reopen_return": -0.09999999999999998,
+    "windows": [
+      {
+        "start_date": "2026-08-05",
+        "end_date": "2026-08-05",
+        "n_days": 1,
+        "price_at_freeze": 216,
+        "reopen_close": 250,
+        "reopen_return": 0.15740740740740744,
+        "confirmed": true
+      },
+      {
+        "start_date": "2026-08-13",
+        "end_date": "2026-08-21",
+        "n_days": 6,
+        "price_at_freeze": 280,
+        "reopen_close": 252,
+        "reopen_return": -0.09999999999999998,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "COAL.JK",
+    "as_of": "2026-08-11",
+    "suspension_date": "2026-08-12",
+    "reason": "Sehubungan dengan adanya ketidakpastian atas kelangsungan usaha",
+    "reason_category": "kelangsungan_usaha",
+    "pdf_url": "https://www.idx.co.id/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/From_EREP/202608/81a427d2f9_48b62e084b.pdf",
+    "features": {
+      "ret_5d": 0.38095238095238093,
+      "ret_10d": 0.3181818181818181,
+      "ret_20d": 0.3181818181818181,
+      "vol_ratio": 1.2707734562365474,
+      "dist_from_high": 0.9354838709677419,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 4,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "public-float-over-50"
+        ],
+        "market_cap": 193750000000,
+        "listing_board": "Watchlist",
+        "available": true
+      }
+    },
+    "bucket": "r3v2",
+    "reopen_return": null,
+    "windows": [
+      {
+        "start_date": "2026-06-30",
+        "end_date": "2026-07-15",
+        "n_days": 12,
+        "price_at_freeze": 22,
+        "reopen_close": 20,
+        "reopen_return": -0.09090909090909094,
+        "confirmed": false
+      },
+      {
+        "start_date": "2026-07-30",
+        "end_date": "2026-08-05",
+        "n_days": 5,
+        "price_at_freeze": 21,
+        "reopen_close": 23,
+        "reopen_return": 0.09523809523809534,
+        "confirmed": false
+      },
+      {
+        "start_date": "2026-08-13",
+        "end_date": "2026-09-11",
+        "n_days": 20,
+        "price_at_freeze": 31,
+        "reopen_close": null,
+        "reopen_return": null,
+        "confirmed": false
+      }
+    ]
+  },
+  {
+    "symbol": "BAJA.JK",
+    "as_of": "2026-08-03",
+    "suspension_date": "2026-08-04",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham BAJA.JK, dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/AGU/20260803-WAS_Suspensi_BAJA.pdf",
+    "features": {
+      "ret_5d": 0.36936936936936937,
+      "ret_10d": 0.8313253012048192,
+      "ret_20d": 0.8881987577639752,
+      "vol_ratio": 4.947878716048905,
+      "dist_from_high": 1.0,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 3,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": true,
+        "at_52w_high": false,
+        "tags": [
+          "insider-1-month-buy",
+          "insider-1-month-sell",
+          "last-volume-above-10d-volume-average",
+          "public-float-under-25"
+        ],
+        "market_cap": 630000000000,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "reopen_return": 0.11184210526315796,
+    "windows": [
+      {
+        "start_date": "2026-08-04",
+        "end_date": "2026-08-04",
+        "n_days": 1,
+        "price_at_freeze": 304,
+        "reopen_close": 338,
+        "reopen_return": 0.11184210526315796,
+        "confirmed": true
+      },
+      {
+        "start_date": "2026-08-07",
+        "end_date": "2026-08-18",
+        "n_days": 7,
+        "price_at_freeze": 362,
+        "reopen_close": 326,
+        "reopen_return": -0.09944751381215466,
+        "confirmed": false
+      }
+    ]
+  },
+  {
+    "symbol": "RGAS.JK",
+    "as_of": "2026-07-29",
+    "suspension_date": "2026-07-30",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham RGAS.JK",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/JUL/20260729-WAS_Suspensi_RGAS.pdf",
+    "features": {
+      "ret_5d": 0.13084112149532712,
+      "ret_10d": 0.13084112149532712,
+      "ret_20d": 0.5714285714285714,
+      "vol_ratio": 0.9269215138526842,
+      "dist_from_high": 0.9453125,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": true,
+        "at_52w_high": false,
+        "tags": [
+          "90-d-low",
+          "insider-1-month-buy",
+          "insider-1-month-sell",
+          "public-float-under-25",
+          "top-ten-1m-laggards"
+        ],
+        "market_cap": 156138049770,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r2v2",
+    "reopen_return": -0.09917355371900827,
+    "windows": [
+      {
+        "start_date": "2026-06-29",
+        "end_date": "2026-06-29",
+        "n_days": 1,
+        "price_at_freeze": 212,
+        "reopen_close": 181,
+        "reopen_return": -0.14622641509433965,
+        "confirmed": false
+      },
+      {
+        "start_date": "2026-07-30",
+        "end_date": "2026-08-10",
+        "n_days": 8,
+        "price_at_freeze": 242,
+        "reopen_close": 218,
+        "reopen_return": -0.09917355371900827,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "BKDP.JK",
+    "as_of": "2026-07-28",
+    "suspension_date": "2026-07-29",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham BKDP.JK",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/JUL/20260728-WAS_Suspensi_BKDP.pdf",
+    "features": {
+      "ret_5d": 0.0903225806451613,
+      "ret_10d": 0.14189189189189189,
+      "ret_20d": 0.49557522123893816,
+      "vol_ratio": 3.0063098228599316,
+      "dist_from_high": 0.9388888888888889,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "public-float-under-25"
+        ],
+        "market_cap": 1262350698336,
+        "listing_board": "Watchlist",
+        "available": true
+      }
+    },
+    "bucket": "r2v3",
+    "reopen_return": -0.09467455621301779,
+    "windows": [
+      {
+        "start_date": "2026-06-02",
+        "end_date": "2026-06-29",
+        "n_days": 19,
+        "price_at_freeze": 125,
+        "reopen_close": 113,
+        "reopen_return": -0.09599999999999997,
+        "confirmed": false
+      },
+      {
+        "start_date": "2026-07-29",
+        "end_date": "2026-08-27",
+        "n_days": 20,
+        "price_at_freeze": 169,
+        "reopen_close": 153,
+        "reopen_return": -0.09467455621301779,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "LUCY.JK",
+    "as_of": "2026-07-16",
+    "suspension_date": "2026-07-17",
+    "reason": "Dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/JUL/20260716-WAS_Suspensi_LUCY.pdf",
+    "features": {
+      "ret_5d": -0.2887029288702929,
+      "ret_10d": -0.4769230769230769,
+      "ret_20d": -0.7964071856287425,
+      "vol_ratio": 1.29516924473394,
+      "dist_from_high": 0.18579234972677597,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "insider-1-month-buy"
+        ],
+        "market_cap": 548348149266,
+        "listing_board": "Acceleration",
+        "available": true
+      }
+    },
+    "bucket": "r1v2",
+    "reopen_return": -0.08235294117647063,
+    "windows": [
+      {
+        "start_date": "2026-07-17",
+        "end_date": "2026-07-17",
+        "n_days": 1,
+        "price_at_freeze": 340,
+        "reopen_close": 312,
+        "reopen_return": -0.08235294117647063,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "FLMC.JK",
+    "as_of": "2026-07-02",
+    "suspension_date": "2026-07-03",
+    "reason": "Terjadinya penurunan harga kumulatif yang signifikan pada saham FLMC.JK",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/JUL/20260702-WAS_Suspensi_FLMC.pdf",
+    "features": {
+      "ret_5d": -0.2777777777777778,
+      "ret_10d": -0.4157303370786517,
+      "ret_20d": -0.6623376623376623,
+      "vol_ratio": 1.108148242314704,
+      "dist_from_high": 0.2905027932960894,
+      "prior_freeze_count": 1,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": 74218750000,
+        "listing_board": "Acceleration",
+        "available": true
+      }
+    },
+    "bucket": "r1v2",
+    "reopen_return": 0.09615384615384626,
+    "windows": [
+      {
+        "start_date": "2026-06-24",
+        "end_date": "2026-06-24",
+        "n_days": 1,
+        "price_at_freeze": 72,
+        "reopen_close": 72,
+        "reopen_return": 0.0,
+        "confirmed": true
+      },
+      {
+        "start_date": "2026-07-03",
+        "end_date": "2026-07-16",
+        "n_days": 10,
+        "price_at_freeze": 52,
+        "reopen_close": 57,
+        "reopen_return": 0.09615384615384626,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "FORU.JK",
+    "as_of": "2026-06-10",
+    "suspension_date": "2026-06-11",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham FORU.JK, dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/JUN/20260610-WAS_Suspensi_FORU.pdf",
+    "features": {
+      "ret_5d": 1.0131147540983605,
+      "ret_10d": 1.4959349593495936,
+      "ret_20d": 1.2007168458781363,
+      "vol_ratio": 7.9320538434417855,
+      "dist_from_high": 1.0,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 5,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": true,
+        "insider_1m_sell": false,
+        "at_52w_high": true,
+        "tags": [
+          "52-w-high",
+          "90-d-high",
+          "last-volume-above-10d-volume-average",
+          "public-float-under-25",
+          "single-entity-holding-70",
+          "ytd-high"
+        ],
+        "market_cap": 1400324240000,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "reopen_return": 0.228013029315961,
+    "windows": [
+      {
+        "start_date": "2026-06-11",
+        "end_date": "2026-06-11",
+        "n_days": 1,
+        "price_at_freeze": 3070,
+        "reopen_close": 3770,
+        "reopen_return": 0.228013029315961,
+        "confirmed": true
+      },
+      {
+        "start_date": "2026-06-15",
+        "end_date": "2026-06-23",
+        "n_days": 6,
+        "price_at_freeze": 3770,
+        "reopen_close": 3400,
+        "reopen_return": -0.09814323607427056,
+        "confirmed": false
+      }
+    ]
+  },
+  {
+    "symbol": "IFSH.JK",
+    "as_of": "2026-06-09",
+    "suspension_date": "2026-06-10",
+    "reason": "Dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/JUN/20260609-WAS_Suspensi_IFSH.pdf",
+    "features": {
+      "ret_5d": -0.3584229390681004,
+      "ret_10d": -0.46726190476190477,
+      "ret_20d": -0.5931818181818183,
+      "vol_ratio": 1.130952380952381,
+      "dist_from_high": 0.2753846153846154,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "90-d-low",
+          "last-volume-above-10d-volume-average",
+          "public-float-under-25"
+        ],
+        "market_cap": 2178125000000,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r1v2",
+    "reopen_return": 0.0949720670391061,
+    "windows": [
+      {
+        "start_date": "2026-06-10",
+        "end_date": "2026-06-10",
+        "n_days": 1,
+        "price_at_freeze": 895,
+        "reopen_close": 980,
+        "reopen_return": 0.0949720670391061,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "SHIP.JK",
+    "as_of": "2026-06-08",
+    "suspension_date": "2026-06-09",
+    "reason": "Terjadinya penurunan harga kumulatif yang signifikan pada saham SHIP.JK",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/JUN/20260608-WAS_Suspensi_SHIP.pdf",
+    "features": {
+      "ret_5d": -0.21408450704225357,
+      "ret_10d": -0.3228155339805825,
+      "ret_20d": -0.6755813953488372,
+      "vol_ratio": 0.273783874602202,
+      "dist_from_high": 0.30726872246696035,
+      "prior_freeze_count": 1,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "90-d-high",
+          "public-float-under-25"
+        ],
+        "market_cap": 7397828800000,
+        "listing_board": "Main",
+        "available": true
+      }
+    },
+    "bucket": "r1v1",
+    "reopen_return": 0.09677419354838701,
+    "windows": [
+      {
+        "start_date": "2026-05-20",
+        "end_date": "2026-05-20",
+        "n_days": 1,
+        "price_at_freeze": 2060,
+        "reopen_close": 1880,
+        "reopen_return": -0.08737864077669899,
+        "confirmed": true
+      },
+      {
+        "start_date": "2026-06-09",
+        "end_date": "2026-06-19",
+        "n_days": 8,
+        "price_at_freeze": 1395,
+        "reopen_close": 1530,
+        "reopen_return": 0.09677419354838701,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "MMIX.JK",
+    "as_of": "2026-06-03",
+    "suspension_date": "2026-06-04",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham MMIX.JK, dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/JUN/20260603-WAS_Suspensi_MMIX.pdf",
+    "features": {
+      "ret_5d": 0.8093922651933703,
+      "ret_10d": 0.7146596858638743,
+      "ret_20d": 1.1688741721854305,
+      "vol_ratio": 14.164296408491747,
+      "dist_from_high": 1.0,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 6,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "last-volume-above-10d-volume-average"
+        ],
+        "market_cap": 4128365826800,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "reopen_return": 0.1450381679389312,
+    "windows": [
+      {
+        "start_date": "2026-06-04",
+        "end_date": "2026-06-04",
+        "n_days": 1,
+        "price_at_freeze": 655,
+        "reopen_close": 750,
+        "reopen_return": 0.1450381679389312,
+        "confirmed": true
+      },
+      {
+        "start_date": "2026-06-08",
+        "end_date": "2026-06-15",
+        "n_days": 6,
+        "price_at_freeze": 750,
+        "reopen_close": 675,
+        "reopen_return": -0.09999999999999998,
+        "confirmed": false
+      }
+    ]
+  },
+  {
+    "symbol": "MSIE.JK",
+    "as_of": "2026-05-04",
+    "suspension_date": "2026-05-05",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham MSIE.JK, dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/MEI/20260504-WAS_Suspensi_MSIE.pdf",
+    "features": {
+      "ret_5d": 0.3085106382978724,
+      "ret_10d": 1.0499999999999998,
+      "ret_20d": 1.6739130434782608,
+      "vol_ratio": 0.23433329476242976,
+      "dist_from_high": 1.0,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 4,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": true,
+        "tags": [
+          "52-w-high",
+          "90-d-high",
+          "all-time-high",
+          "public-float-under-25",
+          "ytd-high"
+        ],
+        "market_cap": 252581341442,
+        "listing_board": "Acceleration",
+        "available": true
+      }
+    },
+    "bucket": "r3v1",
+    "reopen_return": 0.09756097560975618,
+    "windows": [
+      {
+        "start_date": "2026-05-05",
+        "end_date": "2026-05-05",
+        "n_days": 1,
+        "price_at_freeze": 123,
+        "reopen_close": 135,
+        "reopen_return": 0.09756097560975618,
+        "confirmed": true
+      },
+      {
+        "start_date": "2026-05-08",
+        "end_date": "2026-06-02",
+        "n_days": 13,
+        "price_at_freeze": 148,
+        "reopen_close": 134,
+        "reopen_return": -0.09459459459459463,
+        "confirmed": false
+      }
+    ]
+  },
+  {
+    "symbol": "BAPA.JK",
+    "as_of": "2026-04-29",
+    "suspension_date": "2026-04-30",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham BAPA.JK",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/APR/20260429-WAS_Suspensi_BAPA.pdf",
+    "features": {
+      "ret_5d": 0.2142857142857142,
+      "ret_10d": 0.803030303030303,
+      "ret_20d": 2.051282051282051,
+      "vol_ratio": 2.605295972004044,
+      "dist_from_high": 0.952,
+      "prior_freeze_count": 1,
+      "consecutive_up_days": 3,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "90-d-low",
+          "top-30-yoy-revenue-growth"
+        ],
+        "market_cap": 83384849520,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "reopen_return": null,
+    "windows": [
+      {
+        "start_date": "2026-04-21",
+        "end_date": "2026-04-21",
+        "n_days": 1,
+        "price_at_freeze": 199,
+        "reopen_close": 196,
+        "reopen_return": -0.015075376884422065,
+        "confirmed": true
+      },
+      {
+        "start_date": "2026-04-30",
+        "end_date": "2026-05-29",
+        "n_days": 17,
+        "price_at_freeze": 238,
+        "reopen_close": null,
+        "reopen_return": null,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "BOBA.JK",
+    "as_of": "2026-04-28",
+    "suspension_date": "2026-04-29",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham BOBA.JK, dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/APR/20260428-WAS_Suspensi_BOBA.pdf",
+    "features": {
+      "ret_5d": 0.4122807017543859,
+      "ret_10d": 0.9281437125748504,
+      "ret_20d": 0.9876543209876543,
+      "vol_ratio": 9.357717502484602,
+      "dist_from_high": 0.9877300613496932,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 2,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "90-d-low",
+          "public-float-under-25"
+        ],
+        "market_cap": 238084500000,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "reopen_return": -0.1490683229813664,
+    "windows": [
+      {
+        "start_date": "2026-04-29",
+        "end_date": "2026-04-29",
+        "n_days": 1,
+        "price_at_freeze": 322,
+        "reopen_close": 274,
+        "reopen_return": -0.1490683229813664,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "KING.JK",
+    "as_of": "2026-04-27",
+    "suspension_date": "2026-04-28",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham KING.JK, dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/APR/20260427-WAS_Suspensi_KING.pdf",
+    "features": {
+      "ret_5d": 0.2777777777777777,
+      "ret_10d": 0.6788321167883211,
+      "ret_20d": 0.7692307692307692,
+      "vol_ratio": 4.928311033115885,
+      "dist_from_high": 0.9956709956709957,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 2,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": true,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "last-volume-above-10d-volume-average",
+          "public-float-under-25",
+          "single-entity-holding-70"
+        ],
+        "market_cap": 994289528940,
+        "listing_board": "Acceleration",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "reopen_return": -0.0304347826086957,
+    "windows": [
+      {
+        "start_date": "2026-04-28",
+        "end_date": "2026-04-28",
+        "n_days": 1,
+        "price_at_freeze": 460,
+        "reopen_close": 446,
+        "reopen_return": -0.0304347826086957,
+        "confirmed": true
+      },
+      {
+        "start_date": "2026-05-25",
+        "end_date": "2026-05-26",
+        "n_days": 2,
+        "price_at_freeze": 565,
+        "reopen_close": null,
+        "reopen_return": null,
+        "confirmed": false
+      }
+    ]
+  },
+  {
+    "symbol": "BAIK.JK",
+    "as_of": "2026-04-23",
+    "suspension_date": "2026-04-24",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham BAIK.JK",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/APR/20260423-WAS_Suspensi_BAIK.pdf",
+    "features": {
+      "ret_5d": 0.7876344086021505,
+      "ret_10d": 1.0652173913043477,
+      "ret_20d": 1.5,
+      "vol_ratio": 7.839950081710061,
+      "dist_from_high": 0.9925373134328358,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 4,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": true,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "90-d-low",
+          "insider-1-month-buy",
+          "public-float-under-25",
+          "single-entity-holding-70",
+          "top-ten-1m-laggards"
+        ],
+        "market_cap": 272854412424,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "reopen_return": -0.06015037593984962,
+    "windows": [
+      {
+        "start_date": "2026-04-24",
+        "end_date": "2026-05-05",
+        "n_days": 7,
+        "price_at_freeze": 665,
+        "reopen_close": 625,
+        "reopen_return": -0.06015037593984962,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "EURO.JK",
+    "as_of": "2026-04-14",
+    "suspension_date": "2026-04-15",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham EURO.JK",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/APR/20260414-WAS_Suspensi_EURO.pdf",
+    "features": {
+      "ret_5d": 0.1370967741935485,
+      "ret_10d": 0.26457399103139023,
+      "ret_20d": 0.6114285714285714,
+      "vol_ratio": 1.6818132316574017,
+      "dist_from_high": 0.962457337883959,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": 3708542452740,
+        "listing_board": "Acceleration",
+        "available": true
+      }
+    },
+    "bucket": "r2v2",
+    "reopen_return": 0.09929078014184389,
+    "windows": [
+      {
+        "start_date": "2026-02-18",
+        "end_date": "2026-02-20",
+        "n_days": 3,
+        "price_at_freeze": 745,
+        "reopen_close": 815,
+        "reopen_return": 0.09395973154362425,
+        "confirmed": false
+      },
+      {
+        "start_date": "2026-04-15",
+        "end_date": "2026-04-28",
+        "n_days": 10,
+        "price_at_freeze": 2820,
+        "reopen_close": 3100,
+        "reopen_return": 0.09929078014184389,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "POLY.JK",
+    "as_of": "2026-04-06",
+    "suspension_date": "2026-04-09",
+    "reason": "Efek Perseroan telah berada dalam papan pemantauan khusus selama lebih dari 1 (satu) tahun berturut-turut",
+    "reason_category": "papan_pemantauan_khusus",
+    "pdf_url": "https://www.idx.co.id/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/From_EREP/202604/4f3f1fa3c9_a65c7df4dc.pdf",
+    "features": {
+      "ret_5d": -0.11111111111111116,
+      "ret_10d": -0.030303030303030276,
+      "ret_20d": -0.34693877551020413,
+      "vol_ratio": 0.3078961115227166,
+      "dist_from_high": 0.5614035087719298,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": 79864106688,
+        "listing_board": "Watchlist",
+        "available": true
+      }
+    },
+    "bucket": "r1v1",
+    "reopen_return": null,
+    "windows": [
+      {
+        "start_date": "2026-04-07",
+        "end_date": "2026-05-08",
+        "n_days": 23,
+        "price_at_freeze": 32,
+        "reopen_close": null,
+        "reopen_return": null,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "ASPR.JK",
+    "as_of": "2026-03-31",
+    "suspension_date": "2026-04-01",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham ASPR.JK, dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/MAR/20260331-WAS_Suspensi_ASPR.pdf",
+    "features": {
+      "ret_5d": 0.5972222222222223,
+      "ret_10d": 0.554054054054054,
+      "ret_20d": 0.5753424657534247,
+      "vol_ratio": 2.0918531961205837,
+      "dist_from_high": 0.9745762711864406,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 5,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": 376968000000,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "reopen_return": 0.14782608695652177,
+    "windows": [
+      {
+        "start_date": "2026-04-01",
+        "end_date": "2026-04-01",
+        "n_days": 1,
+        "price_at_freeze": 230,
+        "reopen_close": 264,
+        "reopen_return": 0.14782608695652177,
+        "confirmed": true
+      },
+      {
+        "start_date": "2026-04-06",
+        "end_date": "2026-04-14",
+        "n_days": 7,
+        "price_at_freeze": 264,
+        "reopen_close": 266,
+        "reopen_return": 0.007575757575757569,
+        "confirmed": false
+      }
+    ]
+  },
+  {
+    "symbol": "FITT.JK",
+    "as_of": "2026-03-30",
+    "suspension_date": "2026-03-31",
+    "reason": "Dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/MAR/20260330-WAS_Suspensi_FITT.pdf",
+    "features": {
+      "ret_5d": -0.2762430939226519,
+      "ret_10d": -0.623021582733813,
+      "ret_20d": -0.7039548022598869,
+      "vol_ratio": 1.5379959051660188,
+      "dist_from_high": 0.2743455497382199,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": true,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "public-float-under-25",
+          "single-entity-holding-70"
+        ],
+        "market_cap": 573879702440,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r1v2",
+    "reopen_return": -0.04580152671755722,
+    "windows": [
+      {
+        "start_date": "2026-03-31",
+        "end_date": "2026-03-31",
+        "n_days": 1,
+        "price_at_freeze": 262,
+        "reopen_close": 250,
+        "reopen_return": -0.04580152671755722,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "MLPT.JK",
+    "as_of": "2026-03-26",
+    "suspension_date": "2026-03-27",
+    "reason": "Dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/MAR/20260326-WAS_Suspensi_MLPT.pdf",
+    "features": {
+      "ret_5d": -0.24675324675324672,
+      "ret_10d": -0.4170854271356784,
+      "ret_20d": -0.5972222222222222,
+      "vol_ratio": 1.305525460455038,
+      "dist_from_high": 0.23770491803278687,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": true,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "public-float-under-25",
+          "single-entity-holding-70",
+          "top-ten-1y-laggards"
+        ],
+        "market_cap": 57187500000000,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r1v2",
+    "reopen_return": 0.09482758620689657,
+    "windows": [
+      {
+        "start_date": "2026-03-27",
+        "end_date": "2026-03-27",
+        "n_days": 1,
+        "price_at_freeze": 580,
+        "reopen_close": 635,
+        "reopen_return": 0.09482758620689657,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "SSTM.JK",
+    "as_of": "2026-03-16",
+    "suspension_date": "2026-03-17",
+    "reason": "Dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/MAR/20260316-WAS_Suspensi_SSTM.pdf",
+    "features": {
+      "ret_5d": -0.16666666666666663,
+      "ret_10d": -0.37106918238993714,
+      "ret_20d": -0.66996699669967,
+      "vol_ratio": 0.09548639518859109,
+      "dist_from_high": 0.10869565217391304,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "public-float-under-25"
+        ],
+        "market_cap": 538618223260,
+        "listing_board": "Watchlist",
+        "available": true
+      }
+    },
+    "bucket": "r1v1",
+    "reopen_return": 0.25,
+    "windows": [
+      {
+        "start_date": "2026-03-17",
+        "end_date": "2026-03-17",
+        "n_days": 1,
+        "price_at_freeze": 500,
+        "reopen_close": 625,
+        "reopen_return": 0.25,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "AGII.JK",
+    "as_of": "2026-03-04",
+    "suspension_date": "2026-03-05",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham AGII.JK",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/MAR/20260304-WAS_Suspensi_AGII.pdf",
+    "features": {
+      "ret_5d": 0.05714285714285716,
+      "ret_10d": 0.5416666666666667,
+      "ret_20d": 0.9028571428571428,
+      "vol_ratio": 0.43858484804625864,
+      "dist_from_high": 0.9460227272727273,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": true,
+        "tags": [
+          "52-w-high",
+          "90-d-high",
+          "all-time-high",
+          "last-volume-above-10d-volume-average",
+          "public-float-under-25",
+          "ytd-high"
+        ],
+        "market_cap": 11469308400000,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r3v1",
+    "reopen_return": 0.021021021021021102,
+    "windows": [
+      {
+        "start_date": "2026-02-23",
+        "end_date": "2026-02-23",
+        "n_days": 1,
+        "price_at_freeze": 3120,
+        "reopen_close": 3100,
+        "reopen_return": -0.0064102564102563875,
+        "confirmed": false
+      },
+      {
+        "start_date": "2026-03-05",
+        "end_date": "2026-03-11",
+        "n_days": 5,
+        "price_at_freeze": 3330,
+        "reopen_close": 3400,
+        "reopen_return": 0.021021021021021102,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "TAMA.JK",
+    "as_of": "2026-03-04",
+    "suspension_date": "2026-03-05",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham TAMA.JK",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/MAR/20260304-WAS_Suspensi_TAMA.pdf",
+    "features": {
+      "ret_5d": 0.4303797468354431,
+      "ret_10d": 0.8833333333333333,
+      "ret_20d": 1.511111111111111,
+      "vol_ratio": 1.3568852738752062,
+      "dist_from_high": 1.0,
+      "prior_freeze_count": 1,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": true,
+        "at_52w_high": false,
+        "tags": [
+          "insider-1-month-buy",
+          "insider-1-month-sell",
+          "last-volume-above-10d-volume-average"
+        ],
+        "market_cap": 242400140592,
+        "listing_board": "Watchlist",
+        "available": true
+      }
+    },
+    "bucket": "r3v2",
+    "reopen_return": 0.09734513274336276,
+    "windows": [
+      {
+        "start_date": "2026-03-03",
+        "end_date": "2026-03-03",
+        "n_days": 1,
+        "price_at_freeze": 103,
+        "reopen_close": 113,
+        "reopen_return": 0.09708737864077666,
+        "confirmed": true
+      },
+      {
+        "start_date": "2026-03-05",
+        "end_date": "2026-03-17",
+        "n_days": 9,
+        "price_at_freeze": 113,
+        "reopen_close": 124,
+        "reopen_return": 0.09734513274336276,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "HILL.JK",
+    "as_of": "2026-02-19",
+    "suspension_date": "2026-02-20",
+    "reason": "Dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/FEB/20260219-WAS_Suspensi_HILL.pdf",
+    "features": {
+      "ret_5d": -0.4821428571428571,
+      "ret_10d": -0.5503875968992248,
+      "ret_20d": -0.6352201257861636,
+      "vol_ratio": 1.5334089090424112,
+      "dist_from_high": 0.23387096774193547,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "top-ten-1y-laggards"
+        ],
+        "market_cap": 235864000000,
+        "listing_board": "Main",
+        "available": true
+      }
+    },
+    "bucket": "r1v2",
+    "reopen_return": -0.13793103448275867,
+    "windows": [
+      {
+        "start_date": "2026-02-20",
+        "end_date": "2026-02-20",
+        "n_days": 1,
+        "price_at_freeze": 58,
+        "reopen_close": 50,
+        "reopen_return": -0.13793103448275867,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "NZIA.JK",
+    "as_of": "2026-02-10",
+    "suspension_date": "2026-02-11",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham NZIA.JK",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/FEB/20260210-WAS_Suspensi_NZIA.pdf",
+    "features": {
+      "ret_5d": 2.0392156862745097,
+      "ret_10d": 1.719298245614035,
+      "ret_20d": 1.6956521739130435,
+      "vol_ratio": 2.8423401638183883,
+      "dist_from_high": 1.0,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "public-float-under-25"
+        ],
+        "market_cap": 380174541965,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "reopen_return": -0.09677419354838712,
+    "windows": [
+      {
+        "start_date": "2026-02-09",
+        "end_date": "2026-02-09",
+        "n_days": 1,
+        "price_at_freeze": 248,
+        "reopen_close": 310,
+        "reopen_return": 0.25,
+        "confirmed": false
+      },
+      {
+        "start_date": "2026-02-11",
+        "end_date": "2026-03-04",
+        "n_days": 14,
+        "price_at_freeze": 310,
+        "reopen_close": 280,
+        "reopen_return": -0.09677419354838712,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "LION.JK",
+    "as_of": "2026-02-09",
+    "suspension_date": "2026-02-10",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham LION.JK, dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/FEB/20260209-WAS_Suspensi_LION.pdf",
+    "features": {
+      "ret_5d": 0.8298969072164948,
+      "ret_10d": 0.6359447004608294,
+      "ret_20d": 0.5919282511210762,
+      "vol_ratio": 9.003521480072818,
+      "dist_from_high": 0.9594594594594594,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 3,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": 192459200000,
+        "listing_board": "Watchlist",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "reopen_return": -0.08450704225352113,
+    "windows": [
+      {
+        "start_date": "2026-02-10",
+        "end_date": "2026-02-10",
+        "n_days": 1,
+        "price_at_freeze": 710,
+        "reopen_close": 650,
+        "reopen_return": -0.08450704225352113,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "STAR.JK",
+    "as_of": "2026-01-28",
+    "suspension_date": "2026-01-29",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham STAR.JK",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/JAN/20260128-WAS_Suspensi_STAR.pdf",
+    "features": {
+      "ret_5d": 0.28925619834710736,
+      "ret_10d": 0.8660287081339713,
+      "ret_20d": 0.8483412322274881,
+      "vol_ratio": 6.5188110848054395,
+      "dist_from_high": 1.0,
+      "prior_freeze_count": 2,
+      "consecutive_up_days": 2,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "public-float-over-50"
+        ],
+        "market_cap": 1824000228760,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "reopen_return": -0.05128205128205132,
+    "windows": [
+      {
+        "start_date": "2025-12-02",
+        "end_date": "2025-12-02",
+        "n_days": 1,
+        "price_at_freeze": 250,
+        "reopen_close": 312,
+        "reopen_return": 0.248,
+        "confirmed": true
+      },
+      {
+        "start_date": "2025-12-04",
+        "end_date": "2025-12-11",
+        "n_days": 6,
+        "price_at_freeze": 312,
+        "reopen_close": 342,
+        "reopen_return": 0.09615384615384626,
+        "confirmed": true
+      },
+      {
+        "start_date": "2026-01-29",
+        "end_date": "2026-02-10",
+        "n_days": 9,
+        "price_at_freeze": 780,
+        "reopen_close": 740,
+        "reopen_return": -0.05128205128205132,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "INAI.JK",
+    "as_of": "2026-01-27",
+    "suspension_date": "2026-01-28",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham INAI.JK, dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/JAN/20260127-WAS_Suspensi_INAI.pdf",
+    "features": {
+      "ret_5d": 0.5698924731182795,
+      "ret_10d": 0.6497175141242937,
+      "ret_20d": 0.9597315436241611,
+      "vol_ratio": 4.002783933185603,
+      "dist_from_high": 0.9358974358974359,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "last-volume-above-10d-volume-average"
+        ],
+        "market_cap": 115315200000,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "reopen_return": -0.14383561643835618,
+    "windows": [
+      {
+        "start_date": "2026-01-28",
+        "end_date": "2026-01-28",
+        "n_days": 1,
+        "price_at_freeze": 292,
+        "reopen_close": 250,
+        "reopen_return": -0.14383561643835618,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "LMPI.JK",
+    "as_of": "2026-01-27",
+    "suspension_date": "2026-01-28",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham LMPI.JK, dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/JAN/20260127-WAS_Suspensi_LMPI.pdf",
+    "features": {
+      "ret_5d": 1.1805555555555554,
+      "ret_10d": 1.2753623188405796,
+      "ret_20d": 1.2428571428571429,
+      "vol_ratio": 16.35903798702117,
+      "dist_from_high": 1.0,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 3,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "public-float-under-25"
+        ],
+        "market_cap": 162371344709,
+        "listing_board": "Watchlist",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "reopen_return": -0.14649681528662417,
+    "windows": [
+      {
+        "start_date": "2026-01-28",
+        "end_date": "2026-01-28",
+        "n_days": 1,
+        "price_at_freeze": 314,
+        "reopen_close": 268,
+        "reopen_return": -0.14649681528662417,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "PLAN.JK",
+    "as_of": "2026-01-27",
+    "suspension_date": "2026-01-28",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham PLAN.JK, dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/JAN/20260127-WAS_Suspensi_PLAN.pdf",
+    "features": {
+      "ret_5d": 0.5588235294117647,
+      "ret_10d": 0.9272727272727272,
+      "ret_20d": 1.4090909090909092,
+      "vol_ratio": 0.696720388943061,
+      "dist_from_high": 1.0,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 8,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": 58286123740,
+        "listing_board": "Acceleration",
+        "available": true
+      }
+    },
+    "bucket": "r3v2",
+    "reopen_return": -0.09433962264150941,
+    "windows": [
+      {
+        "start_date": "2026-01-28",
+        "end_date": "2026-01-28",
+        "n_days": 1,
+        "price_at_freeze": 106,
+        "reopen_close": 96,
+        "reopen_return": -0.09433962264150941,
+        "confirmed": true
+      },
+      {
+        "start_date": "2026-02-18",
+        "end_date": "2026-02-23",
+        "n_days": 4,
+        "price_at_freeze": 80,
+        "reopen_close": 76,
+        "reopen_return": -0.050000000000000044,
+        "confirmed": false
+      }
+    ]
+  },
+  {
+    "symbol": "BLUE.JK",
+    "as_of": "2026-01-26",
+    "suspension_date": "2026-01-27",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham BLUE.JK, dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/JAN/20260126-WAS_Suspensi_BLUE.pdf",
+    "features": {
+      "ret_5d": 0.21674876847290636,
+      "ret_10d": 0.8323442136498516,
+      "ret_20d": 1.0583333333333331,
+      "vol_ratio": 1.7040736461555663,
+      "dist_from_high": 0.9610894941634242,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 2,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "public-float-under-25"
+        ],
+        "market_cap": 1249820000000,
+        "listing_board": "Watchlist",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "reopen_return": -0.09311740890688258,
+    "windows": [
+      {
+        "start_date": "2026-01-27",
+        "end_date": "2026-01-27",
+        "n_days": 1,
+        "price_at_freeze": 6175,
+        "reopen_close": 5600,
+        "reopen_return": -0.09311740890688258,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "ENZO.JK",
+    "as_of": "2026-01-26",
+    "suspension_date": "2026-01-27",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham ENZO.JK",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/JAN/20260126-WAS_Suspensi_ENZO.pdf",
+    "features": {
+      "ret_5d": 0.4303797468354431,
+      "ret_10d": 0.8833333333333333,
+      "ret_20d": 1.511111111111111,
+      "vol_ratio": 1.2575317764960383,
+      "dist_from_high": 1.0,
+      "prior_freeze_count": 1,
+      "consecutive_up_days": 2,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": 164353581272,
+        "listing_board": "Watchlist",
+        "available": true
+      }
+    },
+    "bucket": "r3v2",
+    "reopen_return": -0.09734513274336287,
+    "windows": [
+      {
+        "start_date": "2026-01-22",
+        "end_date": "2026-01-22",
+        "n_days": 1,
+        "price_at_freeze": 94,
+        "reopen_close": 103,
+        "reopen_return": 0.0957446808510638,
+        "confirmed": true
+      },
+      {
+        "start_date": "2026-01-27",
+        "end_date": "2026-02-10",
+        "n_days": 11,
+        "price_at_freeze": 113,
+        "reopen_close": 102,
+        "reopen_return": -0.09734513274336287,
+        "confirmed": true
+      }
+    ]
+  }
+]
