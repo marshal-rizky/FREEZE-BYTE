@@ -1,33 +1,46 @@
 /* FREEZE BYTE — sistem visual.
  *
- * Palet diturunkan dari vibe Sectors: near-black yang HANGAT (#141210, bukan
- * blue-black), off-white hangat, dan aksen keluarga Spectral. Tipografi dan
- * material mengikuti prinsip Apple: tracking spesifik per ukuran, leading
- * berbanding terbalik dengan ukuran, chrome translusen yang dilewati konten,
- * dan gerak yang tunduk pada preferensi sistem.
+ * Palet: near-black HANGAT (#141210) turunan Sectors, bukan blue-black, dengan
+ * aksen keluarga Spectral. Struktur permukaan: kaca bertingkat di atas latar
+ * gelap — tiap permukaan punya rim spekular di tepi atas, garis 1px tempat
+ * cahaya tersangkut di bibir material. Tanpa rim itu yang terbaca cuma kotak
+ * transparan, bukan kaca.
  *
- * Font memakai system-ui, bukan webfont. Situs ini harus jalan dari clone
- * bersih tanpa jaringan, jadi tidak ada CDN dan tidak ada file font.
+ * Halaman ini shell ber-view, bukan satu gulungan panjang: satu layar satu
+ * gagasan, dan sisa informasinya dipanggil lewat nav, tidak ditumpahkan
+ * sekaligus.
+ *
+ * Font memakai system-ui. Situs wajib terbuka dari clone bersih tanpa
+ * jaringan, jadi tidak ada webfont dan tidak ada CDN.
  */
 
 :root {
-  /* Permukaan, dari paling dalam ke paling menonjol. */
   --bg: #141210;
-  --bg-elev: #1c1917;
-  --surface: #24211e;
-  --surface-hi: #2b2724;
+  --bg-deep: #0d0b0a;
 
-  /* Tinta. Tiga tingkat saja; lebih dari itu hierarki jadi kabur. */
+  /* Tingkat kaca. Angka alpha-nya kecil dengan sengaja: yang membuat
+   * permukaan terbaca bukan isinya, melainkan rim dan bayangannya. */
+  --glass-1: rgba(255, 255, 255, 0.04);
+  --glass-2: rgba(255, 255, 255, 0.06);
+  --glass-3: rgba(255, 255, 255, 0.09);
+
+  --rim: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  --rim-soft: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --rim-under: inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+
+  /* Bayangan berpasangan menurut ketebalan: makin besar permukaan, makin
+   * dalam bayangannya dan makin kuat rim atasnya. */
+  --lift-chip: 0 2px 16px rgba(0, 0, 0, 0.25), var(--rim);
+  --lift-card: 0 8px 40px rgba(0, 0, 0, 0.45), var(--rim);
+  --lift-panel: 0 24px 80px rgba(0, 0, 0, 0.5), var(--rim), var(--rim-under);
+
+  --edge: rgba(255, 255, 255, 0.10);
+  --edge-hi: rgba(255, 255, 255, 0.18);
+
   --ink: #efece7;
   --ink-2: #d4d0c4;
   --ink-3: #948f85;
 
-  --hairline: rgba(239, 236, 231, 0.10);
-  --hairline-hi: rgba(239, 236, 231, 0.18);
-
-  /* Aksen. Hijau sage untuk garis harga, merah untuk pembekuan resmi,
-   * amber untuk peringatan. Abu untuk yang hanya tersimpulkan -- statusnya
-   * memang lebih lemah, jadi warnanya juga harus lebih lemah. */
   --accent: #abdda4;
   --danger: #d53e50;
   --warn: #fdaf61;
@@ -37,49 +50,54 @@
   --band-inferred: rgba(148, 143, 133, 0.12);
   --band-inferred-edge: rgba(148, 143, 133, 0.45);
 
-  --radius: 8px;
-  --radius-sm: 6px;
-  --radius-pill: 999px;
+  --r-pill: 999px;
+  --r-lg: 22px;
+  --r-md: 14px;
+  --r-sm: 9px;
 
-  /* Skala jarak 4px. Setiap nilai di bawah adalah kelipatannya, tidak ada
-   * angka yang muncul tanpa alasan. */
-  --s1: 0.25rem;
-  --s2: 0.5rem;
-  --s3: 0.75rem;
-  --s4: 1rem;
-  --s6: 1.5rem;
-  --s8: 2rem;
-  --s12: 3rem;
-  --s16: 4rem;
+  --s1: 0.25rem; --s2: 0.5rem;  --s3: 0.75rem; --s4: 1rem;
+  --s5: 1.25rem; --s6: 1.5rem;  --s8: 2rem;    --s10: 2.5rem;
+  --s12: 3rem;   --s16: 4rem;
 
-  --measure: 68ch;
-  --shell: 68rem;
+  --measure: 64ch;
+  --shell: 74rem;
 
-  /* Spring kritis teredam: tegas, tanpa overshoot. Overshoot hanya pantas
-   * kalau gesturnya sendiri membawa momentum, dan halaman ini tidak punya. */
-  --ease: cubic-bezier(0.32, 0.72, 0, 1);
-  --fast: 140ms;
-  --slow: 320ms;
+  /* Expo-out: melesat lalu mengendap. Masuk boleh sedikit lebih lama dari
+   * keluar -- yang keluar tugasnya minggir, bukan tampil. */
+  --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 0.6, 1);
+  --ease-std: cubic-bezier(0.4, 0, 0.2, 1);
+  --t-in: 260ms;
+  --t-out: 140ms;
+  --t-hover: 200ms;
 }
 
 * { box-sizing: border-box; }
 
-html {
-  scroll-behavior: smooth;
-  /* Jangan sampai heading tersembunyi di balik chrome translusen saat
-   * melompat lewat anchor. */
-  scroll-padding-top: 5rem;
-}
+html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
   background: var(--bg);
   color: var(--ink);
-  /* 15px, mengikuti Sectors. Semua jarak dalam rem supaya layout ikut
-   * membesar kalau pembaca menaikkan ukuran teks sistem. */
   font: 0.9375rem/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Glow ambient. Diam saat konten bergerak -- fixed, bukan ikut gulir, dan
+ * tidak berdenyut: osilasi lambat di halaman data terbaca sebagai alarm. */
+.glow {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(70rem 40rem at 12% -10%, rgba(171, 221, 164, 0.07), transparent 60%),
+    radial-gradient(60rem 36rem at 105% 110%, rgba(253, 175, 97, 0.05), transparent 55%);
 }
 
 /* ---------- Tipografi ----------
@@ -89,168 +107,261 @@ body {
 h1, h2, h3 { font-weight: 600; margin: 0; }
 
 .display {
-  font-size: clamp(2.25rem, 5vw, 3.25rem);
-  line-height: 1.04;
-  letter-spacing: -0.028em;
+  font-size: clamp(2.125rem, 5.2vw, 3.5rem);
+  line-height: 1.03;
+  letter-spacing: -0.03em;
 }
 
-h2 {
-  font-size: clamp(1.25rem, 2.2vw, 1.5rem);
-  line-height: 1.18;
-  letter-spacing: -0.015em;
-}
-
-h3 {
-  font-size: 1rem;
-  line-height: 1.3;
-  letter-spacing: -0.008em;
-}
+h2 { font-size: clamp(1.1875rem, 2.2vw, 1.5rem); line-height: 1.18; letter-spacing: -0.015em; }
+h3 { font-size: 0.9375rem; line-height: 1.35; letter-spacing: -0.006em; }
 
 p { margin: 0 0 var(--s4); max-width: var(--measure); }
 
 .eyebrow {
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   line-height: 1.4;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--ink-3);
   margin: 0 0 var(--s2);
 }
 
-a { color: var(--accent); text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent); }
+a { color: var(--accent); text-decoration-color: rgba(171, 221, 164, 0.4); }
 a:hover { text-decoration-color: currentColor; }
 
-/* ---------- Chrome translusen ----------
- * Konten lewat DI BAWAH nav, bukan didorong oleh strip opak. Pemisahnya
- * gradien tipis di tepi gulir, bukan garis 1px. */
+/* ---------- Topbar ---------- */
 
-.site-nav {
+.topbar {
   position: sticky;
   top: 0;
-  z-index: 10;
-  background: color-mix(in srgb, var(--bg) 72%, transparent);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  z-index: 20;
+  flex: none;
+  background: rgba(20, 18, 16, 0.62);
+  backdrop-filter: blur(24px) saturate(170%);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+  box-shadow: var(--rim-soft), 0 1px 0 rgba(0, 0, 0, 0.5);
 }
 
-.site-nav::after {
-  content: "";
-  position: absolute;
-  left: 0; right: 0; top: 100%;
-  height: var(--s4);
-  background: linear-gradient(to bottom, color-mix(in srgb, var(--bg) 80%, transparent), transparent);
-  pointer-events: none;
-}
-
-.nav-inner {
+.topbar-inner {
   max-width: var(--shell);
   margin: 0 auto;
   padding: var(--s3) var(--s6);
   display: flex;
   align-items: center;
-  gap: var(--s6);
+  gap: var(--s5);
 }
 
 .wordmark {
-  font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
   color: var(--ink);
   text-decoration: none;
   white-space: nowrap;
 }
 
-.nav-links {
+/* Segmented control. Pill, karena bentuk itu yang membaca sebagai "pilih
+ * salah satu" -- bukan "tautan ke tempat lain". */
+.segmented {
   display: flex;
   gap: var(--s1);
   margin-left: auto;
+  padding: var(--s1);
+  border-radius: var(--r-pill);
+  background: var(--glass-1);
+  box-shadow: var(--rim-soft);
   overflow-x: auto;
   scrollbar-width: none;
+  max-width: 100%;
 }
-.nav-links::-webkit-scrollbar { display: none; }
+.segmented::-webkit-scrollbar { display: none; }
 
-.nav-links a {
+.segmented a {
   color: var(--ink-3);
   text-decoration: none;
   font-size: 0.8125rem;
   letter-spacing: 0.004em;
-  padding: var(--s1) var(--s3);
-  border-radius: var(--radius-pill);
+  padding: var(--s2) var(--s4);
+  border-radius: var(--r-pill);
   white-space: nowrap;
-  transition: color var(--fast) var(--ease), background var(--fast) var(--ease);
+  transition: color var(--t-hover) var(--ease-std),
+              background var(--t-hover) var(--ease-std),
+              box-shadow var(--t-hover) var(--ease-std);
 }
-.nav-links a:hover { color: var(--ink-2); }
+.segmented a:hover { color: var(--ink-2); }
 /* Umpan balik hadir saat ditekan, bukan saat dilepas. */
-.nav-links a:active { background: var(--surface-hi); color: var(--ink); }
-.nav-links a[aria-current="true"] { color: var(--ink); background: var(--surface); }
+.segmented a:active { background: var(--glass-3); transition: none; }
+.segmented a[aria-current="page"] {
+  color: var(--ink);
+  background: var(--glass-2);
+  box-shadow: var(--lift-chip);
+}
 
-/* ---------- Tata letak ---------- */
+.segmented.sub {
+  margin-left: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+.segmented.sub a { font-size: 0.75rem; padding: var(--s1) var(--s3); }
 
-.hero {
+/* ---------- Stage dan view ----------
+ * Yang bergulir adalah view yang aktif, bukan halaman. Topbar dan footer
+ * tetap di tempat, jadi tidak ada gulungan sepanjang delapan ribu piksel. */
+
+.stage {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+
+.view {
+  display: none;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   max-width: var(--shell);
   margin: 0 auto;
-  padding: var(--s16) var(--s6) var(--s12);
+  width: 100%;
+  padding: var(--s8) var(--s6) var(--s10);
+  outline: none;
+}
+
+.view[data-active] {
+  display: block;
+  animation: view-in var(--t-in) var(--ease-enter) both;
+}
+
+@keyframes view-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.994); }
+  to   { opacity: 1; transform: none; }
+}
+
+.view-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s4);
+  margin-bottom: var(--s6);
+}
+.view-note {
+  color: var(--ink-3);
+  font-size: 0.8125rem;
+  letter-spacing: 0.006em;
+  margin: 0;
+  max-width: 38ch;
+}
+
+/* ---------- Beranda ---------- */
+
+.hero {
+  min-height: calc(100dvh - 14rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .hero .lede {
   font-size: 1.0625rem;
   line-height: 1.55;
   color: var(--ink-2);
+  margin-top: var(--s5);
+}
+
+.cta { display: flex; flex-wrap: wrap; gap: var(--s3); margin-top: var(--s8); }
+
+.pill {
+  display: inline-block;
+  padding: var(--s3) var(--s6);
+  border-radius: var(--r-pill);
+  background: var(--glass-2);
+  box-shadow: var(--lift-chip);
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: background var(--t-hover) var(--ease-std),
+              box-shadow var(--t-hover) var(--ease-std);
+}
+.pill:hover { background: var(--glass-3); box-shadow: var(--lift-card); }
+.pill:active { background: var(--glass-3); transition: none; }
+.pill.primary {
+  background: rgba(171, 221, 164, 0.14);
+  /* Halo warna ikut menempel di bayangan, bukan jadi elemen sendiri. */
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.25), 0 0 24px rgba(171, 221, 164, 0.10), var(--rim);
+  color: var(--accent);
+}
+.pill.primary:hover {
+  background: rgba(171, 221, 164, 0.20);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45), 0 0 36px rgba(171, 221, 164, 0.16), var(--rim);
+}
+
+/* ---------- Kaca: kartu, panel, tile ---------- */
+
+.panel, .tile, .card {
+  background: var(--glass-1);
+  border-radius: var(--r-md);
+  box-shadow: var(--lift-card);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+}
+
+.panel { padding: var(--s5); border-radius: var(--r-lg); box-shadow: var(--lift-panel); }
+.chart-panel { padding: var(--s4); }
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: var(--s3);
   margin-top: var(--s6);
 }
 
-main { max-width: var(--shell); margin: 0 auto; padding: 0 var(--s6) var(--s16); }
-
-section { margin: var(--s16) 0; scroll-margin-top: 5rem; }
-section > h2 { margin-bottom: var(--s2); }
-.section-intro { color: var(--ink-2); margin-bottom: var(--s6); }
-
-/* ---------- Kartu ----------
- * Permukaan lebih besar dibuat terbaca lebih tebal: blur lebih kuat dan
- * bayangan lebih dalam daripada chip kecil. */
-
-.card, .chart-slot, .annotation, .panel {
-  background: var(--surface);
-  border: 1px solid var(--hairline);
-  border-radius: var(--radius);
-}
-
-.chart-slot {
-  padding: var(--s4);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.28);
-}
-
-.annotations {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
-  gap: var(--s3);
-  margin-top: var(--s4);
-}
-
-.annotation { padding: var(--s4); }
-.annotation .value {
+.tile { padding: var(--s4) var(--s5); }
+.tile .value {
   font-size: 1.75rem;
   line-height: 1.1;
   letter-spacing: -0.02em;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
-.annotation .label {
+.tile .label {
   color: var(--ink-3);
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   line-height: 1.45;
-  letter-spacing: 0.006em;
+  letter-spacing: 0.01em;
   margin-top: var(--s2);
 }
 
-.panel { padding: var(--s6); margin: var(--s6) 0; }
-.panel h3 { margin-bottom: var(--s3); }
+/* Kaca menebal saat disentuh: rim, bayangan, dan isian naik bersamaan. */
+.card {
+  padding: var(--s4);
+  transition: background var(--t-hover) var(--ease-std),
+              box-shadow var(--t-hover) var(--ease-std),
+              transform var(--t-hover) var(--ease-std);
+}
+.card:hover {
+  background: var(--glass-2);
+  box-shadow: 0 12px 44px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  transform: translateY(-1px);
+}
+.card:active { transform: none; transition: none; }
+
+/* ---------- Tab di dalam view ---------- */
+
+.tab-panel { display: none; }
+.tab-panel[data-active] {
+  display: block;
+  animation: view-in var(--t-in) var(--ease-enter) both;
+}
 
 /* ---------- Grafik ---------- */
 
 .price-chart { width: 100%; height: auto; display: block; overflow: visible; }
 .price-line { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
 .price-area { fill: url(#priceFill); }
-.grid { stroke: var(--hairline); stroke-width: 1; }
+.grid { stroke: rgba(255, 255, 255, 0.07); stroke-width: 1; }
 .axis-label { fill: var(--ink-3); font-size: 11px; letter-spacing: 0.02em; }
 .axis-label.y { text-anchor: end; }
 .axis-label.x { text-anchor: middle; }
@@ -261,11 +372,11 @@ section > h2 { margin-bottom: var(--s2); }
 .freeze-band.inferred-edge { stroke: var(--band-inferred-edge); stroke-width: 1; stroke-dasharray: 3 3; }
 
 .freeze-label { font-size: 10px; letter-spacing: 0.02em; text-anchor: middle; }
-.freeze-label.confirmed { fill: color-mix(in srgb, var(--danger) 70%, var(--ink)); }
+.freeze-label.confirmed { fill: #e8909a; }
 .freeze-label.inferred { fill: var(--ink-3); }
 
 .hit { fill: transparent; }
-.crosshair { stroke: var(--hairline-hi); stroke-width: 1; }
+.crosshair { stroke: var(--edge-hi); stroke-width: 1; }
 .focus-dot { fill: var(--accent); stroke: var(--bg); stroke-width: 2; }
 
 .readout {
@@ -274,17 +385,13 @@ section > h2 { margin-bottom: var(--s2); }
   gap: var(--s4);
   margin-top: var(--s3);
   padding-top: var(--s3);
-  border-top: 1px solid var(--hairline);
+  border-top: 1px solid var(--edge);
   font-size: 0.8125rem;
   color: var(--ink-3);
   letter-spacing: 0.006em;
   min-height: 1.5rem;
 }
-.readout strong {
-  color: var(--ink);
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-}
+.readout strong { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
 
 .chart-legend {
   display: flex;
@@ -297,27 +404,30 @@ section > h2 { margin-bottom: var(--s2); }
 }
 .chart-legend span { display: inline-flex; align-items: center; gap: var(--s2); }
 .swatch { width: 0.75rem; height: 0.75rem; border-radius: 3px; flex: none; }
-/* Swatch memakai warna band yang SUDAH dikomposit di atas permukaan kartu.
- * Menaruh warna ber-alpha 0,12 langsung di sini membuat kotaknya terbaca
- * sebagai kotak kosong, bukan sebagai contoh warna band. */
-.swatch.confirmed { background: #472728; border: 1px solid var(--band-confirmed-edge); }
-.swatch.inferred { background: #312e2a; border: 1px dashed var(--band-inferred-edge); }
+/* Warna band yang SUDAH dikomposit di atas permukaan kartu: alpha 0,12
+ * mentah di sini akan terbaca sebagai kotak kosong. */
+.swatch.confirmed { background: #3d2626; border: 1px solid var(--band-confirmed-edge); }
+.swatch.inferred { background: #2a2825; border: 1px dashed var(--band-inferred-edge); }
 
-/* ---------- Tabel ---------- */
+/* ---------- Tabel ----------
+ * Tabel panjang bergulir DI DALAM panelnya sendiri dengan kepala lengket,
+ * supaya daftar 50 kejadian tidak memanjangkan halaman. */
 
 .table-wrap {
-  border: 1px solid var(--hairline);
-  border-radius: var(--radius);
+  border-radius: var(--r-md);
   overflow: auto;
-  background: var(--bg-elev);
+  max-height: min(26rem, 56dvh);
+  background: rgba(0, 0, 0, 0.22);
+  box-shadow: var(--rim-soft);
+  overscroll-behavior: contain;
 }
 
-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+table { width: 100%; border-collapse: collapse; font-size: 0.8125rem; }
 
 th, td {
   text-align: left;
   padding: var(--s3);
-  border-bottom: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--edge);
   vertical-align: top;
 }
 tbody tr:last-child td { border-bottom: 0; }
@@ -325,22 +435,77 @@ tbody tr:last-child td { border-bottom: 0; }
 thead th {
   position: sticky;
   top: 0;
-  background: var(--surface);
+  z-index: 1;
+  background: #1d1a18;
   color: var(--ink-3);
   font-weight: 500;
-  font-size: 0.75rem;
-  letter-spacing: 0.06em;
+  font-size: 0.6875rem;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   white-space: nowrap;
+  box-shadow: var(--rim-soft);
 }
 
 td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+/* Warna hanya menegaskan tanda yang sudah tertulis di angkanya. */
 .pos { color: var(--accent); }
 .neg { color: var(--danger); }
 
-tbody tr { transition: background var(--fast) var(--ease); }
-tbody tr:hover { background: color-mix(in srgb, var(--ink) 3%, transparent); }
-tbody tr:active { background: color-mix(in srgb, var(--ink) 6%, transparent); transition: none; }
+tbody tr { transition: background var(--t-hover) var(--ease-std); }
+tbody tr:hover { background: rgba(255, 255, 255, 0.03); }
+tbody tr:active { background: rgba(255, 255, 255, 0.06); transition: none; }
+
+.row-count {
+  font-size: 0.75rem;
+  color: var(--ink-3);
+  letter-spacing: 0.01em;
+  margin: var(--s2) 0 0;
+}
+
+/* ---------- Grid kartu daftar pantau ---------- */
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: var(--s3);
+  max-height: min(30rem, 58dvh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--s1);
+  margin: calc(var(--s1) * -1);
+}
+
+.card .sym {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s2);
+  margin-bottom: var(--s3);
+}
+.card .sym strong { font-size: 0.9375rem; letter-spacing: -0.01em; }
+.card .ret { font-size: 1.25rem; font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+
+.card .meta {
+  display: flex;
+  gap: var(--s4);
+  font-size: 0.75rem;
+  color: var(--ink-3);
+  margin-bottom: var(--s3);
+  font-variant-numeric: tabular-nums;
+}
+
+.card details { margin-top: var(--s3); }
+.card summary {
+  cursor: pointer;
+  font-size: 0.75rem;
+  color: var(--ink-3);
+  letter-spacing: 0.01em;
+  list-style: none;
+}
+.card summary::-webkit-details-marker { display: none; }
+.card summary::after { content: " ↓"; }
+.card details[open] summary::after { content: " ↑"; }
+.card details p { font-size: 0.75rem; line-height: 1.5; color: var(--ink-3); margin: var(--s2) 0 0; }
 
 /* ---------- Chip ---------- */
 
@@ -348,8 +513,9 @@ tbody tr:active { background: color-mix(in srgb, var(--ink) 6%, transparent); tr
   display: inline-block;
   padding: var(--s1) var(--s2);
   margin: 0 var(--s1) var(--s1) 0;
-  border: 1px solid var(--hairline-hi);
-  border-radius: var(--radius-pill);
+  border-radius: var(--r-pill);
+  background: var(--glass-1);
+  box-shadow: var(--rim-soft);
   font-size: 0.6875rem;
   line-height: 1.5;
   letter-spacing: 0.01em;
@@ -357,41 +523,65 @@ tbody tr:active { background: color-mix(in srgb, var(--ink) 6%, transparent); tr
   white-space: nowrap;
 }
 /* Garis putus menandai "kondisi sekarang" -- nilainya diambil hari ini,
- * bukan pada tanggal historis. Perbedaan ini wajib terlihat. */
-.chip.now { border-style: dashed; color: var(--ink-3); }
+ * bukan pada tanggal historis. Perbedaan itu wajib terlihat. */
+.chip.now { border: 1px dashed var(--edge-hi); box-shadow: none; color: var(--ink-3); }
 
 /* ---------- Teks sekunder ---------- */
 
 .caveat, .disclaimer, .insufficient {
   color: var(--ink-3);
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   line-height: 1.55;
-  letter-spacing: 0.006em;
+  letter-spacing: 0.008em;
 }
-.caveat { max-width: var(--measure); }
+.caveat { max-width: var(--measure); margin-top: var(--s3); }
 .insufficient { font-style: italic; }
 
 .error-banner {
-  background: color-mix(in srgb, var(--danger) 16%, var(--bg));
-  color: color-mix(in srgb, var(--danger) 40%, var(--ink));
-  border: 1px solid color-mix(in srgb, var(--danger) 45%, transparent);
-  border-radius: var(--radius);
+  background: rgba(213, 62, 80, 0.14);
+  color: #f0a5ad;
+  border-radius: var(--r-md);
+  box-shadow: var(--rim), 0 8px 32px rgba(0, 0, 0, 0.4);
   padding: var(--s3) var(--s4);
   margin: var(--s4) 0;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
 }
 
-footer {
-  border-top: 1px solid var(--hairline);
-  background: var(--bg-elev);
-  padding: var(--s8) var(--s6);
+.footnote {
+  flex: none;
+  position: relative;
+  z-index: 1;
+  padding: var(--s4) var(--s6);
+  background: rgba(13, 11, 10, 0.72);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  box-shadow: var(--rim-soft);
 }
-footer .disclaimer { max-width: var(--shell); margin: 0 auto; }
-footer strong { color: var(--ink-2); }
+.footnote .disclaimer { max-width: var(--shell); margin: 0 auto; }
+.footnote strong { color: var(--ink-2); }
+
+/* Scrollbar ikut jadi bagian material, bukan kontrol sistem yang nyelonong. */
+* { scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, 0.14) transparent; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.10);
+  border-radius: var(--r-pill);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10);
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.16); }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: var(--r-sm); }
+
+/* View difokuskan lewat skrip saat berpindah, semata supaya pembaca layar
+ * ikut berpindah. Itu memindahkan kursor baca, bukan menyorot kontrol, jadi
+ * cincinnya ditiadakan -- fokus papan ketik yang sebenarnya tetap terlihat
+ * pada tautan dan pengungkap di dalamnya. */
+.view:focus, .view:focus-visible { outline: none; }
 
 /* ---------- Preferensi sistem ----------
- * Tiga sinyal, ditangani terpisah. Reduced motion bukan berarti tanpa
- * umpan balik -- perubahan warna tetap jalan, yang hilang hanya gerak. */
+ * Tiga sinyal, ditangani terpisah, dan semuanya menyeluruh -- tidak ada
+ * animasi bernama yang lolos karena tidak ikut disebut. */
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -400,36 +590,28 @@ footer strong { color: var(--ink-2); }
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+  .view[data-active], .tab-panel[data-active] { animation: none; }
+  .card:hover { transform: none; }
 }
 
 @media (prefers-reduced-transparency: reduce) {
-  .site-nav {
-    background: var(--bg);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    border-bottom: 1px solid var(--hairline);
-  }
-  .site-nav::after { display: none; }
+  .topbar, .footnote { background: var(--bg-deep); backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .panel, .tile, .card { background: #211e1b; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .glow { display: none; }
 }
 
 @media (prefers-contrast: more) {
-  :root {
-    --hairline: rgba(239, 236, 231, 0.30);
-    --hairline-hi: rgba(239, 236, 231, 0.45);
-    --ink-3: #b8b3a8;
-  }
-  .site-nav { background: var(--bg); backdrop-filter: none; -webkit-backdrop-filter: none; }
-  .chip { border-width: 1px; }
+  :root { --edge: rgba(239, 236, 231, 0.3); --edge-hi: rgba(239, 236, 231, 0.45); --ink-3: #b8b3a8; }
+  .topbar, .footnote { background: var(--bg-deep); backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .panel, .tile, .card { background: #211e1b; border: 1px solid var(--edge); backdrop-filter: none; }
+  .glow { display: none; }
 }
 
-:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-  border-radius: var(--radius-sm);
-}
-
-@media (max-width: 40rem) {
-  .nav-inner, .hero, main { padding-left: var(--s4); padding-right: var(--s4); }
-  .hero { padding-top: var(--s12); padding-bottom: var(--s8); }
-  section { margin: var(--s12) 0; }
+@media (max-width: 52rem) {
+  .topbar-inner { flex-wrap: wrap; gap: var(--s3); padding: var(--s3) var(--s4); }
+  .segmented { margin-left: 0; width: 100%; }
+  .view { padding: var(--s6) var(--s4) var(--s8); }
+  .hero { min-height: 0; padding: var(--s6) 0; }
+  .view-head { flex-direction: column; align-items: flex-start; }
+  .card-grid, .table-wrap { max-height: none; }
 }

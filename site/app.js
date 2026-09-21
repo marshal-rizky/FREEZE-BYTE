@@ -52,7 +52,7 @@ function annotate(container, alka) {
   }
 
   container.innerHTML = cards
-    .map((c) => `<div class="annotation"><div class="value">${c.value}</div><div class="label">${c.label}</div></div>`)
+    .map((c) => `<div class="tile"><div class="value">${c.value}</div><div class="label">${c.label}</div></div>`)
     .join("");
 }
 
@@ -107,7 +107,8 @@ function renderEvents(container, events) {
        Setiap baris tertaut ke PDF pengumuman resmi IDX.</p>
     ${wrapTable(
       `<tr><th>Emiten</th><th>Tanggal suspensi</th><th>Return 10 baris</th>
-       <th>Rasio volume</th><th>Saat dibuka</th><th>Bukti</th></tr>`, rows)}`;
+       <th>Rasio volume</th><th>Saat dibuka</th><th>Bukti</th></tr>`, rows)}
+    <p class="row-count">${events.length} kejadian, bergulir di dalam panel.</p>`;
 }
 
 const STRUCTURAL_LABELS = {
@@ -133,39 +134,55 @@ function renderWatchlist(container, watchlist, baserates) {
 
   const lookup = Object.fromEntries(baserates.buckets.map((b) => [b.bucket, b]));
 
-  const rows = watchlist
+  // Satu kartu per emiten, bukan satu baris tabel. Penjelasan komposisi
+  // kelompoknya panjang dan sama bentuknya untuk setiap emiten; dulu ia
+  // diulang utuh di enam belas baris sekaligus dan itulah yang membuat
+  // bagian ini terbaca sebagai dinding teks. Sekarang ia ada di balik
+  // pengungkap -- tetap tersedia, tidak lagi dipaksakan.
+  const cards = watchlist
     .map((row) => {
       const rate = lookup[row.bucket];
-      let rateCell = `<span class="insufficient">sampel tidak cukup</span>`;
+      let detail = `<p class="insufficient">Bucket ini belum punya cukup sampel
+                    untuk dibandingkan.</p>`;
       if (rate && rate.sufficient) {
         // C2: n_frozen_within_30d di sini SELALU sama dengan jumlah anggota
         // bucket yang berasal dari arm kejadian (frozen_within_30d dipatok
         // True untuk seluruh arm kejadian dan tidak pernah True untuk
         // kontrol di bawah definisi pick_controls saat ini). Jadi angka ini
         // adalah komposisi sampel case-control, bukan frekuensi pembekuan
-        // yang teramati di populasi pasar -- lihat caveat di bawah tabel.
-        rateCell = `${rate.n_events} dari ${rate.n} emiten di bucket ini adalah
-                    kejadian suspensi, sisanya kontrol. Sampel disusun berpasangan
-                    (${baserates.n_events} kejadian, ${baserates.n_controls} kontrol),
-                    jadi angka ini membedakan kelompok &mdash; bukan frekuensi populasi.`;
+        // yang teramati di populasi pasar -- lihat caveat di bawah grid.
+        detail = `<p>${rate.n_events} dari ${rate.n} emiten di bucket ini adalah
+                  kejadian suspensi, sisanya kontrol. Sampel disusun berpasangan
+                  (${baserates.n_events} kejadian, ${baserates.n_controls} kontrol),
+                  jadi angka ini membedakan kelompok &mdash; bukan frekuensi
+                  populasi.</p>`;
       }
-      return `<tr>
-        <td><strong>${row.symbol}</strong><br>${chips(row.structural)}</td>
-        ${pctCell(row.features.ret_10d)}
-        <td class="num">${ratio(row.features.vol_ratio)}</td>
-        <td class="num">${row.features.prior_freeze_count}</td>
-        <td>${rateCell}</td>
-      </tr>`;
+      const insufficient = !(rate && rate.sufficient);
+      return `<article class="card">
+        <div class="sym">
+          <strong>${row.symbol}</strong>
+          <span class="ret${sign(row.features.ret_10d)}">${fmtPct(row.features.ret_10d)}</span>
+        </div>
+        <div class="meta">
+          <span>vol ${ratio(row.features.vol_ratio)}</span>
+          <span>pernah beku ${row.features.prior_freeze_count}</span>
+        </div>
+        ${chips(row.structural)}
+        <details>
+          <summary>${insufficient ? "sampel tidak cukup" : "komposisi kelompoknya"}</summary>
+          ${detail}
+        </details>
+      </article>`;
     })
     .join("");
 
   container.innerHTML = `
-    ${wrapTable(
-      `<tr><th>Emiten dan kondisi struktural</th><th>Return 10 baris</th>
-       <th>Rasio volume</th><th>Pernah beku</th><th>Komposisi kelompoknya</th></tr>`, rows)}
+    <div class="card-grid">${cards}</div>
+    <p class="row-count">${watchlist.length} emiten memenuhi syarat data pada build terakhir.</p>
     <p class="caveat">Bucket dengan kurang dari ${baserates.min_sample} kejadian
-      ditampilkan sebagai "sampel tidak cukup", bukan angka. Kolom terakhir
-      BUKAN base rate populasi: sampel forensik disusun berpasangan 1:1
+      ditampilkan sebagai "sampel tidak cukup", bukan angka. Komposisi
+      kelompok di tiap kartu BUKAN base rate populasi: sampel forensik
+      disusun berpasangan 1:1
       (${baserates.n_events} kejadian, ${baserates.n_controls} kontrol) by
       design, sehingga pecahan kejadian di tiap bucket bergravitasi ke
       sekitar 50% terlepas dari seberapa jarang pembekuan sungguhan terjadi
@@ -279,6 +296,26 @@ function renderRegulatoryContext(container) {
       papan pemantauan khusus &rarr; 1 tahun &rarr; suspensi.</p>`;
 }
 
+function renderHomeTiles(container, coverage, distribution) {
+  // Tiga angka yang menjawab "kenapa saya harus peduli" sebelum pembaca
+  // menekan apa pun. Semuanya dibaca dari JSON, tidak satu pun ditulis
+  // tangan di sini.
+  const events = summarise((distribution.events || []).map((i) => i.ret_10d));
+  const tiles = [
+    { value: coverage.total_suspension_records, label: "record suspensi IDX yang tercatat" },
+    { value: coverage.analyzed, label: `dari ${coverage.total} sampel forensik bisa dianalisis` },
+  ];
+  if (events) {
+    tiles.push({
+      value: fmtPct(events.median),
+      label: "median kenaikan 10 hari bursa sebelum dibekukan",
+    });
+  }
+  container.innerHTML = tiles
+    .map((t) => `<div class="tile"><div class="value">${t.value}</div><div class="label">${t.label}</div></div>`)
+    .join("");
+}
+
 // I6: setiap render dibungkus try/catch sendiri, menulis kegagalan ke
 // container bagiannya sendiri saja -- supaya satu bagian yang gagal tidak
 // menimpa grafik yang sudah berhasil digambar atau membuat enam bagian lain
@@ -300,6 +337,7 @@ async function main() {
       load("coverage"), load("meta"), load("distribution"),
     ]);
 
+  renderSection("home-tiles", (c) => renderHomeTiles(c, coverage, distribution));
   renderSection("alka-chart", (c) =>
     renderPriceChart(c, alka, document.getElementById("alka-readout")));
   renderSection("alka-annotations", (c) => annotate(c, alka));
