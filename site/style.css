@@ -1,22 +1,20 @@
 /* FREEZE BYTE — sistem visual.
  *
- * Palet: near-black HANGAT (#141210) turunan Sectors, bukan blue-black, dengan
- * aksen keluarga Spectral. Struktur permukaan: kaca bertingkat di atas latar
- * gelap — tiap permukaan punya rim spekular di tepi atas, garis 1px tempat
- * cahaya tersangkut di bibir material. Tanpa rim itu yang terbaca cuma kotak
- * transparan, bukan kaca.
+ * Palet biru dingin di atas near-black bernada biru. Struktur permukaan:
+ * kaca bertingkat — tiap permukaan punya rim spekular di tepi atas, garis
+ * 1px tempat cahaya tersangkut di bibir material. Tanpa rim itu yang terbaca
+ * cuma kotak transparan, bukan kaca.
  *
  * Halaman ini shell ber-view, bukan satu gulungan panjang: satu layar satu
- * gagasan, dan sisa informasinya dipanggil lewat nav, tidak ditumpahkan
- * sekaligus.
+ * gagasan, sisanya dipanggil lewat nav.
  *
  * Font memakai system-ui. Situs wajib terbuka dari clone bersih tanpa
  * jaringan, jadi tidak ada webfont dan tidak ada CDN.
  */
 
 :root {
-  --bg: #141210;
-  --bg-deep: #0d0b0a;
+  --bg: #0b0e14;
+  --bg-deep: #070910;
 
   /* Tingkat kaca. Angka alpha-nya kecil dengan sengaja: yang membuat
    * permukaan terbaca bukan isinya, melainkan rim dan bayangannya. */
@@ -37,18 +35,24 @@
   --edge: rgba(255, 255, 255, 0.10);
   --edge-hi: rgba(255, 255, 255, 0.18);
 
-  --ink: #efece7;
-  --ink-2: #d4d0c4;
-  --ink-3: #948f85;
+  --ink: #e9eef7;
+  --ink-2: #b9c4d6;
+  --ink-3: #7c8799;
 
-  --accent: #abdda4;
-  --danger: #d53e50;
-  --warn: #fdaf61;
+  /* Biru untuk garis harga dan aksi utama. Hijau mint dan merah hanya untuk
+   * tanda angka -- dan keduanya cuma menegaskan tanda yang sudah tertulis di
+   * digitnya, jadi pembaca yang tidak membedakan warna tidak kehilangan apa
+   * pun. */
+  --accent: #5b9dff;
+  --accent-soft: rgba(91, 157, 255, 0.14);
+  --pos: #3ecf8e;
+  --danger: #f2555a;
+  --warn: #f5a524;
 
-  --band-confirmed: rgba(213, 62, 80, 0.20);
-  --band-confirmed-edge: rgba(213, 62, 80, 0.55);
-  --band-inferred: rgba(148, 143, 133, 0.12);
-  --band-inferred-edge: rgba(148, 143, 133, 0.45);
+  --band-confirmed: rgba(242, 85, 90, 0.20);
+  --band-confirmed-edge: rgba(242, 85, 90, 0.55);
+  --band-inferred: rgba(124, 135, 153, 0.14);
+  --band-inferred-edge: rgba(124, 135, 153, 0.45);
 
   --r-pill: 999px;
   --r-lg: 22px;
@@ -96,8 +100,8 @@ body {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(70rem 40rem at 12% -10%, rgba(171, 221, 164, 0.07), transparent 60%),
-    radial-gradient(60rem 36rem at 105% 110%, rgba(253, 175, 97, 0.05), transparent 55%);
+    radial-gradient(70rem 40rem at 12% -10%, rgba(91, 157, 255, 0.10), transparent 60%),
+    radial-gradient(60rem 36rem at 105% 110%, rgba(125, 106, 255, 0.07), transparent 55%);
 }
 
 /* ---------- Tipografi ----------
@@ -126,7 +130,7 @@ p { margin: 0 0 var(--s4); max-width: var(--measure); }
   margin: 0 0 var(--s2);
 }
 
-a { color: var(--accent); text-decoration-color: rgba(171, 221, 164, 0.4); }
+a { color: var(--accent); text-decoration-color: rgba(91, 157, 255, 0.45); }
 a:hover { text-decoration-color: currentColor; }
 
 /* ---------- Topbar ---------- */
@@ -136,7 +140,7 @@ a:hover { text-decoration-color: currentColor; }
   top: 0;
   z-index: 20;
   flex: none;
-  background: rgba(20, 18, 16, 0.62);
+  background: rgba(11, 14, 20, 0.62);
   backdrop-filter: blur(24px) saturate(170%);
   -webkit-backdrop-filter: blur(24px) saturate(170%);
   box-shadow: var(--rim-soft), 0 1px 0 rgba(0, 0, 0, 0.5);
@@ -288,14 +292,14 @@ a:hover { text-decoration-color: currentColor; }
 .pill:hover { background: var(--glass-3); box-shadow: var(--lift-card); }
 .pill:active { background: var(--glass-3); transition: none; }
 .pill.primary {
-  background: rgba(171, 221, 164, 0.14);
+  background: var(--accent-soft);
   /* Halo warna ikut menempel di bayangan, bukan jadi elemen sendiri. */
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.25), 0 0 24px rgba(171, 221, 164, 0.10), var(--rim);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.25), 0 0 24px rgba(91, 157, 255, 0.14), var(--rim);
   color: var(--accent);
 }
 .pill.primary:hover {
-  background: rgba(171, 221, 164, 0.20);
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45), 0 0 36px rgba(171, 221, 164, 0.16), var(--rim);
+  background: rgba(91, 157, 255, 0.22);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.45), 0 0 36px rgba(91, 157, 255, 0.22), var(--rim);
 }
 
 /* ---------- Kaca: kartu, panel, tile ---------- */
@@ -372,7 +376,7 @@ a:hover { text-decoration-color: currentColor; }
 .freeze-band.inferred-edge { stroke: var(--band-inferred-edge); stroke-width: 1; stroke-dasharray: 3 3; }
 
 .freeze-label { font-size: 10px; letter-spacing: 0.02em; text-anchor: middle; }
-.freeze-label.confirmed { fill: #e8909a; }
+.freeze-label.confirmed { fill: #f58b90; }
 .freeze-label.inferred { fill: var(--ink-3); }
 
 .hit { fill: transparent; }
@@ -406,8 +410,8 @@ a:hover { text-decoration-color: currentColor; }
 .swatch { width: 0.75rem; height: 0.75rem; border-radius: 3px; flex: none; }
 /* Warna band yang SUDAH dikomposit di atas permukaan kartu: alpha 0,12
  * mentah di sini akan terbaca sebagai kotak kosong. */
-.swatch.confirmed { background: #3d2626; border: 1px solid var(--band-confirmed-edge); }
-.swatch.inferred { background: #2a2825; border: 1px dashed var(--band-inferred-edge); }
+.swatch.confirmed { background: #2a1d22; border: 1px solid var(--band-confirmed-edge); }
+.swatch.inferred { background: #1c2029; border: 1px dashed var(--band-inferred-edge); }
 
 /* ---------- Tabel ----------
  * Tabel panjang bergulir DI DALAM panelnya sendiri dengan kepala lengket,
@@ -436,7 +440,7 @@ thead th {
   position: sticky;
   top: 0;
   z-index: 1;
-  background: #1d1a18;
+  background: #141922;
   color: var(--ink-3);
   font-weight: 500;
   font-size: 0.6875rem;
@@ -448,7 +452,7 @@ thead th {
 
 td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
 /* Warna hanya menegaskan tanda yang sudah tertulis di angkanya. */
-.pos { color: var(--accent); }
+.pos { color: var(--pos); }
 .neg { color: var(--danger); }
 
 tbody tr { transition: background var(--t-hover) var(--ease-std); }
@@ -552,7 +556,7 @@ tbody tr:active { background: rgba(255, 255, 255, 0.06); transition: none; }
   position: relative;
   z-index: 1;
   padding: var(--s4) var(--s6);
-  background: rgba(13, 11, 10, 0.72);
+  background: rgba(7, 9, 16, 0.72);
   backdrop-filter: blur(20px) saturate(150%);
   -webkit-backdrop-filter: blur(20px) saturate(150%);
   box-shadow: var(--rim-soft);
@@ -596,14 +600,14 @@ tbody tr:active { background: rgba(255, 255, 255, 0.06); transition: none; }
 
 @media (prefers-reduced-transparency: reduce) {
   .topbar, .footnote { background: var(--bg-deep); backdrop-filter: none; -webkit-backdrop-filter: none; }
-  .panel, .tile, .card { background: #211e1b; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .panel, .tile, .card { background: #161b24; backdrop-filter: none; -webkit-backdrop-filter: none; }
   .glow { display: none; }
 }
 
 @media (prefers-contrast: more) {
-  :root { --edge: rgba(239, 236, 231, 0.3); --edge-hi: rgba(239, 236, 231, 0.45); --ink-3: #b8b3a8; }
+  :root { --edge: rgba(233, 238, 247, 0.32); --edge-hi: rgba(233, 238, 247, 0.48); --ink-3: #a3adbf; }
   .topbar, .footnote { background: var(--bg-deep); backdrop-filter: none; -webkit-backdrop-filter: none; }
-  .panel, .tile, .card { background: #211e1b; border: 1px solid var(--edge); backdrop-filter: none; }
+  .panel, .tile, .card { background: #161b24; border: 1px solid var(--edge); backdrop-filter: none; }
   .glow { display: none; }
 }
 

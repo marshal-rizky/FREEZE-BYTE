@@ -80,7 +80,6 @@ function renderReasons(container, distribution) {
     .join("");
 
   container.innerHTML = `
-    <p>Alasan resmi dari ${total} record suspensi.</p>
     ${wrapTable(
       `<tr><th>Alasan</th><th>Jumlah</th><th>Proporsi</th></tr>`, rows)}`;
 }
@@ -103,12 +102,10 @@ function renderEvents(container, events) {
     .join("");
 
   container.innerHTML = `
-    <p>Kondisi setiap emiten pada hari bursa terakhir sebelum dibekukan.
-       Setiap baris tertaut ke PDF pengumuman resmi IDX.</p>
     ${wrapTable(
       `<tr><th>Emiten</th><th>Tanggal suspensi</th><th>Return 10 baris</th>
        <th>Rasio volume</th><th>Saat dibuka</th><th>Bukti</th></tr>`, rows)}
-    <p class="row-count">${events.length} kejadian, bergulir di dalam panel.</p>`;
+    <p class="row-count">${events.length} kejadian</p>`;
 }
 
 const STRUCTURAL_LABELS = {
@@ -178,18 +175,14 @@ function renderWatchlist(container, watchlist, baserates) {
 
   container.innerHTML = `
     <div class="card-grid">${cards}</div>
-    <p class="row-count">${watchlist.length} emiten memenuhi syarat data pada build terakhir.</p>
-    <p class="caveat">Bucket dengan kurang dari ${baserates.min_sample} kejadian
-      ditampilkan sebagai "sampel tidak cukup", bukan angka. Komposisi
-      kelompok di tiap kartu BUKAN base rate populasi: sampel forensik
-      disusun berpasangan 1:1
-      (${baserates.n_events} kejadian, ${baserates.n_controls} kontrol) by
-      design, sehingga pecahan kejadian di tiap bucket bergravitasi ke
-      sekitar 50% terlepas dari seberapa jarang pembekuan sungguhan terjadi
-      di pasar &mdash; base rate pembekuan yang sebenarnya jauh lebih rendah
-      dari itu. Penanda "kondisi sekarang" berarti nilai itu diambil hari
-      ini, bukan pada tanggal historis &mdash; tag emiten tidak tersedia
-      secara historis.</p>`;
+    <p class="row-count">${watchlist.length} emiten</p>
+    <p class="caveat">Komposisi kelompok <strong>bukan base rate populasi</strong>:
+      sampel disusun berpasangan 1:1 (${baserates.n_events} kejadian,
+      ${baserates.n_controls} kontrol), jadi pecahannya bergravitasi ke sekitar
+      50% dan base rate pembekuan sesungguhnya jauh lebih rendah. Bucket dengan
+      kurang dari ${baserates.min_sample} kejadian tidak diberi angka. Penanda
+      "kondisi sekarang" berarti nilainya diambil hari ini &mdash; tag emiten
+      tidak tersedia secara historis.</p>`;
 }
 
 function renderCoverage(container, coverage, meta) {
@@ -210,10 +203,9 @@ function renderCoverage(container, coverage, meta) {
     .join("");
   const watchlistSection = watchlist.total > 0
     ? `<h3>Kandidat daftar pantau</h3>
-       <p>Terpisah dari sampel forensik di atas: dari
-          <strong>${watchlist.total}</strong> <em>kandidat daftar pantau</em>
-          (bukan record suspensi), <strong>${watchlist.analyzed}</strong>
-          bisa dianalisis dan <strong>${watchlist.excluded}</strong> gugur.</p>
+       <p>Terpisah dari sampel forensik: dari <strong>${watchlist.total}</strong>
+          kandidat, <strong>${watchlist.analyzed}</strong> dianalisis,
+          <strong>${watchlist.excluded}</strong> gugur.</p>
        ${wrapTable(
          `<tr><th>Alasan gugur (kandidat daftar pantau)</th><th>Jumlah</th></tr>`,
          watchlistReasons)}`
@@ -221,11 +213,11 @@ function renderCoverage(container, coverage, meta) {
        <p class="caveat">Belum ada kandidat daftar pantau yang diproses pada build ini.</p>`;
 
   container.innerHTML = `
-    <p>Dari <strong>${coverage.total_suspension_records}</strong> record suspensi,
+    <p><strong>${coverage.total_suspension_records}</strong> record suspensi,
        <strong>${coverage.total}</strong> masuk sampel forensik
        (${coverage.sample_events} kejadian + ${coverage.sample_controls} kontrol,
-       dibatasi anggaran kredit API). Dari <strong>${coverage.total}</strong> itu,
-       <strong>${coverage.analyzed}</strong> bisa dianalisis dan
+       dibatasi anggaran kredit API). Dari jumlah itu
+       <strong>${coverage.analyzed}</strong> dianalisis,
        <strong>${coverage.excluded}</strong> gugur.</p>
     ${wrapTable(
       `<tr><th>Alasan gugur (sampel forensik)</th><th>Jumlah</th></tr>`, reasons)}
@@ -282,18 +274,17 @@ function renderRegulatoryContext(container) {
       <strong>X</strong>) diperdagangkan lewat Full Call Auction &mdash; lelang berkala,
       bukan tawar-menawar kontinu. Likuiditas turun, order tidak langsung tereksekusi,
       dan batas bawah harga dilonggarkan sampai Rp1.</p>
-    <p>Ada sekitar 11 kriteria masuk dan cukup memenuhi satu. Pemicu tersering adalah
-      harga rata-rata 6 bulan di bawah sekitar Rp51, likuiditas sangat tipis selama
-      6 bulan, opini auditor disclaimer, dan ekuitas negatif. Notasi lain yang sering
-      menyertai: <strong>B</strong> permohonan pailit atau PKPU, <strong>E</strong>
-      ekuitas negatif, <strong>L</strong> belum menyampaikan laporan keuangan,
-      <strong>M</strong> sedang PKPU, <strong>S</strong> tidak ada pendapatan usaha.</p>
-    <p class="caveat">Status Papan Pemantauan Khusus <strong>bukan field</strong> di
-      Sectors API. <code>listing_board</code> INPS berbunyi "Development" padahal INPS
-      disuspensi justru karena berada di papan pemantauan khusus lebih dari satu tahun.
-      Status itu hanya bisa disimpulkan dari teks alasan resmi, dan itulah yang
-      dilakukan klasifikasi di atas. Jalur eskalasi yang terlihat di data:
-      papan pemantauan khusus &rarr; 1 tahun &rarr; suspensi.</p>`;
+    <p>Sekitar 11 kriteria masuk, cukup memenuhi satu. Tersering: harga rata-rata
+      6 bulan di bawah Rp51, likuiditas sangat tipis, opini auditor disclaimer,
+      ekuitas negatif. Notasi penyerta &mdash; <strong>B</strong> pailit/PKPU,
+      <strong>E</strong> ekuitas negatif, <strong>L</strong> laporan keuangan
+      terlambat, <strong>M</strong> sedang PKPU, <strong>S</strong> tanpa
+      pendapatan usaha.</p>
+    <p class="caveat">Status ini <strong>bukan field</strong> di Sectors API.
+      <code>listing_board</code> INPS berbunyi "Development" padahal INPS disuspensi
+      justru karena berada di papan pemantauan khusus lebih dari setahun, jadi
+      statusnya hanya bisa disimpulkan dari teks alasan resmi. Jalur eskalasi yang
+      terlihat di data: papan pemantauan khusus &rarr; 1 tahun &rarr; suspensi.</p>`;
 }
 
 function renderHomeTiles(container, coverage, distribution) {

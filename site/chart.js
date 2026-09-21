@@ -91,8 +91,8 @@ function renderPriceChart(container, data, readout) {
   const grad = el("linearGradient", {
     id: "priceFill", x1: "0", y1: "0", x2: "0", y2: "1",
   });
-  grad.appendChild(el("stop", { offset: "0", "stop-color": "#abdda4", "stop-opacity": "0.22" }));
-  grad.appendChild(el("stop", { offset: "1", "stop-color": "#abdda4", "stop-opacity": "0" }));
+  grad.appendChild(el("stop", { offset: "0", "stop-color": "#5b9dff", "stop-opacity": "0.26" }));
+  grad.appendChild(el("stop", { offset: "1", "stop-color": "#5b9dff", "stop-opacity": "0" }));
   defs.appendChild(grad);
   svg.appendChild(defs);
 
