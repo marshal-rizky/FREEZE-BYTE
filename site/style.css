@@ -1,0 +1,64 @@
+:root {
+  --bg: #0d1117;
+  --panel: #161b22;
+  --ink: #e6edf3;
+  --muted: #8b949e;
+  --line: #58a6ff;
+  --confirmed: rgba(248, 81, 73, 0.22);
+  --inferred: rgba(139, 148, 158, 0.16);
+  --border: #30363d;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.site-header { padding: 48px 24px 24px; max-width: 900px; margin: 0 auto; }
+.site-header h1 { font-size: 2.4rem; letter-spacing: 0.08em; margin: 0 0 12px; }
+.tagline { color: var(--muted); max-width: 62ch; }
+
+main { max-width: 960px; margin: 0 auto; padding: 0 24px 64px; }
+section { margin: 56px 0; }
+section h2 { border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+
+.chart-slot { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+.price-chart { width: 100%; height: auto; }
+.price-line { fill: none; stroke: var(--line); stroke-width: 2; }
+.price-dot { fill: var(--line); opacity: 0.55; }
+.grid { stroke: var(--border); stroke-width: 1; }
+.axis-label { fill: var(--muted); font-size: 11px; }
+.axis-label.y { text-anchor: end; }
+.axis-label.x { text-anchor: middle; }
+
+.freeze-band.confirmed { fill: var(--confirmed); }
+.freeze-band.inferred { fill: var(--inferred); stroke: var(--muted); stroke-dasharray: 4 4; }
+.freeze-label { fill: var(--muted); font-size: 10px; text-anchor: middle; }
+
+.annotations { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 16px; }
+.annotation {
+  background: var(--panel); border: 1px solid var(--border);
+  border-radius: 8px; padding: 12px 16px; min-width: 180px;
+}
+.annotation .value { font-size: 1.5rem; font-weight: 600; }
+.annotation .label { color: var(--muted); font-size: 0.85rem; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+th, td { text-align: left; padding: 8px; border-bottom: 1px solid var(--border); }
+th { color: var(--muted); font-weight: 500; }
+
+.chip {
+  display: inline-block; padding: 2px 8px; margin: 2px;
+  border: 1px solid var(--border); border-radius: 999px; font-size: 0.75rem;
+}
+.chip.now { border-style: dashed; color: var(--muted); }
+
+.caveat, .disclaimer { color: var(--muted); font-size: 0.9rem; }
+.insufficient { color: var(--muted); font-style: italic; }
+
+footer { border-top: 1px solid var(--border); padding: 24px; }
+footer .disclaimer { max-width: 900px; margin: 0 auto; }
