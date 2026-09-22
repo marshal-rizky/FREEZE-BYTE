@@ -156,7 +156,8 @@ function renderPriceChart(container, data, readout) {
     d: `${line} L${pts[pts.length - 1].x},${PAD.top + plotH} L${pts[0].x},${PAD.top + plotH} Z`,
     class: "price-area",
   }));
-  svg.appendChild(el("path", { d: line, class: "price-line" }));
+  const linePath = el("path", { d: line, class: "price-line" });
+  svg.appendChild(linePath);
 
   // Crosshair: umpan balik muncul saat pointer bergerak, bukan setelah klik,
   // dan mengikuti pointer 1:1 sepanjang gerakan.

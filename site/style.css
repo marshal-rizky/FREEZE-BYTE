@@ -509,6 +509,120 @@ tbody tr:active { background: rgba(255, 255, 255, 0.06); transition: none; }
 
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: var(--r-md); }
 
+
+/* ================= Lapisan gerak =================
+ * Sengaja berlebih. Seluruh blok ini mati di bawah prefers-reduced-motion
+ * lewat selector universal di bagian preferensi sistem, jadi efek baru
+ * tidak perlu didaftarkan ulang di sana.
+ */
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px) scale(0.97); filter: blur(6px); }
+  to   { opacity: 1; transform: none; filter: blur(0); }
+}
+
+/* Ayunan pintu kaca: panel berputar masuk pada sumbu Y dengan perspektif.
+ * Masuk 420ms, keluar jauh lebih pendek -- yang keluar tugasnya minggir. */
+@keyframes door-in {
+  from { opacity: 0; transform: perspective(1400px) rotateY(-9deg) translateY(14px) scale(0.965); filter: blur(8px); }
+  to   { opacity: 1; transform: perspective(1400px) rotateY(0) translateY(0) scale(1); filter: blur(0); }
+}
+
+@keyframes sweep { from { transform: translateX(-120%) skewX(-18deg); } to { transform: translateX(320%) skewX(-18deg); } }
+
+@keyframes drift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(2.5%, -1.5%, 0) scale(1.06); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+/* Panel memakai ayunan pintu, bukan geser datar. */
+.pane[data-active] {
+  animation: door-in 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  transform-origin: left center;
+}
+
+/* Glow ambient kini menghela napas sangat pelan. Diakui: ini persis yang
+ * ditolak saat menelaah Compsphere, dan alasannya masih berlaku -- osilasi
+ * lambat di halaman data terbaca sebagai alarm. Dipasang atas permintaan
+ * eksplisit, dan ia lenyap total di bawah reduced-motion. */
+.glow { animation: drift 26s ease-in-out infinite; will-change: transform; }
+
+/* Sorot yang mengikuti kursor, di bawah konten. */
+.canvas::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(22rem 22rem at var(--mx, 50%) var(--my, 40%),
+              rgba(91, 157, 255, 0.10), transparent 70%);
+  transition: opacity 400ms var(--ease-std);
+}
+
+/* Kartu bento: kilau mengikuti pointer, plus sapuan sekali saat hover. */
+.bento-card {
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.bento-card > * { position: relative; z-index: 1; }
+
+.bento-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(14rem 14rem at var(--gx, 50%) var(--gy, 50%),
+              rgba(255, 255, 255, 0.10), transparent 68%);
+  transition: opacity 260ms var(--ease-std);
+}
+.bento-card:hover::before { opacity: 1; }
+
+.bento-card::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: 0;
+  width: 42%;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.07), transparent);
+  transform: translateX(-120%) skewX(-18deg);
+}
+.bento-card:hover::after { animation: sweep 820ms cubic-bezier(0.16, 1, 0.3, 1); }
+
+/* Tilt ditulis oleh skrip lewat style inline, jadi transisinya hanya
+ * mengurus kepulangan saat pointer pergi. */
+.bento-card { transition: transform 420ms var(--ease), background var(--t-hover) var(--ease-std), box-shadow var(--t-hover) var(--ease-std); }
+.bento-card:hover { transform: none; }
+.bento-card.pressed { transform: scale(0.985) !important; transition: transform 90ms var(--ease-std); }
+
+.bento-card .go { transition: transform 260ms var(--ease), color var(--t-hover) var(--ease-std); }
+.bento-card:hover .go { transform: translateX(5px); }
+
+/* Garis harga menggambar dirinya sendiri; area dan band menyusul. */
+.price-line.draw { stroke-dasharray: var(--len); stroke-dashoffset: var(--len); animation: draw 1400ms cubic-bezier(0.16, 1, 0.3, 1) 180ms both; }
+.price-area.draw { animation: rise 900ms cubic-bezier(0.16, 1, 0.3, 1) 420ms both; }
+.freeze-band.enter { animation: rise 700ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+.tile { will-change: transform; transition: transform var(--t-hover) var(--ease-std), box-shadow var(--t-hover) var(--ease-std); }
+.tile:hover { transform: translateY(-3px); box-shadow: 0 16px 52px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2); }
+
+.rail nav a, .back { will-change: transform; transition: transform 340ms var(--ease), color var(--t-hover) var(--ease-std), background var(--t-hover) var(--ease-std), box-shadow var(--t-hover) var(--ease-std); }
+.rail nav a[aria-current="page"] .dot { box-shadow: 0 0 0 4px rgba(91, 157, 255, 0.18); }
+
+.card { will-change: transform; }
+.card:hover { transform: translateY(-2px) scale(1.006); }
+
+tbody tr { will-change: background; }
+tbody tr:hover td:first-child { transform: translateX(3px); }
+tbody tr td:first-child { transition: transform 240ms var(--ease); }
+
 /* ---------- Preferensi sistem ----------
  * Tiga sinyal, ditangani terpisah, dan semuanya menyeluruh. */
 
@@ -519,7 +633,13 @@ tbody tr:active { background: rgba(255, 255, 255, 0.06); transition: none; }
     transition-duration: 0.01ms !important;
   }
   .pane[data-active] { animation: none; }
-  .bento-card:hover { transform: none; }
+  .bento-card, .bento-card:hover, .card:hover, .tile:hover,
+  .rail nav a, .back { transform: none !important; }
+  .bento-card::before, .bento-card::after, .canvas::before { display: none; }
+  .glow { animation: none; transform: none; }
+  .price-line.draw { stroke-dasharray: none; stroke-dashoffset: 0; animation: none; }
+  .price-area.draw, .freeze-band.enter { animation: none; }
+  tbody tr:hover td:first-child { transform: none; }
 }
 
 @media (prefers-reduced-transparency: reduce) {
