@@ -61,7 +61,7 @@
 
   --s1: 0.25rem; --s2: 0.5rem;  --s3: 0.75rem; --s4: 1rem;
   --s5: 1.25rem; --s6: 1.5rem;  --s8: 2rem;    --s10: 2.5rem;
-  --s12: 3rem;   --s16: 4rem;
+  --s12: 3rem;   --s16: 4rem;   --s20: 5rem;  --s24: 6rem;
 
   --measure: 64ch;
   --shell: 74rem;
@@ -82,7 +82,11 @@ html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
-  min-height: 100dvh;
+  /* Tinggi dikunci ke viewport, bukan sekadar minimum. Dengan min-height,
+   * stage ikut tumbuh mengikuti isi view dan dokumennya bergulir lagi --
+   * persis yang ingin dihindari. Dikunci begini, view yang bergulir. */
+  height: 100dvh;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   background: var(--bg);
@@ -116,7 +120,7 @@ h1, h2, h3 { font-weight: 600; margin: 0; }
   letter-spacing: -0.03em;
 }
 
-h2 { font-size: clamp(1.1875rem, 2.2vw, 1.5rem); line-height: 1.18; letter-spacing: -0.015em; }
+h2 { font-size: clamp(1.375rem, 2.8vw, 2rem); line-height: 1.15; letter-spacing: -0.02em; }
 h3 { font-size: 0.9375rem; line-height: 1.35; letter-spacing: -0.006em; }
 
 p { margin: 0 0 var(--s4); max-width: var(--measure); }
@@ -207,7 +211,7 @@ a:hover { text-decoration-color: currentColor; }
   box-shadow: none;
   padding: 0;
 }
-.segmented.sub a { font-size: 0.75rem; padding: var(--s1) var(--s3); }
+.segmented.sub a { font-size: 0.8125rem; padding: var(--s2) var(--s4); }
 
 /* ---------- Stage dan view ----------
  * Yang bergulir adalah view yang aktif, bukan halaman. Topbar dan footer
@@ -230,7 +234,7 @@ a:hover { text-decoration-color: currentColor; }
   max-width: var(--shell);
   margin: 0 auto;
   width: 100%;
-  padding: var(--s8) var(--s6) var(--s10);
+  padding: var(--s16) var(--s10) var(--s20);
   outline: none;
 }
 
@@ -249,8 +253,8 @@ a:hover { text-decoration-color: currentColor; }
   flex-wrap: wrap;
   align-items: flex-end;
   justify-content: space-between;
-  gap: var(--s4);
-  margin-bottom: var(--s6);
+  gap: var(--s6);
+  margin-bottom: var(--s12);
 }
 .view-note {
   color: var(--ink-3);
@@ -263,7 +267,10 @@ a:hover { text-decoration-color: currentColor; }
 /* ---------- Beranda ---------- */
 
 .hero {
-  min-height: calc(100dvh - 14rem);
+  /* Dikurangi topbar, footer, dan bantalan vertikal view (9rem). Angka yang
+   * terlalu besar membuat beranda bergulir hanya karena hero memaksa tinggi
+   * yang sudah tidak tersisa. */
+  min-height: calc(100dvh - 26rem);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -272,10 +279,10 @@ a:hover { text-decoration-color: currentColor; }
   font-size: 1.0625rem;
   line-height: 1.55;
   color: var(--ink-2);
-  margin-top: var(--s5);
+  margin-top: var(--s8);
 }
 
-.cta { display: flex; flex-wrap: wrap; gap: var(--s3); margin-top: var(--s8); }
+.cta { display: flex; flex-wrap: wrap; gap: var(--s4); margin-top: var(--s12); }
 
 .pill {
   display: inline-block;
@@ -312,17 +319,17 @@ a:hover { text-decoration-color: currentColor; }
   -webkit-backdrop-filter: blur(16px) saturate(140%);
 }
 
-.panel { padding: var(--s5); border-radius: var(--r-lg); box-shadow: var(--lift-panel); }
-.chart-panel { padding: var(--s4); }
+.panel { padding: var(--s8); border-radius: var(--r-lg); box-shadow: var(--lift-panel); }
+.chart-panel { padding: var(--s6); }
 
 .tiles {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
-  gap: var(--s3);
-  margin-top: var(--s6);
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: var(--s4);
+  margin-top: var(--s10);
 }
 
-.tile { padding: var(--s4) var(--s5); }
+.tile { padding: var(--s6); }
 .tile .value {
   font-size: 1.75rem;
   line-height: 1.1;
@@ -340,7 +347,7 @@ a:hover { text-decoration-color: currentColor; }
 
 /* Kaca menebal saat disentuh: rim, bayangan, dan isian naik bersamaan. */
 .card {
-  padding: var(--s4);
+  padding: var(--s6);
   transition: background var(--t-hover) var(--ease-std),
               box-shadow var(--t-hover) var(--ease-std),
               transform var(--t-hover) var(--ease-std);
@@ -420,7 +427,7 @@ a:hover { text-decoration-color: currentColor; }
 .table-wrap {
   border-radius: var(--r-md);
   overflow: auto;
-  max-height: min(26rem, 56dvh);
+  max-height: min(30rem, 58dvh);
   background: rgba(0, 0, 0, 0.22);
   box-shadow: var(--rim-soft);
   overscroll-behavior: contain;
@@ -430,7 +437,7 @@ table { width: 100%; border-collapse: collapse; font-size: 0.8125rem; }
 
 th, td {
   text-align: left;
-  padding: var(--s3);
+  padding: var(--s4) var(--s5);
   border-bottom: 1px solid var(--edge);
   vertical-align: top;
 }
@@ -463,21 +470,22 @@ tbody tr:active { background: rgba(255, 255, 255, 0.06); transition: none; }
   font-size: 0.75rem;
   color: var(--ink-3);
   letter-spacing: 0.01em;
-  margin: var(--s2) 0 0;
+  margin: var(--s6) 0 0;
 }
 
 /* ---------- Grid kartu daftar pantau ---------- */
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-  gap: var(--s3);
-  max-height: min(30rem, 58dvh);
-  overflow-y: auto;
-  overscroll-behavior: contain;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  gap: var(--s4);
   padding: var(--s1);
   margin: calc(var(--s1) * -1);
 }
+/* Grid tidak diberi area gulir sendiri. View sudah bergulir, dan dua daerah
+ * gulir bersarang membuat roda mouse berpindah tangan tanpa diminta. Tabel
+ * panjang tetap dibatasi karena ia widget berbatas dengan kepala lengket;
+ * grid kartu tidak begitu. */
 
 .card .sym {
   display: flex;
@@ -538,7 +546,7 @@ tbody tr:active { background: rgba(255, 255, 255, 0.06); transition: none; }
   line-height: 1.55;
   letter-spacing: 0.008em;
 }
-.caveat { max-width: var(--measure); margin-top: var(--s3); }
+.caveat { max-width: var(--measure); margin-top: var(--s6); }
 .insufficient { font-style: italic; }
 
 .error-banner {
@@ -612,9 +620,15 @@ tbody tr:active { background: rgba(255, 255, 255, 0.06); transition: none; }
 }
 
 @media (max-width: 52rem) {
+  /* Di layar sempit shell tinggi-tetap justru menyiksa: isi yang sama harus
+   * muat di viewport yang jauh lebih pendek. Di sini dokumen dibiarkan
+   * bergulir seperti halaman biasa. */
+  body { height: auto; min-height: 100dvh; overflow: visible; }
+  .view { overflow-y: visible; }
+
   .topbar-inner { flex-wrap: wrap; gap: var(--s3); padding: var(--s3) var(--s4); }
   .segmented { margin-left: 0; width: 100%; }
-  .view { padding: var(--s6) var(--s4) var(--s8); }
+  .view { padding: var(--s8) var(--s4) var(--s10); }
   .hero { min-height: 0; padding: var(--s6) 0; }
   .view-head { flex-direction: column; align-items: flex-start; }
   .card-grid, .table-wrap { max-height: none; }
