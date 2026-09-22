@@ -8,6 +8,22 @@ const sign = (v) =>
 
 const pctCell = (v) => `<td class="num${sign(v)}">${fmtPct(v)}</td>`;
 
+/* Sel angka + batang diverging.
+ *
+ * Angkanya bertinta biasa, bukan hijau/merah: teks memakai token teks, dan
+ * warna dibawa mark di sebelahnya. Di tabel 55 baris, mewarnai tiap digit
+ * membuat kolomnya berkedip dan besarannya tetap tidak terbaca. Batang
+ * membawa dua hal sekaligus -- tanda lewat arah dari garis tengah, besaran
+ * lewat panjang. */
+const barCell = (v, max) => {
+  if (v === null || v === undefined) return `<td class="num">—</td>`;
+  const w = max > 0 ? Math.min(Math.abs(v) / max, 1) * 50 : 0;
+  const side = v < 0 ? "down" : "up";
+  return `<td class="num">${fmtPct(v)}
+    <span class="bar" aria-hidden="true"><i class="${side}" style="width:${w}%"></i></span>
+  </td>`;
+};
+
 const ratio = (v) =>
   v === null || v === undefined ? "—" : `${v.toFixed(1).replace(".", ",")}&times;`;
 
@@ -165,10 +181,15 @@ function renderReasons(container, distribution) {
 
   container.innerHTML = `
     <h3>Alasan resmi</h3>
-    ${wrapTable(`<tr><th>Alasan</th><th>Jumlah</th><th>Proporsi</th></tr>`, rows)}`;
+    ${wrapTable(`<tr><th>Alasan</th><th class="num">Jumlah</th><th class="num">Proporsi</th></tr>`, rows)}`;
 }
 
 function renderEvents(container, events) {
+  // Skala batang dipatok ke besaran terbesar yang benar-benar ada di kolom
+  // ini, jadi panjangnya bisa dibandingkan antar baris.
+  const maxRet = Math.max(...events.map((e) => Math.abs(e.features.ret_10d ?? 0)), 0);
+  const maxReopen = Math.max(...events.map((e) => Math.abs(e.reopen_return ?? 0)), 0);
+
   const rows = events
     .map((e) => {
       const pdf = e.pdf_url
@@ -177,9 +198,9 @@ function renderEvents(container, events) {
       return `<tr>
         <td><strong>${e.symbol}</strong></td>
         <td class="num">${e.suspension_date}</td>
-        ${pctCell(e.features.ret_10d)}
+        ${barCell(e.features.ret_10d, maxRet)}
         <td class="num">${ratio(e.features.vol_ratio)}</td>
-        ${pctCell(e.reopen_return)}
+        ${barCell(e.reopen_return, maxReopen)}
         <td>${pdf}</td>
       </tr>`;
     })
@@ -188,8 +209,9 @@ function renderEvents(container, events) {
   container.innerHTML = `
     <h3>Daftar kejadian</h3>
     ${wrapTable(
-      `<tr><th>Emiten</th><th>Tanggal suspensi</th><th>Return 10 baris</th>
-       <th>Rasio volume</th><th>Saat dibuka</th><th>Bukti</th></tr>`, rows)}
+      `<tr><th>Emiten</th><th class="num">Tanggal suspensi</th>
+       <th class="num">Return 10 baris</th><th class="num">Rasio volume</th>
+       <th class="num">Saat dibuka</th><th>Bukti</th></tr>`, rows)}
     <p class="row-count">${events.length} kejadian</p>`;
 }
 
@@ -287,7 +309,7 @@ function renderCoverage(container, coverage, meta) {
        <p>Terpisah dari sampel forensik: dari <strong>${watchlist.total}</strong>
           kandidat, <strong>${watchlist.analyzed}</strong> dianalisis,
           <strong>${watchlist.excluded}</strong> gugur.</p>
-       ${wrapTable(`<tr><th>Alasan gugur (kandidat daftar pantau)</th><th>Jumlah</th></tr>`, watchlistReasons)}`
+       ${wrapTable(`<tr><th>Alasan gugur (kandidat daftar pantau)</th><th class="num">Jumlah</th></tr>`, watchlistReasons)}`
     : `<h3>Kandidat daftar pantau</h3>
        <p class="caveat">Belum ada kandidat daftar pantau yang diproses pada build ini.</p>`;
 
@@ -298,7 +320,7 @@ function renderCoverage(container, coverage, meta) {
        dibatasi anggaran kredit API). Dari jumlah itu
        <strong>${coverage.analyzed}</strong> dianalisis,
        <strong>${coverage.excluded}</strong> gugur.</p>
-    ${wrapTable(`<tr><th>Alasan gugur (sampel forensik)</th><th>Jumlah</th></tr>`, reasons)}
+    ${wrapTable(`<tr><th>Alasan gugur (sampel forensik)</th><th class="num">Jumlah</th></tr>`, reasons)}
     ${watchlistSection}
     <p class="caveat">${coverage.sample_note}</p>
     <p class="caveat">Data dibangun ${meta.built_at}.
@@ -339,8 +361,9 @@ function renderDistribution(container, distribution) {
   container.innerHTML = `
     <h3>Return 10 baris bursa: kejadian dibanding kontrol</h3>
     ${wrapTable(
-      `<tr><th>Kelompok</th><th>n</th><th>p25</th><th>median</th><th>p75</th>
-       <th>maks</th></tr>`, rows)}
+      `<tr><th>Kelompok</th><th class="num">n</th><th class="num">p25</th>
+       <th class="num">median</th><th class="num">p75</th>
+       <th class="num">maks</th></tr>`, rows)}
     <p class="caveat">${distribution.control_definition}</p>`;
 }
 

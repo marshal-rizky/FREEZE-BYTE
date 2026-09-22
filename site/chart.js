@@ -62,8 +62,8 @@ function monotonePath(pts) {
 
 function gradient(id, opacity) {
   const grad = el("linearGradient", { id, x1: "0", y1: "0", x2: "0", y2: "1" });
-  grad.appendChild(el("stop", { offset: "0", "stop-color": "#5b9dff", "stop-opacity": String(opacity) }));
-  grad.appendChild(el("stop", { offset: "1", "stop-color": "#5b9dff", "stop-opacity": "0" }));
+  grad.appendChild(el("stop", { offset: "0", "stop-color": "#5489d8", "stop-opacity": String(opacity) }));
+  grad.appendChild(el("stop", { offset: "1", "stop-color": "#5489d8", "stop-opacity": "0" }));
   return grad;
 }
 
