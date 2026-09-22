@@ -320,6 +320,25 @@ def build_watchlist(suspensions: list[dict], coverage: Coverage) -> list[dict]:
 
 
 def main():
+    # Setiap prasyarat diperiksa lebih dulu dan dilaporkan sebagai satu
+    # pesan, bukan dibiarkan meledak jadi stack trace di pembacaan pertama.
+    # Urutan ETL-nya juga ikut tercetak, karena "berkas tidak ada" tidak
+    # memberi tahu script mana yang harus dijalankan.
+    required = [
+        (config.RAW_DIR / "suspensions" / "all.json", "scripts/etl_suspensions.py"),
+        (config.RAW_DIR / "manifest_prices.json", "scripts/etl_prices.py"),
+        (config.RAW_DIR / "tag_vocabulary.json", "scripts/etl_overviews.py"),
+    ]
+    missing = [(p, s) for p, s in required if not p.exists()]
+    if missing:
+        lines = [f"  {p.relative_to(config.RAW_DIR.parent.parent)} -> jalankan {s}"
+                 for p, s in missing]
+        raise SystemExit(
+            "Cache mentah belum lengkap, build dihentikan sebelum menulis apa pun.\n"
+            + "\n".join(lines)
+            + "\n\ndata/web/*.json yang sudah ada TIDAK diubah."
+        )
+
     suspensions = _read(config.RAW_DIR / "suspensions" / "all.json")
     manifest = _read(config.RAW_DIR / "manifest_prices.json")
 
