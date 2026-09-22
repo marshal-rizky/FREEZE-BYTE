@@ -184,35 +184,154 @@ function renderReasons(container, distribution) {
     ${wrapTable(`<tr><th>Alasan</th><th class="num">Jumlah</th><th class="num">Proporsi</th></tr>`, rows)}`;
 }
 
+
+/* ---------- Toolbar: cari + urut ----------
+ * Satu baris kontrol di atas daftar yang dicakupnya. Pencarian menyaring
+ * secara langsung; pengurutan mengalihkan arah kalau tombol yang sama
+ * ditekan dua kali.
+ */
+const SEARCH_ICON =
+  `<svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+     <circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.6"/>
+     <path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+   </svg>`;
+
+function toolbar(id, placeholder, sorts) {
+  const buttons = sorts
+    .map((s, i) => `<button type="button" data-key="${s.key}" data-dir="${s.dir}"
+                     aria-pressed="${i === 0}">${s.label}<span class="dir">↓</span></button>`)
+    .join("");
+  return `<div class="toolbar">
+    <label class="search">
+      ${SEARCH_ICON}
+      <input type="search" id="${id}" placeholder="${placeholder}" autocomplete="off" spellcheck="false">
+      <kbd>/</kbd>
+    </label>
+    <div class="sorts">${buttons}</div>
+    <span class="count" role="status" aria-live="polite"></span>
+  </div>`;
+}
+
+/* Menyambungkan toolbar ke daftarnya.
+ *
+ * `getValue(item, key)` mengembalikan nilai yang diurutkan. Nilai null
+ * selalu dilempar ke belakang, apa pun arahnya -- "tidak ada data" bukan
+ * "nilai terkecil", dan menaruhnya di puncak urutan menaik akan terbaca
+ * sebagai temuan.
+ */
+function wireToolbar(root, items, { match, getValue, render, noun }) {
+  const input = root.querySelector(".search input");
+  const buttons = Array.from(root.querySelectorAll(".sorts button"));
+  const count = root.querySelector(".count");
+  const slot = root.querySelector("[data-list]");
+  const total = items.length;
+
+  const state = {
+    q: "",
+    key: buttons[0].dataset.key,
+    dir: buttons[0].dataset.dir === "asc" ? 1 : -1,
+  };
+
+  function apply() {
+    const q = state.q.trim().toLowerCase();
+    const filtered = q ? items.filter((it) => match(it, q)) : items.slice();
+
+    filtered.sort((a, b) => {
+      const av = getValue(a, state.key);
+      const bv = getValue(b, state.key);
+      if (av === null || av === undefined) return 1;
+      if (bv === null || bv === undefined) return -1;
+      if (av < bv) return -state.dir;
+      if (av > bv) return state.dir;
+      return 0;
+    });
+
+    slot.innerHTML = filtered.length
+      ? render(filtered)
+      : `<div class="empty">Tidak ada ${noun} yang cocok dengan
+         "<strong>${state.q.trim()}</strong>".</div>`;
+
+    count.textContent = q
+      ? `${filtered.length} dari ${total} ${noun}`
+      : `${total} ${noun}`;
+  }
+
+  input.addEventListener("input", () => { state.q = input.value; apply(); });
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") { input.value = ""; state.q = ""; apply(); }
+  });
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const key = btn.dataset.key;
+      // Menekan tombol yang sudah aktif membalik arahnya.
+      if (state.key === key) state.dir = -state.dir;
+      else { state.key = key; state.dir = btn.dataset.dir === "asc" ? 1 : -1; }
+      buttons.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+      btn.querySelector(".dir").textContent = state.dir === 1 ? "↑" : "↓";
+      apply();
+    });
+  });
+
+  apply();
+}
+
+// Garis miring memfokuskan pencarian di panel yang sedang aktif, Escape
+// mengosongkannya. Pintasan diabaikan saat pembaca sedang mengetik di
+// tempat lain, supaya tidak mencuri karakternya.
+document.addEventListener("keydown", (event) => {
+  const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName || "");
+  if (event.key === "/" && !typing) {
+    const input = document.querySelector('.pane[data-active] .search input');
+    if (input) { event.preventDefault(); input.focus(); input.select(); }
+  }
+});
+
 function renderEvents(container, events) {
-  // Skala batang dipatok ke besaran terbesar yang benar-benar ada di kolom
-  // ini, jadi panjangnya bisa dibandingkan antar baris.
+  // Skala batang dipatok ke magnitudo terbesar di SELURUH dataset, bukan di
+  // hasil saringan. Kalau skalanya ikut menyaring, panjang batang berubah
+  // arti setiap kali diketik -- 35% bisa tampak penuh di satu saringan dan
+  // seperempat di saringan lain.
   const maxRet = Math.max(...events.map((e) => Math.abs(e.features.ret_10d ?? 0)), 0);
   const maxReopen = Math.max(...events.map((e) => Math.abs(e.reopen_return ?? 0)), 0);
 
-  const rows = events
-    .map((e) => {
-      const pdf = e.pdf_url
-        ? `<a href="${e.pdf_url}" target="_blank" rel="noopener">pengumuman IDX</a>`
-        : "—";
-      return `<tr>
-        <td><strong>${e.symbol}</strong></td>
-        <td class="num">${e.suspension_date}</td>
-        ${barCell(e.features.ret_10d, maxRet)}
-        <td class="num">${ratio(e.features.vol_ratio)}</td>
-        ${barCell(e.reopen_return, maxReopen)}
-        <td>${pdf}</td>
-      </tr>`;
-    })
-    .join("");
+  const row = (e) => {
+    const pdf = e.pdf_url
+      ? `<a href="${e.pdf_url}" target="_blank" rel="noopener">pengumuman IDX</a>`
+      : "—";
+    return `<tr>
+      <td><strong>${e.symbol}</strong></td>
+      <td class="num">${e.suspension_date}</td>
+      ${barCell(e.features.ret_10d, maxRet)}
+      <td class="num">${ratio(e.features.vol_ratio)}</td>
+      ${barCell(e.reopen_return, maxReopen)}
+      <td>${pdf}</td>
+    </tr>`;
+  };
 
   container.innerHTML = `
     <h3>Daftar kejadian</h3>
-    ${wrapTable(
-      `<tr><th>Emiten</th><th class="num">Tanggal suspensi</th>
-       <th class="num">Return 10 baris</th><th class="num">Rasio volume</th>
-       <th class="num">Saat dibuka</th><th>Bukti</th></tr>`, rows)}
-    <p class="row-count">${events.length} kejadian</p>`;
+    ${toolbar("event-search", "Cari emiten…", [
+      { key: "date", dir: "desc", label: "Terbaru" },
+      { key: "ret", dir: "desc", label: "Return" },
+      { key: "reopen", dir: "desc", label: "Saat dibuka" },
+    ])}
+    <div class="table-wrap"><table>
+      <thead><tr><th>Emiten</th><th class="num">Tanggal suspensi</th>
+        <th class="num">Return 10 baris</th><th class="num">Rasio volume</th>
+        <th class="num">Saat dibuka</th><th>Bukti</th></tr></thead>
+      <tbody data-list></tbody>
+    </table></div>`;
+
+  wireToolbar(container, events, {
+    noun: "kejadian",
+    match: (e, q) => e.symbol.toLowerCase().includes(q),
+    getValue: (e, key) =>
+      key === "date" ? e.suspension_date
+      : key === "ret" ? e.features.ret_10d
+      : e.reopen_return,
+    render: (list) => list.map(row).join(""),
+  });
 }
 
 const STRUCTURAL_LABELS = {
@@ -242,43 +361,45 @@ function renderWatchlist(container, watchlist, baserates) {
   // untuk setiap emiten; mengulangnya utuh di enam belas baris sekaligus
   // adalah yang membuat bagian ini terbaca sebagai dinding teks. Sekarang ia
   // ada di balik pengungkap -- tetap tersedia, tidak lagi dipaksakan.
-  const cards = watchlist
-    .map((row) => {
-      const rate = lookup[row.bucket];
-      const enough = rate && rate.sufficient;
-      let detail = `<p class="insufficient">Bucket ini belum punya cukup sampel
-                    untuk dibandingkan.</p>`;
-      if (enough) {
-        // C2: n_frozen_within_30d di sini SELALU sama dengan jumlah anggota
-        // bucket yang berasal dari arm kejadian (frozen_within_30d dipatok
-        // True untuk seluruh arm kejadian dan tidak pernah True untuk
-        // kontrol di bawah definisi pick_controls saat ini). Jadi angka ini
-        // adalah komposisi sampel case-control, bukan frekuensi pembekuan
-        // yang teramati di populasi pasar -- lihat caveat di bawah grid.
-        detail = `<p>${rate.n_events} dari ${rate.n} emiten di bucket ini adalah
-                  kejadian suspensi, sisanya kontrol.</p>`;
-      }
-      return `<article class="card">
-        <div class="sym">
-          <strong>${row.symbol}</strong>
-          <span class="ret${sign(row.features.ret_10d)}">${fmtPct(row.features.ret_10d)}</span>
-        </div>
-        <div class="meta">
-          <span>vol ${ratio(row.features.vol_ratio)}</span>
-          <span>pernah beku ${row.features.prior_freeze_count}</span>
-        </div>
-        ${chips(row.structural)}
-        <details>
-          <summary>${enough ? "komposisi kelompoknya" : "sampel tidak cukup"}</summary>
-          ${detail}
-        </details>
-      </article>`;
-    })
-    .join("");
+  const card = (row) => {
+    const rate = lookup[row.bucket];
+    const enough = rate && rate.sufficient;
+    let detail = `<p class="insufficient">Bucket ini belum punya cukup sampel
+                  untuk dibandingkan.</p>`;
+    if (enough) {
+      // C2: n_frozen_within_30d di sini SELALU sama dengan jumlah anggota
+      // bucket yang berasal dari arm kejadian (frozen_within_30d dipatok
+      // True untuk seluruh arm kejadian dan tidak pernah True untuk
+      // kontrol di bawah definisi pick_controls saat ini). Jadi angka ini
+      // adalah komposisi sampel case-control, bukan frekuensi pembekuan
+      // yang teramati di populasi pasar -- lihat caveat di bawah grid.
+      detail = `<p>${rate.n_events} dari ${rate.n} emiten di bucket ini adalah
+                kejadian suspensi, sisanya kontrol.</p>`;
+    }
+    return `<article class="card">
+      <div class="sym">
+        <strong>${row.symbol}</strong>
+        <span class="ret${sign(row.features.ret_10d)}">${fmtPct(row.features.ret_10d)}</span>
+      </div>
+      <div class="meta">
+        <span>vol ${ratio(row.features.vol_ratio)}</span>
+        <span>pernah beku ${row.features.prior_freeze_count}</span>
+      </div>
+      ${chips(row.structural)}
+      <details>
+        <summary>${enough ? "komposisi kelompoknya" : "sampel tidak cukup"}</summary>
+        ${detail}
+      </details>
+    </article>`;
+  };
 
   container.innerHTML = `
-    <div class="card-grid">${cards}</div>
-    <p class="row-count">${watchlist.length} emiten</p>
+    ${toolbar("watch-search", "Cari emiten…", [
+      { key: "ret", dir: "desc", label: "Return" },
+      { key: "vol", dir: "desc", label: "Rasio volume" },
+      { key: "sym", dir: "asc", label: "Kode" },
+    ])}
+    <div class="card-grid" data-list></div>
     <p class="caveat">Komposisi kelompok <strong>bukan base rate populasi</strong>:
       sampel disusun berpasangan 1:1 (${baserates.n_events} kejadian,
       ${baserates.n_controls} kontrol), jadi pecahannya bergravitasi ke sekitar
@@ -286,6 +407,16 @@ function renderWatchlist(container, watchlist, baserates) {
       kurang dari ${baserates.min_sample} kejadian tidak diberi angka. Penanda
       "kondisi sekarang" berarti nilainya diambil hari ini &mdash; tag emiten
       tidak tersedia secara historis.</p>`;
+
+  wireToolbar(container, watchlist, {
+    noun: "emiten",
+    match: (r, q) => r.symbol.toLowerCase().includes(q),
+    getValue: (r, key) =>
+      key === "ret" ? r.features.ret_10d
+      : key === "vol" ? r.features.vol_ratio
+      : r.symbol,
+    render: (list) => list.map(card).join(""),
+  });
 }
 
 function renderCoverage(container, coverage, meta) {

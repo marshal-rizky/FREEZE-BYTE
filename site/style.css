@@ -449,6 +449,88 @@ tbody tr:active { background: rgba(255, 255, 255, 0.06); transition: none; }
 
 .row-count { font-size: 0.75rem; color: var(--ink-3); margin: var(--s4) 0 0; }
 
+
+/* ---------- Toolbar tabel ----------
+ * Satu baris kontrol DI ATAS tabel yang dicakupnya, bukan di dalam kartunya
+ * dan bukan per kolom.
+ */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s3);
+  margin-bottom: var(--s4);
+}
+
+.search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  flex: 1 1 15rem;
+  max-width: 22rem;
+  padding: var(--s2) var(--s3);
+  border-radius: var(--r-pill);
+  background: var(--glass-1);
+  box-shadow: var(--rim-soft);
+  transition: background var(--t-hover) var(--ease-std), box-shadow var(--t-hover) var(--ease-std);
+}
+.search:focus-within { background: var(--glass-2); box-shadow: var(--rim), 0 0 0 2px var(--accent-soft); }
+.search svg { flex: none; opacity: 0.55; }
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.8125rem;
+  outline: none;
+}
+.search input::placeholder { color: var(--ink-3); }
+.search input::-webkit-search-cancel-button { filter: invert(0.6); }
+
+kbd {
+  flex: none;
+  font: 500 0.6875rem/1 var(--font-ui);
+  color: var(--ink-3);
+  padding: 3px 6px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: var(--rim-soft);
+}
+.search:focus-within kbd { opacity: 0; }
+
+.sorts { display: flex; gap: var(--s1); flex-wrap: wrap; }
+.sorts button {
+  font: inherit;
+  font-size: 0.75rem;
+  color: var(--ink-3);
+  cursor: pointer;
+  border: 0;
+  padding: var(--s2) var(--s3);
+  border-radius: var(--r-pill);
+  background: var(--glass-1);
+  box-shadow: var(--rim-soft);
+  transition: color var(--t-hover) var(--ease-std), background var(--t-hover) var(--ease-std);
+}
+.sorts button:hover { color: var(--ink-2); background: var(--glass-2); }
+.sorts button:active { background: var(--glass-3); transition: none; }
+.sorts button[aria-pressed="true"] { color: var(--ink); background: var(--glass-2); box-shadow: var(--lift-sm); }
+.sorts button .dir { opacity: 0; margin-left: 3px; }
+.sorts button[aria-pressed="true"] .dir { opacity: 0.8; }
+
+.toolbar .count { margin-left: auto; font-size: 0.75rem; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+
+.empty {
+  padding: var(--s8) var(--s5);
+  text-align: center;
+  color: var(--ink-3);
+  font-size: 0.8125rem;
+}
+.empty strong { color: var(--ink-2); }
+
 /* ---------- Grid kartu pantau ---------- */
 
 .card-grid {
@@ -557,8 +639,8 @@ tbody tr:active { background: rgba(255, 255, 255, 0.06); transition: none; }
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: radial-gradient(22rem 22rem at var(--mx, 50%) var(--my, 40%),
-              rgba(91, 157, 255, 0.10), transparent 70%);
+  background: radial-gradient(15rem 15rem at var(--mx, 50%) var(--my, 40%),
+              rgba(91, 157, 255, 0.045), transparent 72%);
   transition: opacity 400ms var(--ease-std);
 }
 
