@@ -149,15 +149,18 @@ def get_overview(symbol: str) -> dict | None:
     )
 
 
-def screen(where: str | None, limit: int = 200, offset: int = 0) -> dict:
+def screen(where: str | None, limit: int = 200, offset: int = 0, order_by: str | None = None) -> dict:
     """Screener terstruktur. Parameter `q` sengaja tidak didukung: 3 kredit versus 1.
 
     Cache key memakai digest seluruh parameter, bukan potongan `where` saja.
     Dua query yang berbeda hanya pada `limit` — atau yang berbeda hanya pada
     tanda baca di dalam `where` — akan menulis ke file yang sama kalau digest
     tidak dipakai, dan pemanggil kedua diam-diam menerima hasil pemanggil pertama.
+    Parameter `order_by` memakai awalan `-field` untuk menurun.
     """
     params = {"limit": limit, "offset": offset}
+    if order_by:
+        params["order_by"] = order_by
     slug = "all"
     if where:
         params["where"] = where

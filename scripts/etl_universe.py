@@ -7,6 +7,11 @@ Dua tahap, supaya biaya diketahui sebelum dibelanjakan:
 
 Biaya --run: 1 kredit halaman screener + <= UNIVERSE_LIMIT kredit harga +
 <= MAX_OVERVIEWS kredit overview. Nol pada eksekusi ulang: semuanya dari cache.
+
+Screener API mengurutkan hasil berdasarkan simbol secara standar, sehingga tanpa
+filter rally dan pengurutan -market_cap, potongan 150 pertama hanya akan berisi
+simbol A hingga F. Tag mencerminkan keadaan pasar saat build, jadi semesta adalah
+snapshot pada waktu pembangunan.
 """
 import json
 import sys
@@ -14,13 +19,14 @@ import sys
 from freezebyte import build, client, config, scoring, universe
 from freezebyte.build import _base
 
-UNIVERSE_WHERE = "tags in ['public-float-under-25']"
+UNIVERSE_WHERE = "tags in ['public-float-under-25'] and tags in ['90-d-high', '52-w-high', 'ytd-high', 'top-ten-1m-leaders']"
+UNIVERSE_ORDER = "-market_cap"
 UNIVERSE_LIMIT = 150
 MAX_OVERVIEWS = 50
 
 
 def count() -> None:
-    page = client.screen(where=UNIVERSE_WHERE, limit=1, offset=0)
+    page = client.screen(where=UNIVERSE_WHERE, limit=1, offset=0, order_by=UNIVERSE_ORDER)
     total = page["pagination"]["total_count"]
     take = min(total, UNIVERSE_LIMIT)
     print(f"total_count screener : {total}")
@@ -32,7 +38,7 @@ def run() -> None:
     suspensions = json.loads(
         (config.RAW_DIR / "suspensions" / "all.json").read_text(encoding="utf-8")
     )
-    page = client.screen(where=UNIVERSE_WHERE, limit=UNIVERSE_LIMIT, offset=0)
+    page = client.screen(where=UNIVERSE_WHERE, limit=UNIVERSE_LIMIT, offset=0, order_by=UNIVERSE_ORDER)
     symbols = [r["symbol"] for r in page.get("results") or []]
     start, end = build._watchlist_window()
 
