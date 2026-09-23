@@ -1,0 +1,6 @@
+{"symbols": [
+  {"symbol": "AAAA", "tier": "tinggi", "ret_10d": 0.52, "vol_ratio": 1.2, "as_of": "2026-09-18",
+   "flags": {"float_under_25": true, "single_entity_70": false, "insider_1m_sell": false, "at_52w_high": true}},
+  {"symbol": "BBBB", "tier": "sedang", "ret_10d": 0.24, "vol_ratio": 0.9, "as_of": "2026-09-18", "flags": null},
+  {"symbol": "CCCC", "tier": "senyap", "ret_10d": 0.01, "vol_ratio": 1.0, "as_of": "2026-09-18", "flags": null}
+]}

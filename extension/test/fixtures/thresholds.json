@@ -1,0 +1,5 @@
+{"upper": 0.315874, "near_lower": 0.2,
+ "counts": {"tinggi": {"events": 38, "controls": 0}, "sedang": {"events": 3, "controls": 2}},
+ "n": {"events": 55, "controls": 58}, "lags": [], "holdout": {},
+ "evidence_url": "https://marshal-rizky.github.io/FREEZE-BYTE/site/",
+ "built_at": "2026-09-23T00:00:00", "stale_after_days": 7}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="id">
+<head><meta charset="utf-8"><title>FREEZE BYTE harness</title>
+<style>body{font:16px/1.6 Georgia,serif;max-width:640px;margin:40px auto;padding:0 16px}
+.spacer{height:1400px}</style></head>
+<body>
+  <h1>Berita pasar</h1>
+  <p id="p1">Saham AAAA naik tajam pekan ini. BBBB juga menguat, sementara CCCC tenang.</p>
+  <p id="p2">BEI SUSPENSI SAHAM AAAA HARI INI</p>
+  <p id="p3">BUMN dan RUPS tidak boleh terdeteksi.</p>
+  <textarea>AAAA di dalam textarea tidak boleh terdeteksi</textarea>
+  <div class="spacer"></div>
+  <p id="p4">Di bawah lipatan: AAAA sekali lagi.</p>
+  <script>
+    // Pengganti chrome.runtime untuk halaman uji: data dibaca dari fixtures.
+    globalThis.chrome = { runtime: { getURL: (p) => p.replace(/^data\//, "fixtures/") } };
+    document.addEventListener("DOMContentLoaded", () => {
+      window.__bodyBefore = document.body.innerHTML;
+    });
+  </script>
+  <script src="../src/detect.js"></script>
+  <script src="../src/verdict.js"></script>
+  <script src="../src/anchors.js"></script>
+  <script src="../src/overlay.js"></script>
+  <script src="../src/content.js"></script>
+</body>
+</html>
