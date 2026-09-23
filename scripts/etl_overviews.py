@@ -1,18 +1,15 @@
-"""Tarik overview untuk emiten sampel dan kandidat aktif, lalu petakan kosakata tag.
+"""Tarik overview untuk kejadian sampel, lalu petakan kosakata tag.
 
 Biaya: 1 kredit per emiten karena hanya section overview yang diminta.
 Memanggil tanpa parameter sections akan menarik 8 section dan menghabiskan 8 kredit.
+Kandidat daftar pantau tidak lagi ditarik di sini; semesta ekstensi
+(scripts/etl_universe.py) yang menggantikannya.
 """
 import json
 from collections import Counter
 
 from freezebyte import client, config
 from freezebyte.structural import extract
-
-CANDIDATE_WHERE = (
-    "tags in ['52-w-high'] and tags in ['public-float-under-25']"
-)
-CANDIDATE_LIMIT = 80
 
 
 def sampled_symbols() -> list[str]:
@@ -22,15 +19,8 @@ def sampled_symbols() -> list[str]:
     return [e["symbol"] for e in manifest["events"]]
 
 
-def candidate_symbols() -> list[str]:
-    page = client.screen(where=CANDIDATE_WHERE, limit=CANDIDATE_LIMIT, offset=0)
-    print(f"kandidat dari screener: {page['pagination']['total_count']} total, "
-          f"mengambil {len(page['results'])}")
-    return [r["symbol"] for r in page["results"]]
-
-
 def main():
-    symbols = list(dict.fromkeys(sampled_symbols() + candidate_symbols()))
+    symbols = list(dict.fromkeys(sampled_symbols()))
 
     vocabulary = Counter()
     unavailable = []

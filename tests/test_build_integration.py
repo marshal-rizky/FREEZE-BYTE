@@ -113,6 +113,20 @@ def cache(tmp_path, monkeypatch):
         json.dumps({"start": "2026-01-01", "end": "2026-01-30"}), encoding="utf-8"
     )
 
+    # Semesta ekstensi menggantikan penemuan kandidat lewat folder overview.
+    # CAND2 sengaja tidak punya overview di cache: semesta tidak menarik
+    # overview untuk simbol SENYAP, dan build tidak boleh menariknya diam-diam.
+    (raw_dir / "manifest_universe.json").write_text(
+        json.dumps({
+            "where": "tags in ['public-float-under-25']",
+            "window": ["2026-01-01", "2026-01-30"],
+            "total_count": 2,
+            "symbols": ["CAND1", "CAND2"],
+            "overview_symbols": ["CAND1"],
+        }),
+        encoding="utf-8",
+    )
+
     evta_rows = _rows("EVTA", seed_close=1000, freeze_days=FREEZE_DAYS)
     ctrl_rows = _rows("CTRL", seed_close=500)
     cand_rows = _rows("CAND1", seed_close=700)
@@ -128,6 +142,11 @@ def cache(tmp_path, monkeypatch):
     _seed_envelope(
         raw_dir / "daily" / "CAND1_2026-01-01_2026-01-30.json",
         "/daily/CAND1/", {"start": "2026-01-01", "end": "2026-01-30"}, cand_rows,
+    )
+    _seed_envelope(
+        raw_dir / "daily" / "CAND2_2026-01-01_2026-01-30.json",
+        "/daily/CAND2/", {"start": "2026-01-01", "end": "2026-01-30"},
+        _rows("CAND2", seed_close=300),
     )
 
     _seed_envelope(
@@ -179,7 +198,7 @@ def test_coverage_analyzed_plus_excluded_equals_total(cache):
     assert coverage["sample_controls"] == 1
     # I1: kandidat daftar pantau punya counter sendiri, terpisah dari sampel
     # forensik di atas.
-    assert coverage["watchlist"]["total"] == 1  # CAND1 saja; EVTA sudah "seen"
+    assert coverage["watchlist"]["total"] == 2  # CAND1 + CAND2 dari semesta
     assert coverage["watchlist"]["analyzed"] + coverage["watchlist"]["excluded"] == \
         coverage["watchlist"]["total"]
 
@@ -220,3 +239,15 @@ def test_insufficient_bucket_reports_sufficient_false(cache):
     assert all(not b["sufficient"] for b in baserates_payload["buckets"])
     assert baserates_payload["n_events"] == 1
     assert baserates_payload["n_controls"] == 1
+
+
+def test_watchlist_rows_carry_tier_and_tolerate_missing_overview(cache):
+    build.main()
+    rows = json.loads((cache["web_dir"] / "watchlist.json").read_text(encoding="utf-8"))
+    by_symbol = {r["symbol"]: r for r in rows}
+
+    assert set(by_symbol) == {"CAND1", "CAND2"}
+    assert all(r["tier"] in ("tinggi", "sedang", "senyap") for r in rows)
+    assert by_symbol["CAND1"]["structural"]["available"] is True
+    assert by_symbol["CAND2"]["structural"]["available"] is False
+    assert client.NETWORK_CALLS == []

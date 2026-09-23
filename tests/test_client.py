@@ -235,3 +235,15 @@ def test_screen_distinguishes_where_clauses_that_differ_only_in_punctuation(tmp_
 
     assert len(seen) == 2
     assert len(list((tmp_path / "companies").glob("*.json"))) == 2
+
+
+def test_is_price_cached_matches_get_prices_cache_path(tmp_path, monkeypatch):
+    from freezebyte import client, config
+    monkeypatch.setattr(config, "RAW_DIR", tmp_path)
+    assert client.price_cache_key("ccsi.jk", "2026-01-01", "2026-03-31") == \
+        "daily/CCSI.JK_2026-01-01_2026-03-31"
+    assert not client.is_price_cached("CCSI.JK", "2026-01-01", "2026-03-31")
+    path = tmp_path / "daily" / "CCSI.JK_2026-01-01_2026-03-31.json"
+    path.parent.mkdir(parents=True)
+    path.write_text("{}", encoding="utf-8")
+    assert client.is_price_cached("ccsi.jk", "2026-01-01", "2026-03-31")
