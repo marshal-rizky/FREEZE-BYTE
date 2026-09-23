@@ -24,7 +24,23 @@ test("tradingview idx symbol page", () => {
 test("google finance idx quote", () => {
   assert.deepEqual(symbolFromUrl("https://www.google.com/finance/quote/BUMI:IDX?hl=id"),
     { site: "google-finance", symbol: "BUMI" });
+  // URL nyata (Task 9): Google mengalihkan ke path "/finance/beta/quote/...".
+  assert.deepEqual(symbolFromUrl("https://www.google.com/finance/beta/quote/BBCA:IDX"),
+    { site: "google-finance", symbol: "BBCA" });
   assert.equal(symbolFromUrl("https://www.google.com/finance/quote/AAPL:NASDAQ"), null);
+});
+
+test("sectors.app company page", () => {
+  assert.deepEqual(symbolFromUrl("https://sectors.app/idx/bbca"),
+    { site: "sectors", symbol: "BBCA" });
+  assert.equal(symbolFromUrl("https://sectors.app/"), null);
+});
+
+test("idx.co.id company profile page", () => {
+  assert.deepEqual(
+    symbolFromUrl("https://www.idx.co.id/id/perusahaan-tercatat/profil-perusahaan-tercatat/BBCA"),
+    { site: "idx", symbol: "BBCA" });
+  assert.equal(symbolFromUrl("https://www.idx.co.id/id"), null);
 });
 
 test("unknown sites give nothing", () => {

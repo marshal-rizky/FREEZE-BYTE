@@ -12,7 +12,13 @@
     { site: "tradingview",
       pattern: /^https:\/\/(?:[a-z]{2,3}\.)?tradingview\.com\/symbols\/IDX-([A-Za-z]{4})(?:[\/?#]|$)/ },
     { site: "google-finance",
-      pattern: /^https:\/\/www\.google\.com\/finance\/quote\/([A-Za-z]{4}):IDX(?:[\/?#]|$)/ },
+      // Google mengalihkan ke path "/finance/beta/quote/..." saat ini
+      // (diverifikasi Task 9); pola lama tanpa "beta/" tetap diterima juga.
+      pattern: /^https:\/\/www\.google\.com\/finance\/(?:beta\/)?quote\/([A-Za-z]{4}):IDX(?:[\/?#]|$)/ },
+    { site: "sectors",
+      pattern: /^https:\/\/sectors\.app\/idx\/([A-Za-z]{4})(?:[\/?#]|$)/ },
+    { site: "idx",
+      pattern: /^https:\/\/(?:www\.)?idx\.co\.id\/id\/perusahaan-tercatat\/profil-perusahaan-tercatat\/([A-Za-z]{4})(?:[\/?#]|$)/ },
   ];
 
   function symbolFromUrl(url) {
