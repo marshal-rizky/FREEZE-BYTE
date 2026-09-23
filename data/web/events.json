@@ -1,5 +1,155 @@
 [
   {
+    "symbol": "NASI.JK",
+    "as_of": "2026-09-21",
+    "suspension_date": "2026-09-22",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham NASI.JK, dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/SEP/20260921-WAS_Suspensi_NASI.pdf",
+    "features": {
+      "ret_5d": 0.7914110429447854,
+      "ret_10d": 0.8364779874213837,
+      "ret_20d": 1.013793103448276,
+      "vol_ratio": 1.3041339517306627,
+      "dist_from_high": 1.0,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 3,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": true,
+        "at_52w_high": true,
+        "tags": [
+          "52-w-high",
+          "90-d-high",
+          "insider-1-month-sell",
+          "last-volume-above-10d-volume-average",
+          "ytd-high"
+        ],
+        "market_cap": 221227600000,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r3v2",
+    "reopen_return": -0.06164383561643838,
+    "windows": [
+      {
+        "start_date": "2026-09-22",
+        "end_date": "2026-09-22",
+        "n_days": 1,
+        "price_at_freeze": 292,
+        "reopen_close": 274,
+        "reopen_return": -0.06164383561643838,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "WAPO.JK",
+    "as_of": "2026-09-21",
+    "suspension_date": "2026-09-22",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham WAPO.JK, dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/SEP/20260921-WAS_Suspensi_WAPO.pdf",
+    "features": {
+      "ret_5d": 0.33678756476683946,
+      "ret_10d": 0.5,
+      "ret_20d": 0.8561151079136691,
+      "vol_ratio": 2.9195762583501033,
+      "dist_from_high": 0.9416058394160584,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 2,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "90-d-high",
+          "last-volume-above-10d-volume-average",
+          "public-float-under-25",
+          "top-ten-1m-leaders",
+          "ytd-high"
+        ],
+        "market_cap": 349940317302,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "reopen_return": 0.09302325581395343,
+    "windows": [
+      {
+        "start_date": "2026-09-22",
+        "end_date": "2026-09-22",
+        "n_days": 1,
+        "price_at_freeze": 258,
+        "reopen_close": 282,
+        "reopen_return": 0.09302325581395343,
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "symbol": "BIKE.JK",
+    "as_of": "2026-09-18",
+    "suspension_date": "2026-09-21",
+    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham BIKE.JK, dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
+    "reason_category": "lonjakan_harga",
+    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/SEP/20260921-WAS_Suspensi_BIKE.pdf",
+    "features": {
+      "ret_5d": 0.2282608695652173,
+      "ret_10d": 0.4966887417218544,
+      "ret_20d": 1.215686274509804,
+      "vol_ratio": 0.21266328313503619,
+      "dist_from_high": 1.0,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 2,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": true,
+        "insider_1m_sell": false,
+        "at_52w_high": true,
+        "tags": [
+          "52-w-high",
+          "90-d-high",
+          "all-time-high",
+          "last-volume-above-10d-volume-average",
+          "public-float-under-25",
+          "single-entity-holding-70",
+          "top-ten-1m-leaders",
+          "ytd-high"
+        ],
+        "market_cap": 1293916404000,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r3v1",
+    "reopen_return": -0.030973451327433676,
+    "windows": [
+      {
+        "start_date": "2026-07-24",
+        "end_date": "2026-08-21",
+        "n_days": 20,
+        "price_at_freeze": 510,
+        "reopen_close": 498,
+        "reopen_return": -0.02352941176470591,
+        "confirmed": false
+      },
+      {
+        "start_date": "2026-09-21",
+        "end_date": "2026-09-21",
+        "n_days": 1,
+        "price_at_freeze": 1130,
+        "reopen_close": 1095,
+        "reopen_return": -0.030973451327433676,
+        "confirmed": true
+      }
+    ]
+  },
+  {
     "symbol": "INPS.JK",
     "as_of": "2026-09-16",
     "suspension_date": "2026-09-17",
@@ -37,8 +187,8 @@
     "windows": [
       {
         "start_date": "2026-09-18",
-        "end_date": "2026-09-18",
-        "n_days": 1,
+        "end_date": "2026-09-23",
+        "n_days": 4,
         "price_at_freeze": 1065,
         "reopen_close": null,
         "reopen_return": null,
@@ -65,18 +215,13 @@
         "float_under_25": true,
         "single_entity_70": true,
         "insider_1m_sell": false,
-        "at_52w_high": true,
+        "at_52w_high": false,
         "tags": [
-          "52-w-high",
-          "90-d-high",
-          "all-time-high",
           "public-float-under-25",
           "single-entity-holding-70",
           "top-30-yoy-revenue-growth",
           "top-30-yoy-ttm-earning-growth",
-          "top-ten-1m-leaders",
-          "top-ten-1y-leaders",
-          "ytd-high"
+          "top-ten-1y-leaders"
         ],
         "market_cap": 3756721407000,
         "listing_board": "Development",
@@ -115,8 +260,8 @@
       },
       {
         "start_date": "2026-09-16",
-        "end_date": "2026-09-18",
-        "n_days": 3,
+        "end_date": "2026-09-23",
+        "n_days": 6,
         "price_at_freeze": 7400,
         "reopen_close": null,
         "reopen_return": null,
@@ -167,6 +312,15 @@
         "reopen_close": 246,
         "reopen_return": 0.05128205128205132,
         "confirmed": true
+      },
+      {
+        "start_date": "2026-09-21",
+        "end_date": "2026-09-23",
+        "n_days": 3,
+        "price_at_freeze": 264,
+        "reopen_close": null,
+        "reopen_return": null,
+        "confirmed": false
       }
     ]
   },
@@ -193,12 +347,11 @@
         "tags": [
           "52-w-low",
           "90-d-low",
-          "last-volume-above-10d-volume-average",
           "top-ten-1m-laggards",
           "top-ten-1y-laggards",
           "ytd-low"
         ],
-        "market_cap": 857519635280,
+        "market_cap": 840019234560,
         "listing_board": "Acceleration",
         "available": true
       }
@@ -240,12 +393,11 @@
         "tags": [
           "90-d-high",
           "insider-1-month-sell",
-          "last-volume-above-10d-volume-average",
           "public-float-under-25",
           "single-entity-holding-70",
           "ytd-high"
         ],
-        "market_cap": 33230394180000,
+        "market_cap": 30645807966000,
         "listing_board": "Main",
         "available": true
       }
@@ -285,6 +437,7 @@
         "insider_1m_sell": false,
         "at_52w_high": false,
         "tags": [
+          "last-volume-above-10d-volume-average",
           "public-float-under-25",
           "single-entity-holding-70"
         ],
@@ -294,7 +447,7 @@
       }
     },
     "bucket": "r3v2",
-    "reopen_return": null,
+    "reopen_return": -0.0948905109489051,
     "windows": [
       {
         "start_date": "2026-09-08",
@@ -310,8 +463,8 @@
         "end_date": "2026-09-18",
         "n_days": 7,
         "price_at_freeze": 137,
-        "reopen_close": null,
-        "reopen_return": null,
+        "reopen_close": 124,
+        "reopen_return": -0.0948905109489051,
         "confirmed": true
       }
     ]
@@ -332,8 +485,8 @@
       "prior_freeze_count": 0,
       "consecutive_up_days": 4,
       "structural": {
-        "float_under_25": true,
-        "single_entity_70": true,
+        "float_under_25": false,
+        "single_entity_70": false,
         "insider_1m_sell": true,
         "at_52w_high": true,
         "tags": [
@@ -341,12 +494,11 @@
           "90-d-high",
           "all-time-high",
           "insider-1-month-sell",
-          "public-float-under-25",
-          "single-entity-holding-70",
+          "last-volume-above-10d-volume-average",
           "top-ten-1y-leaders",
           "ytd-high"
         ],
-        "market_cap": 27430321118400,
+        "market_cap": 29716181211600,
         "listing_board": "Acceleration",
         "available": true
       }
@@ -388,7 +540,7 @@
         "tags": [
           "public-float-under-25"
         ],
-        "market_cap": 4779500000000,
+        "market_cap": 4864200000000,
         "listing_board": "Watchlist",
         "available": true
       }
@@ -428,10 +580,11 @@
         "insider_1m_sell": false,
         "at_52w_high": false,
         "tags": [
+          "insider-1-month-buy",
           "last-volume-above-10d-volume-average",
           "top-ten-1y-leaders"
         ],
-        "market_cap": 2262500000000,
+        "market_cap": 2587500000000,
         "listing_board": "Development",
         "available": true
       }
@@ -469,20 +622,24 @@
         "float_under_25": true,
         "single_entity_70": true,
         "insider_1m_sell": false,
-        "at_52w_high": false,
+        "at_52w_high": true,
         "tags": [
+          "52-w-high",
+          "90-d-high",
+          "last-volume-above-10d-volume-average",
           "public-float-under-25",
           "single-entity-holding-70",
           "top-30-yoy-revenue-growth",
-          "top-ten-1m-leaders"
+          "top-ten-1m-leaders",
+          "ytd-high"
         ],
-        "market_cap": 26722500000000,
+        "market_cap": 26250000000000,
         "listing_board": "Development",
         "available": true
       }
     },
     "bucket": "r3v3",
-    "reopen_return": null,
+    "reopen_return": -0.0982318271119843,
     "windows": [
       {
         "start_date": "2026-07-08",
@@ -507,8 +664,8 @@
         "end_date": "2026-09-18",
         "n_days": 11,
         "price_at_freeze": 12725,
-        "reopen_close": null,
-        "reopen_return": null,
+        "reopen_close": 11475,
+        "reopen_return": -0.0982318271119843,
         "confirmed": true
       }
     ]
@@ -562,6 +719,15 @@
         "reopen_close": 2400,
         "reopen_return": -0.016393442622950838,
         "confirmed": true
+      },
+      {
+        "start_date": "2026-09-21",
+        "end_date": "2026-09-23",
+        "n_days": 3,
+        "price_at_freeze": 2820,
+        "reopen_close": null,
+        "reopen_return": null,
+        "confirmed": false
       }
     ]
   },
@@ -583,17 +749,18 @@
       "structural": {
         "float_under_25": false,
         "single_entity_70": false,
-        "insider_1m_sell": false,
+        "insider_1m_sell": true,
         "at_52w_high": true,
         "tags": [
           "52-w-high",
           "90-d-high",
           "all-time-high",
-          "last-volume-above-10d-volume-average",
+          "insider-1-month-buy",
+          "insider-1-month-sell",
           "top-ten-1m-leaders",
           "ytd-high"
         ],
-        "market_cap": 617700000000,
+        "market_cap": 819975000000,
         "listing_board": "Development",
         "available": true
       }
@@ -643,8 +810,7 @@
         "at_52w_high": false,
         "tags": [
           "majority-shareholders-in-control-50",
-          "public-float-under-25",
-          "top-ten-1m-leaders"
+          "public-float-under-25"
         ],
         "market_cap": 360911313360,
         "listing_board": "Acceleration",
@@ -665,8 +831,8 @@
       },
       {
         "start_date": "2026-09-07",
-        "end_date": "2026-09-18",
-        "n_days": 10,
+        "end_date": "2026-09-23",
+        "n_days": 13,
         "price_at_freeze": 468,
         "reopen_close": null,
         "reopen_return": null,
@@ -692,23 +858,23 @@
       "structural": {
         "float_under_25": true,
         "single_entity_70": false,
-        "insider_1m_sell": false,
+        "insider_1m_sell": true,
         "at_52w_high": true,
         "tags": [
           "52-w-high",
           "90-d-high",
           "all-time-high",
-          "last-volume-above-10d-volume-average",
+          "insider-1-month-buy",
+          "insider-1-month-sell",
           "public-float-under-25",
-          "top-ten-1m-leaders",
           "ytd-high"
         ],
-        "market_cap": 858161850040,
+        "market_cap": 702132422760,
         "listing_board": "Watchlist",
         "available": true
       }
     },
-    "bucket": "r3v3",
+    "bucket": "r3v2",
     "reopen_return": 0.0971428571428572,
     "windows": [
       {
@@ -752,10 +918,9 @@
         "insider_1m_sell": false,
         "at_52w_high": false,
         "tags": [
-          "90-d-high",
-          "last-volume-above-10d-volume-average"
+          "90-d-high"
         ],
-        "market_cap": 19274647159315,
+        "market_cap": 19104081903760,
         "listing_board": "Acceleration",
         "available": true
       }
@@ -807,12 +972,12 @@
           "90-d-high",
           "ytd-high"
         ],
-        "market_cap": 141994701000,
+        "market_cap": 190958391000,
         "listing_board": "Development",
         "available": true
       }
     },
-    "bucket": "r3v3",
+    "bucket": "r3v2",
     "reopen_return": 0.09289617486338808,
     "windows": [
       {
@@ -898,8 +1063,10 @@
         "single_entity_70": false,
         "insider_1m_sell": false,
         "at_52w_high": false,
-        "tags": [],
-        "market_cap": 159808320750,
+        "tags": [
+          "last-volume-above-10d-volume-average"
+        ],
+        "market_cap": 179916652500,
         "listing_board": "Development",
         "available": true
       }
@@ -942,11 +1109,12 @@
           "52-w-high",
           "90-d-high",
           "all-time-high",
+          "last-volume-above-10d-volume-average",
           "top-30-yoy-ttm-earning-growth",
           "top-ten-1y-leaders",
           "ytd-high"
         ],
-        "market_cap": 1840000000000,
+        "market_cap": 2380000000000,
         "listing_board": "Development",
         "available": true
       }
@@ -1004,11 +1172,10 @@
         "insider_1m_sell": false,
         "at_52w_high": false,
         "tags": [
-          "last-volume-above-10d-volume-average",
           "public-float-under-25",
           "single-entity-holding-70"
         ],
-        "market_cap": 3394264331964,
+        "market_cap": 3719074315884,
         "listing_board": "Development",
         "available": true
       }
@@ -1055,7 +1222,7 @@
           "top-30-yoy-ttm-earning-growth",
           "ytd-high"
         ],
-        "market_cap": 3157467542688,
+        "market_cap": 3250334235120,
         "listing_board": "Development",
         "available": true
       }
@@ -1108,7 +1275,7 @@
           "single-entity-holding-70",
           "top-30-yoy-ttm-earning-growth"
         ],
-        "market_cap": 895120119260,
+        "market_cap": 865060115255,
         "listing_board": "Watchlist",
         "available": true
       }
@@ -1153,7 +1320,7 @@
           "top-90d-transaction-volume",
           "top-ten-1m-laggards"
         ],
-        "market_cap": 7490167834400,
+        "market_cap": 7450952296000,
         "listing_board": "Watchlist",
         "available": true
       }
@@ -1209,7 +1376,7 @@
         "available": true
       }
     },
-    "bucket": "r3v2",
+    "bucket": "r2v2",
     "reopen_return": null,
     "windows": [
       {
@@ -1260,14 +1427,16 @@
         "float_under_25": true,
         "single_entity_70": false,
         "insider_1m_sell": true,
-        "at_52w_high": false,
+        "at_52w_high": true,
         "tags": [
+          "52-w-high",
+          "90-d-high",
           "insider-1-month-buy",
           "insider-1-month-sell",
-          "last-volume-above-10d-volume-average",
-          "public-float-under-25"
+          "public-float-under-25",
+          "ytd-high"
         ],
-        "market_cap": 630000000000,
+        "market_cap": 784800000000,
         "listing_board": "Development",
         "available": true
       }
@@ -1319,10 +1488,11 @@
           "90-d-low",
           "insider-1-month-buy",
           "insider-1-month-sell",
+          "last-volume-above-10d-volume-average",
           "public-float-under-25",
           "top-ten-1m-laggards"
         ],
-        "market_cap": 156138049770,
+        "market_cap": 154678815660,
         "listing_board": "Development",
         "available": true
       }
@@ -1371,9 +1541,10 @@
         "insider_1m_sell": false,
         "at_52w_high": false,
         "tags": [
+          "last-volume-above-10d-volume-average",
           "public-float-under-25"
         ],
-        "market_cap": 1262350698336,
+        "market_cap": 1382574574368,
         "listing_board": "Watchlist",
         "available": true
       }
@@ -1424,7 +1595,7 @@
         "tags": [
           "insider-1-month-buy"
         ],
-        "market_cap": 548348149266,
+        "market_cap": 487757193546,
         "listing_board": "Acceleration",
         "available": true
       }
@@ -1464,7 +1635,7 @@
         "insider_1m_sell": false,
         "at_52w_high": false,
         "tags": [],
-        "market_cap": 74218750000,
+        "market_cap": 97656250000,
         "listing_board": "Acceleration",
         "available": true
       }
@@ -1511,16 +1682,17 @@
         "float_under_25": true,
         "single_entity_70": true,
         "insider_1m_sell": false,
-        "at_52w_high": true,
+        "at_52w_high": false,
         "tags": [
-          "52-w-high",
-          "90-d-high",
-          "last-volume-above-10d-volume-average",
+          "52-w-low",
+          "90-d-low",
           "public-float-under-25",
           "single-entity-holding-70",
-          "ytd-high"
+          "top-ten-1m-laggards",
+          "top-ten-1y-laggards",
+          "ytd-low"
         ],
-        "market_cap": 1400324240000,
+        "market_cap": 109792864000,
         "listing_board": "Development",
         "available": true
       }
@@ -1570,7 +1742,6 @@
         "at_52w_high": false,
         "tags": [
           "90-d-low",
-          "last-volume-above-10d-volume-average",
           "public-float-under-25"
         ],
         "market_cap": 2178125000000,
@@ -1613,10 +1784,9 @@
         "insider_1m_sell": false,
         "at_52w_high": false,
         "tags": [
-          "90-d-high",
           "public-float-under-25"
         ],
-        "market_cap": 7397828800000,
+        "market_cap": 7071454000000,
         "listing_board": "Main",
         "available": true
       }
@@ -1664,10 +1834,8 @@
         "single_entity_70": false,
         "insider_1m_sell": false,
         "at_52w_high": false,
-        "tags": [
-          "last-volume-above-10d-volume-average"
-        ],
-        "market_cap": 4128365826800,
+        "tags": [],
+        "market_cap": 4224374334400,
         "listing_board": "Development",
         "available": true
       }
@@ -1722,7 +1890,7 @@
           "public-float-under-25",
           "ytd-high"
         ],
-        "market_cap": 252581341442,
+        "market_cap": 255501356950,
         "listing_board": "Acceleration",
         "available": true
       }
@@ -1774,7 +1942,7 @@
           "90-d-low",
           "top-30-yoy-revenue-growth"
         ],
-        "market_cap": 83384849520,
+        "market_cap": 78090573360,
         "listing_board": "Development",
         "available": true
       }
@@ -1824,9 +1992,10 @@
         "at_52w_high": false,
         "tags": [
           "90-d-low",
+          "last-volume-above-10d-volume-average",
           "public-float-under-25"
         ],
-        "market_cap": 238084500000,
+        "market_cap": 229994250000,
         "listing_board": "Development",
         "available": true
       }
@@ -1866,11 +2035,12 @@
         "insider_1m_sell": false,
         "at_52w_high": false,
         "tags": [
+          "90-d-high",
           "last-volume-above-10d-volume-average",
           "public-float-under-25",
           "single-entity-holding-70"
         ],
-        "market_cap": 994289528940,
+        "market_cap": 1087992207060,
         "listing_board": "Acceleration",
         "available": true
       }
@@ -1919,13 +2089,10 @@
         "insider_1m_sell": false,
         "at_52w_high": false,
         "tags": [
-          "90-d-low",
-          "insider-1-month-buy",
           "public-float-under-25",
-          "single-entity-holding-70",
-          "top-ten-1m-laggards"
+          "single-entity-holding-70"
         ],
-        "market_cap": 272854412424,
+        "market_cap": 308934334728,
         "listing_board": "Development",
         "available": true
       }
@@ -1965,7 +2132,7 @@
         "insider_1m_sell": false,
         "at_52w_high": false,
         "tags": [],
-        "market_cap": 3708542452740,
+        "market_cap": 3785007245580,
         "listing_board": "Acceleration",
         "available": true
       }
@@ -2053,8 +2220,10 @@
         "single_entity_70": false,
         "insider_1m_sell": false,
         "at_52w_high": false,
-        "tags": [],
-        "market_cap": 376968000000,
+        "tags": [
+          "last-volume-above-10d-volume-average"
+        ],
+        "market_cap": 398664000000,
         "listing_board": "Development",
         "available": true
       }
@@ -2103,10 +2272,11 @@
         "insider_1m_sell": false,
         "at_52w_high": false,
         "tags": [
+          "last-volume-above-10d-volume-average",
           "public-float-under-25",
           "single-entity-holding-70"
         ],
-        "market_cap": 573879702440,
+        "market_cap": 589530967052,
         "listing_board": "Development",
         "available": true
       }
@@ -2150,7 +2320,7 @@
           "single-entity-holding-70",
           "top-ten-1y-laggards"
         ],
-        "market_cap": 57187500000000,
+        "market_cap": 51328125000000,
         "listing_board": "Development",
         "available": true
       }
@@ -2190,9 +2360,10 @@
         "insider_1m_sell": false,
         "at_52w_high": false,
         "tags": [
+          "last-volume-above-10d-volume-average",
           "public-float-under-25"
         ],
-        "market_cap": 538618223260,
+        "market_cap": 533934586536,
         "listing_board": "Watchlist",
         "available": true
       }
@@ -2235,11 +2406,10 @@
           "52-w-high",
           "90-d-high",
           "all-time-high",
-          "last-volume-above-10d-volume-average",
           "public-float-under-25",
           "ytd-high"
         ],
-        "market_cap": 11469308400000,
+        "market_cap": 10825309800000,
         "listing_board": "Development",
         "available": true
       }
@@ -2285,14 +2455,13 @@
       "structural": {
         "float_under_25": false,
         "single_entity_70": false,
-        "insider_1m_sell": true,
+        "insider_1m_sell": false,
         "at_52w_high": false,
         "tags": [
           "insider-1-month-buy",
-          "insider-1-month-sell",
-          "last-volume-above-10d-volume-average"
+          "top-ten-1m-laggards"
         ],
-        "market_cap": 242400140592,
+        "market_cap": 235200136416,
         "listing_board": "Watchlist",
         "available": true
       }
@@ -2385,7 +2554,7 @@
         "tags": [
           "public-float-under-25"
         ],
-        "market_cap": 380174541965,
+        "market_cap": 369186838440,
         "listing_board": "Development",
         "available": true
       }
@@ -2433,8 +2602,10 @@
         "single_entity_70": false,
         "insider_1m_sell": false,
         "at_52w_high": false,
-        "tags": [],
-        "market_cap": 192459200000,
+        "tags": [
+          "last-volume-above-10d-volume-average"
+        ],
+        "market_cap": 190378560000,
         "listing_board": "Watchlist",
         "available": true
       }
@@ -2474,9 +2645,10 @@
         "insider_1m_sell": false,
         "at_52w_high": false,
         "tags": [
+          "last-volume-above-10d-volume-average",
           "public-float-over-50"
         ],
-        "market_cap": 1824000228760,
+        "market_cap": 2054400257656,
         "listing_board": "Development",
         "available": true
       }
@@ -2533,10 +2705,8 @@
         "single_entity_70": false,
         "insider_1m_sell": false,
         "at_52w_high": false,
-        "tags": [
-          "last-volume-above-10d-volume-average"
-        ],
-        "market_cap": 115315200000,
+        "tags": [],
+        "market_cap": 109612800000,
         "listing_board": "Development",
         "available": true
       }
@@ -2576,9 +2746,10 @@
         "insider_1m_sell": false,
         "at_52w_high": false,
         "tags": [
+          "90-d-high",
           "public-float-under-25"
         ],
-        "market_cap": 162371344709,
+        "market_cap": 166405415385,
         "listing_board": "Watchlist",
         "available": true
       }
@@ -2593,146 +2764,6 @@
         "price_at_freeze": 314,
         "reopen_close": 268,
         "reopen_return": -0.14649681528662417,
-        "confirmed": true
-      }
-    ]
-  },
-  {
-    "symbol": "PLAN.JK",
-    "as_of": "2026-01-27",
-    "suspension_date": "2026-01-28",
-    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham PLAN.JK, dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
-    "reason_category": "lonjakan_harga",
-    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/JAN/20260127-WAS_Suspensi_PLAN.pdf",
-    "features": {
-      "ret_5d": 0.5588235294117647,
-      "ret_10d": 0.9272727272727272,
-      "ret_20d": 1.4090909090909092,
-      "vol_ratio": 0.696720388943061,
-      "dist_from_high": 1.0,
-      "prior_freeze_count": 0,
-      "consecutive_up_days": 8,
-      "structural": {
-        "float_under_25": false,
-        "single_entity_70": false,
-        "insider_1m_sell": false,
-        "at_52w_high": false,
-        "tags": [],
-        "market_cap": 58286123740,
-        "listing_board": "Acceleration",
-        "available": true
-      }
-    },
-    "bucket": "r3v2",
-    "reopen_return": -0.09433962264150941,
-    "windows": [
-      {
-        "start_date": "2026-01-28",
-        "end_date": "2026-01-28",
-        "n_days": 1,
-        "price_at_freeze": 106,
-        "reopen_close": 96,
-        "reopen_return": -0.09433962264150941,
-        "confirmed": true
-      },
-      {
-        "start_date": "2026-02-18",
-        "end_date": "2026-02-23",
-        "n_days": 4,
-        "price_at_freeze": 80,
-        "reopen_close": 76,
-        "reopen_return": -0.050000000000000044,
-        "confirmed": false
-      }
-    ]
-  },
-  {
-    "symbol": "BLUE.JK",
-    "as_of": "2026-01-26",
-    "suspension_date": "2026-01-27",
-    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham BLUE.JK, dalam rangka cooling down sebagai bentuk perlindungan bagi investor",
-    "reason_category": "lonjakan_harga",
-    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/JAN/20260126-WAS_Suspensi_BLUE.pdf",
-    "features": {
-      "ret_5d": 0.21674876847290636,
-      "ret_10d": 0.8323442136498516,
-      "ret_20d": 1.0583333333333331,
-      "vol_ratio": 1.7040736461555663,
-      "dist_from_high": 0.9610894941634242,
-      "prior_freeze_count": 0,
-      "consecutive_up_days": 2,
-      "structural": {
-        "float_under_25": true,
-        "single_entity_70": false,
-        "insider_1m_sell": false,
-        "at_52w_high": false,
-        "tags": [
-          "public-float-under-25"
-        ],
-        "market_cap": 1249820000000,
-        "listing_board": "Watchlist",
-        "available": true
-      }
-    },
-    "bucket": "r3v3",
-    "reopen_return": -0.09311740890688258,
-    "windows": [
-      {
-        "start_date": "2026-01-27",
-        "end_date": "2026-01-27",
-        "n_days": 1,
-        "price_at_freeze": 6175,
-        "reopen_close": 5600,
-        "reopen_return": -0.09311740890688258,
-        "confirmed": true
-      }
-    ]
-  },
-  {
-    "symbol": "ENZO.JK",
-    "as_of": "2026-01-26",
-    "suspension_date": "2026-01-27",
-    "reason": "Terjadinya peningkatan harga kumulatif yang signifikan pada saham ENZO.JK",
-    "reason_category": "lonjakan_harga",
-    "pdf_url": "https://www.idx.co.id/Portals/0/StaticData/NewsAndAnnouncement/ANNOUNCEMENTSTOCK/Exchange/2026/JAN/20260126-WAS_Suspensi_ENZO.pdf",
-    "features": {
-      "ret_5d": 0.4303797468354431,
-      "ret_10d": 0.8833333333333333,
-      "ret_20d": 1.511111111111111,
-      "vol_ratio": 1.2575317764960383,
-      "dist_from_high": 1.0,
-      "prior_freeze_count": 1,
-      "consecutive_up_days": 2,
-      "structural": {
-        "float_under_25": false,
-        "single_entity_70": false,
-        "insider_1m_sell": false,
-        "at_52w_high": false,
-        "tags": [],
-        "market_cap": 164353581272,
-        "listing_board": "Watchlist",
-        "available": true
-      }
-    },
-    "bucket": "r3v2",
-    "reopen_return": -0.09734513274336287,
-    "windows": [
-      {
-        "start_date": "2026-01-22",
-        "end_date": "2026-01-22",
-        "n_days": 1,
-        "price_at_freeze": 94,
-        "reopen_close": 103,
-        "reopen_return": 0.0957446808510638,
-        "confirmed": true
-      },
-      {
-        "start_date": "2026-01-27",
-        "end_date": "2026-02-10",
-        "n_days": 11,
-        "price_at_freeze": 113,
-        "reopen_close": 102,
-        "reopen_return": -0.09734513274336287,
         "confirmed": true
       }
     ]

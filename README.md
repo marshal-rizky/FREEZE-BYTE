@@ -28,9 +28,9 @@ Sectors API v2: `/v2/suspensions/`, `/v2/daily/{symbol}/`, `/v2/company/report/{
 
 ## Coverage
 
-Dataset suspensi penuh berisi **592 record**. Dari situ, **120 masuk sampel forensik**
-(60 kejadian + 60 kontrol, dibatasi anggaran kredit API), dan dari 120 itu **113
-dianalisis, 7 dikecualikan**. Rincian lengkap alasan pengecualian per emiten, daftar
+Dataset suspensi penuh berisi **595 record**. Dari situ, **120 masuk sampel forensik**
+(60 kejadian + 60 kontrol, dibatasi anggaran kredit API), dan dari 120 itu **112
+dianalisis, 8 dikecualikan**. Rincian lengkap alasan pengecualian per emiten, daftar
 pantau terpisah, dan distribusi kategori alasan suspensi ada di bagian coverage pada
 situs (`site/`, dibangun dari `data/web/coverage.json`).
 

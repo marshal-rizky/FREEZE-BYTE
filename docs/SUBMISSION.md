@@ -28,15 +28,15 @@ Track 03 — Market Intelligence.
 
 - [x] `RET10_TERCILES` dan `VOL_TERCILES` di `freezebyte/baserates.py` sudah diisi
   tercile sebenarnya dari output `scripts/report_discovery.py`:
-  `(-0.011506, 0.315874)` dan `(0.655936, 1.689015)`, dihitung dari 113 window
+  `(-0.030303, 0.318182)` dan `(0.742330, 1.719077)`, dihitung dari 112 window
   yang riwayat perdagangannya cukup panjang. Bukan placeholder lagi.
   Penjaganya tetap ada: kalau nilainya kembali ke `(0.0, 0.0)`, `build.main()`
   menolak menulis `baserates.json` (kecuali
   `FREEZEBYTE_ALLOW_PLACEHOLDER_TERCILES=1` diset), karena dengan placeholder
   kesembilan bucket kolaps jadi satu (`r3v3`).
 - [x] Bagian `## Coverage` sudah ada di README.md dengan angka sebenarnya dari
-  `data/web/coverage.json`: 592 record total, 120 masuk sampel forensik
-  (60 kejadian + 60 kontrol), 113 dianalisis dan 7 gugur.
+  `data/web/coverage.json`: 595 record total, 120 masuk sampel forensik
+  (60 kejadian + 60 kontrol), 112 dianalisis dan 8 gugur.
 - [x] `git grep -nE "SECTORS_API_KEY=[\"']?[A-Za-z0-9_-]{8,}"` tidak mengembalikan
   apa pun (dipersempit dari pola sebelumnya: pola lama juga kena tiga hit palsu --
   baris checklist ini sendiri, dikutip di sini dan di implementation plan, plus

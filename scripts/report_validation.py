@@ -7,6 +7,7 @@ memanggil jaringan -- jalankan scripts/etl_prices.py lebih dulu.
 Menulis data/web/validation.json dan docs/validation/lead-time.md.
 """
 import json
+import sys
 
 from freezebyte import client, config, scoring, validation
 
@@ -21,6 +22,9 @@ def cached_rows(symbol: str, window: list[str]) -> list[dict] | None:
 
 
 def main() -> None:
+    # Konsol Windows memakai cp1252 dan tidak punya karakter seperti "≥";
+    # tanpa ini print laporan gagal setelah berkasnya sudah ditulis.
+    sys.stdout.reconfigure(encoding="utf-8")
     manifest = json.loads(
         (config.RAW_DIR / "manifest_prices.json").read_text(encoding="utf-8")
     )

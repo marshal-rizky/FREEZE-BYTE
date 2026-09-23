@@ -1,15 +1,156 @@
 [
   {
-    "symbol": "CCSI.JK",
-    "as_of": "2026-09-18",
+    "symbol": "MGNA.JK",
+    "as_of": "2026-09-23",
     "features": {
-      "ret_5d": 0.3439490445859872,
-      "ret_10d": 0.4964539007092199,
-      "ret_20d": 0.688,
-      "vol_ratio": 0.9930717945674323,
-      "dist_from_high": 0.8274509803921568,
+      "ret_5d": 0.015075376884422065,
+      "ret_10d": 1.0,
+      "ret_20d": 1.148936170212766,
+      "vol_ratio": 0.10153563853448294,
+      "dist_from_high": 0.7890625,
       "prior_freeze_count": 0,
       "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": true,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "90-d-high",
+          "public-float-under-25",
+          "single-entity-holding-70",
+          "top-ten-1m-leaders"
+        ],
+        "market_cap": 689057599470,
+        "listing_board": "Watchlist",
+        "available": true
+      }
+    },
+    "bucket": "r3v1",
+    "tier": "tinggi",
+    "structural": {
+      "float_under_25": true,
+      "single_entity_70": true,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [
+        "90-d-high",
+        "public-float-under-25",
+        "single-entity-holding-70",
+        "top-ten-1m-leaders"
+      ],
+      "market_cap": 689057599470,
+      "listing_board": "Watchlist",
+      "available": true
+    }
+  },
+  {
+    "symbol": "WAPO.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.4764397905759161,
+      "ret_10d": 0.630057803468208,
+      "ret_20d": 0.8675496688741722,
+      "vol_ratio": 2.8562181581783657,
+      "dist_from_high": 0.8757763975155279,
+      "prior_freeze_count": 1,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "90-d-high",
+          "last-volume-above-10d-volume-average",
+          "public-float-under-25",
+          "top-ten-1m-leaders",
+          "ytd-high"
+        ],
+        "market_cap": 349940317302,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "tier": "tinggi",
+    "structural": {
+      "float_under_25": true,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [
+        "90-d-high",
+        "last-volume-above-10d-volume-average",
+        "public-float-under-25",
+        "top-ten-1m-leaders",
+        "ytd-high"
+      ],
+      "market_cap": 349940317302,
+      "listing_board": "Development",
+      "available": true
+    }
+  },
+  {
+    "symbol": "INPS.JK",
+    "as_of": "2026-09-17",
+    "features": {
+      "ret_5d": 0.2529411764705882,
+      "ret_10d": 0.5106382978723405,
+      "ret_20d": 0.5214285714285714,
+      "vol_ratio": 2.5493952018003294,
+      "dist_from_high": 1.0,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 3,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": true,
+        "insider_1m_sell": true,
+        "at_52w_high": true,
+        "tags": [
+          "52-w-high",
+          "90-d-high",
+          "insider-1-month-sell",
+          "public-float-under-25",
+          "single-entity-holding-70",
+          "ytd-high"
+        ],
+        "market_cap": 692250000000,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r3v3",
+    "tier": "tinggi",
+    "structural": {
+      "float_under_25": true,
+      "single_entity_70": true,
+      "insider_1m_sell": true,
+      "at_52w_high": true,
+      "tags": [
+        "52-w-high",
+        "90-d-high",
+        "insider-1-month-sell",
+        "public-float-under-25",
+        "single-entity-holding-70",
+        "ytd-high"
+      ],
+      "market_cap": 692250000000,
+      "listing_board": "Development",
+      "available": true
+    }
+  },
+  {
+    "symbol": "CCSI.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": -0.040909090909090895,
+      "ret_10d": 0.47552447552447563,
+      "ret_20d": 0.6746031746031746,
+      "vol_ratio": 0.44783460052569374,
+      "dist_from_high": 0.8274509803921568,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 2,
       "structural": {
         "float_under_25": true,
         "single_entity_70": false,
@@ -26,7 +167,8 @@
         "available": true
       }
     },
-    "bucket": "r3v2",
+    "bucket": "r3v1",
+    "tier": "tinggi",
     "structural": {
       "float_under_25": true,
       "single_entity_70": false,
@@ -44,164 +186,65 @@
     }
   },
   {
-    "symbol": "ULTJ.JK",
-    "as_of": "2026-09-18",
+    "symbol": "BAJA.JK",
+    "as_of": "2026-09-23",
     "features": {
-      "ret_5d": 0.3642384105960266,
-      "ret_10d": 0.3733333333333333,
-      "ret_20d": 0.3733333333333333,
-      "vol_ratio": 13.735027073722458,
-      "dist_from_high": 0.9406392694063926,
-      "prior_freeze_count": 0,
-      "consecutive_up_days": 5,
+      "ret_5d": 0.5797101449275361,
+      "ret_10d": 0.38853503184713367,
+      "ret_20d": 0.7868852459016393,
+      "vol_ratio": 0.8160164535210586,
+      "dist_from_high": 0.8633663366336634,
+      "prior_freeze_count": 1,
+      "consecutive_up_days": 1,
       "structural": {
         "float_under_25": true,
         "single_entity_70": false,
-        "insider_1m_sell": false,
-        "at_52w_high": true,
-        "tags": [
-          "52-w-high",
-          "90-d-high",
-          "all-time-high",
-          "dividend-yield-ttm-above-5-percent",
-          "last-volume-above-10d-volume-average",
-          "majority-shareholders-in-control-50",
-          "public-float-under-25",
-          "ytd-high"
-        ],
-        "market_cap": 21420240912000,
-        "listing_board": "Main",
-        "available": true
-      }
-    },
-    "bucket": "r3v3",
-    "structural": {
-      "float_under_25": true,
-      "single_entity_70": false,
-      "insider_1m_sell": false,
-      "at_52w_high": true,
-      "tags": [
-        "52-w-high",
-        "90-d-high",
-        "all-time-high",
-        "dividend-yield-ttm-above-5-percent",
-        "last-volume-above-10d-volume-average",
-        "majority-shareholders-in-control-50",
-        "public-float-under-25",
-        "ytd-high"
-      ],
-      "market_cap": 21420240912000,
-      "listing_board": "Main",
-      "available": true
-    }
-  },
-  {
-    "symbol": "PTSN.JK",
-    "as_of": "2026-09-18",
-    "features": {
-      "ret_5d": 0.053763440860215006,
-      "ret_10d": 0.29801324503311255,
-      "ret_20d": 0.36111111111111116,
-      "vol_ratio": 3.1951934071733525,
-      "dist_from_high": 0.784,
-      "prior_freeze_count": 0,
-      "consecutive_up_days": 0,
-      "structural": {
-        "float_under_25": true,
-        "single_entity_70": false,
-        "insider_1m_sell": false,
-        "at_52w_high": true,
-        "tags": [
-          "52-w-high",
-          "90-d-high",
-          "last-volume-above-10d-volume-average",
-          "majority-shareholders-in-control-50",
-          "public-float-under-25",
-          "ytd-high"
-        ],
-        "market_cap": 2083222848000,
-        "listing_board": "Development",
-        "available": true
-      }
-    },
-    "bucket": "r2v3",
-    "structural": {
-      "float_under_25": true,
-      "single_entity_70": false,
-      "insider_1m_sell": false,
-      "at_52w_high": true,
-      "tags": [
-        "52-w-high",
-        "90-d-high",
-        "last-volume-above-10d-volume-average",
-        "majority-shareholders-in-control-50",
-        "public-float-under-25",
-        "ytd-high"
-      ],
-      "market_cap": 2083222848000,
-      "listing_board": "Development",
-      "available": true
-    }
-  },
-  {
-    "symbol": "CASH.JK",
-    "as_of": "2026-09-18",
-    "features": {
-      "ret_5d": 0.1929824561403508,
-      "ret_10d": 0.2592592592592593,
-      "ret_20d": 0.20353982300884965,
-      "vol_ratio": 2.4827944640506985,
-      "dist_from_high": 0.9379310344827586,
-      "prior_freeze_count": 0,
-      "consecutive_up_days": 0,
-      "structural": {
-        "float_under_25": true,
-        "single_entity_70": false,
-        "insider_1m_sell": false,
+        "insider_1m_sell": true,
         "at_52w_high": true,
         "tags": [
           "52-w-high",
           "90-d-high",
           "insider-1-month-buy",
-          "last-volume-above-10d-volume-average",
+          "insider-1-month-sell",
           "public-float-under-25",
           "ytd-high"
         ],
-        "market_cap": 660362202752,
-        "listing_board": "Acceleration",
+        "market_cap": 784800000000,
+        "listing_board": "Development",
         "available": true
       }
     },
-    "bucket": "r2v3",
+    "bucket": "r3v2",
+    "tier": "tinggi",
     "structural": {
       "float_under_25": true,
       "single_entity_70": false,
-      "insider_1m_sell": false,
+      "insider_1m_sell": true,
       "at_52w_high": true,
       "tags": [
         "52-w-high",
         "90-d-high",
         "insider-1-month-buy",
-        "last-volume-above-10d-volume-average",
+        "insider-1-month-sell",
         "public-float-under-25",
         "ytd-high"
       ],
-      "market_cap": 660362202752,
-      "listing_board": "Acceleration",
+      "market_cap": 784800000000,
+      "listing_board": "Development",
       "available": true
     }
   },
   {
     "symbol": "VISI.JK",
-    "as_of": "2026-09-18",
+    "as_of": "2026-09-23",
     "features": {
-      "ret_5d": 0.17391304347826098,
-      "ret_10d": 0.2590673575129534,
-      "ret_20d": 0.3425414364640884,
-      "vol_ratio": 0.5481301517263782,
-      "dist_from_high": 0.8804347826086957,
+      "ret_5d": 0.02734375,
+      "ret_10d": 0.34183673469387754,
+      "ret_20d": 0.31499999999999995,
+      "vol_ratio": 0.5196081386586285,
+      "dist_from_high": 0.9528985507246377,
       "prior_freeze_count": 0,
-      "consecutive_up_days": 0,
+      "consecutive_up_days": 3,
       "structural": {
         "float_under_25": true,
         "single_entity_70": false,
@@ -215,12 +258,13 @@
           "top-ten-1y-leaders",
           "ytd-high"
         ],
-        "market_cap": 3736125000000,
+        "market_cap": 4043625000000,
         "listing_board": "Development",
         "available": true
       }
     },
-    "bucket": "r2v1",
+    "bucket": "r3v1",
+    "tier": "tinggi",
     "structural": {
       "float_under_25": true,
       "single_entity_70": false,
@@ -234,20 +278,20 @@
         "top-ten-1y-leaders",
         "ytd-high"
       ],
-      "market_cap": 3736125000000,
+      "market_cap": 4043625000000,
       "listing_board": "Development",
       "available": true
     }
   },
   {
-    "symbol": "VOKS.JK",
-    "as_of": "2026-09-18",
+    "symbol": "ULTJ.JK",
+    "as_of": "2026-09-23",
     "features": {
-      "ret_5d": 0.17355371900826455,
-      "ret_10d": 0.18333333333333335,
-      "ret_20d": 0.20338983050847448,
-      "vol_ratio": 0.9323925815867078,
-      "dist_from_high": 0.7282051282051282,
+      "ret_5d": 0.0957446808510638,
+      "ret_10d": 0.3290322580645162,
+      "ret_20d": 0.4013605442176871,
+      "vol_ratio": 1.1955755305090832,
+      "dist_from_high": 0.9406392694063926,
       "prior_freeze_count": 0,
       "consecutive_up_days": 0,
       "structural": {
@@ -258,61 +302,19 @@
         "tags": [
           "52-w-high",
           "90-d-high",
-          "public-float-under-25",
-          "ytd-high"
-        ],
-        "market_cap": 1180191136980,
-        "listing_board": "Development",
-        "available": true
-      }
-    },
-    "bucket": "r2v2",
-    "structural": {
-      "float_under_25": true,
-      "single_entity_70": false,
-      "insider_1m_sell": false,
-      "at_52w_high": true,
-      "tags": [
-        "52-w-high",
-        "90-d-high",
-        "public-float-under-25",
-        "ytd-high"
-      ],
-      "market_cap": 1180191136980,
-      "listing_board": "Development",
-      "available": true
-    }
-  },
-  {
-    "symbol": "TUGU.JK",
-    "as_of": "2026-09-18",
-    "features": {
-      "ret_5d": 0.12765957446808507,
-      "ret_10d": 0.17343173431734327,
-      "ret_20d": 0.16483516483516492,
-      "vol_ratio": 1.5634958402147443,
-      "dist_from_high": 0.9325513196480938,
-      "prior_freeze_count": 0,
-      "consecutive_up_days": 0,
-      "structural": {
-        "float_under_25": true,
-        "single_entity_70": false,
-        "insider_1m_sell": false,
-        "at_52w_high": true,
-        "tags": [
-          "52-w-high",
-          "90-d-high",
+          "all-time-high",
           "dividend-yield-ttm-above-5-percent",
-          "last-volume-above-10d-volume-average",
+          "majority-shareholders-in-control-50",
           "public-float-under-25",
           "ytd-high"
         ],
-        "market_cap": 5653365204000,
+        "market_cap": 21420240912000,
         "listing_board": "Main",
         "available": true
       }
     },
-    "bucket": "r2v2",
+    "bucket": "r3v2",
+    "tier": "tinggi",
     "structural": {
       "float_under_25": true,
       "single_entity_70": false,
@@ -321,205 +323,282 @@
       "tags": [
         "52-w-high",
         "90-d-high",
+        "all-time-high",
         "dividend-yield-ttm-above-5-percent",
-        "last-volume-above-10d-volume-average",
+        "majority-shareholders-in-control-50",
         "public-float-under-25",
         "ytd-high"
       ],
-      "market_cap": 5653365204000,
+      "market_cap": 21420240912000,
       "listing_board": "Main",
       "available": true
     }
   },
   {
-    "symbol": "SAPX.JK",
-    "as_of": "2026-09-18",
+    "symbol": "INTD.JK",
+    "as_of": "2026-09-23",
     "features": {
-      "ret_5d": -0.3940594059405941,
-      "ret_10d": 0.125,
-      "ret_20d": 0.41666666666666674,
-      "vol_ratio": 0.8768890568851636,
-      "dist_from_high": 0.4857142857142857,
+      "ret_5d": 0.3161764705882353,
+      "ret_10d": 0.3161764705882353,
+      "ret_20d": 0.23448275862068968,
+      "vol_ratio": 0.9695388349514563,
+      "dist_from_high": 0.9944444444444445,
       "prior_freeze_count": 0,
-      "consecutive_up_days": 0,
+      "consecutive_up_days": 3,
       "structural": {
         "float_under_25": true,
         "single_entity_70": false,
         "insider_1m_sell": false,
-        "at_52w_high": true,
+        "at_52w_high": false,
         "tags": [
-          "52-w-high",
           "90-d-high",
-          "public-float-under-25",
-          "ytd-high"
+          "public-float-under-25"
         ],
-        "market_cap": 254999989800,
-        "listing_board": "Watchlist",
-        "available": true
-      }
-    },
-    "bucket": "r2v2",
-    "structural": {
-      "float_under_25": true,
-      "single_entity_70": false,
-      "insider_1m_sell": false,
-      "at_52w_high": true,
-      "tags": [
-        "52-w-high",
-        "90-d-high",
-        "public-float-under-25",
-        "ytd-high"
-      ],
-      "market_cap": 254999989800,
-      "listing_board": "Watchlist",
-      "available": true
-    }
-  },
-  {
-    "symbol": "KBLM.JK",
-    "as_of": "2026-09-18",
-    "features": {
-      "ret_5d": 0.05681818181818188,
-      "ret_10d": 0.1071428571428572,
-      "ret_20d": 0.21568627450980382,
-      "vol_ratio": 0.5787958115183246,
-      "dist_from_high": 0.8985507246376812,
-      "prior_freeze_count": 0,
-      "consecutive_up_days": 0,
-      "structural": {
-        "float_under_25": true,
-        "single_entity_70": false,
-        "insider_1m_sell": false,
-        "at_52w_high": true,
-        "tags": [
-          "52-w-high",
-          "90-d-high",
-          "public-float-under-25",
-          "ytd-high"
-        ],
-        "market_cap": 416640000000,
+        "market_cap": 211874424000,
         "listing_board": "Development",
         "available": true
       }
     },
-    "bucket": "r2v1",
+    "bucket": "r2v2",
+    "tier": "sedang",
     "structural": {
       "float_under_25": true,
       "single_entity_70": false,
       "insider_1m_sell": false,
-      "at_52w_high": true,
+      "at_52w_high": false,
       "tags": [
-        "52-w-high",
         "90-d-high",
-        "public-float-under-25",
-        "ytd-high"
+        "public-float-under-25"
       ],
-      "market_cap": 416640000000,
+      "market_cap": 211874424000,
       "listing_board": "Development",
       "available": true
     }
   },
   {
-    "symbol": "EPMT.JK",
-    "as_of": "2026-09-18",
+    "symbol": "MITI.JK",
+    "as_of": "2026-09-23",
     "features": {
-      "ret_5d": 0.04330708661417315,
-      "ret_10d": 0.10416666666666674,
-      "ret_20d": 0.12765957446808507,
-      "vol_ratio": 0.4359518754423213,
-      "dist_from_high": 0.9137931034482759,
+      "ret_5d": -0.02083333333333337,
+      "ret_10d": 0.28181818181818175,
+      "ret_20d": 0.28181818181818175,
+      "vol_ratio": 0.8428676560125795,
+      "dist_from_high": 0.8703703703703703,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "90-d-high",
+          "public-float-under-25"
+        ],
+        "market_cap": 1057648502046,
+        "listing_board": "Development",
+        "available": true
+      }
+    },
+    "bucket": "r2v2",
+    "tier": "sedang",
+    "structural": {
+      "float_under_25": true,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [
+        "90-d-high",
+        "public-float-under-25"
+      ],
+      "market_cap": 1057648502046,
+      "listing_board": "Development",
+      "available": true
+    }
+  },
+  {
+    "symbol": "MSIE.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": -0.02777777777777779,
+      "ret_10d": 0.27737226277372273,
+      "ret_20d": 0.8229166666666667,
+      "vol_ratio": 0.24079437240340995,
+      "dist_from_high": 0.9020618556701031,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": true,
+        "tags": [
+          "52-w-high",
+          "90-d-high",
+          "all-time-high",
+          "public-float-under-25",
+          "ytd-high"
+        ],
+        "market_cap": 255501356950,
+        "listing_board": "Acceleration",
+        "available": true
+      }
+    },
+    "bucket": "r2v1",
+    "tier": "sedang",
+    "structural": {
+      "float_under_25": true,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": true,
+      "tags": [
+        "52-w-high",
+        "90-d-high",
+        "all-time-high",
+        "public-float-under-25",
+        "ytd-high"
+      ],
+      "market_cap": 255501356950,
+      "listing_board": "Acceleration",
+      "available": true
+    }
+  },
+  {
+    "symbol": "AKSI.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.08108108108108114,
+      "ret_10d": 0.2738853503184713,
+      "ret_20d": 0.6666666666666667,
+      "vol_ratio": 0.7036221661110462,
+      "dist_from_high": 0.9090909090909091,
       "prior_freeze_count": 0,
       "consecutive_up_days": 1,
       "structural": {
         "float_under_25": true,
         "single_entity_70": true,
         "insider_1m_sell": false,
-        "at_52w_high": true,
+        "at_52w_high": false,
         "tags": [
-          "52-w-high",
           "90-d-high",
           "public-float-under-25",
-          "single-entity-holding-70",
-          "ytd-high"
+          "single-entity-holding-70"
         ],
-        "market_cap": 7177896000000,
+        "market_cap": 288000000000,
         "listing_board": "Development",
         "available": true
       }
     },
     "bucket": "r2v1",
+    "tier": "sedang",
     "structural": {
       "float_under_25": true,
       "single_entity_70": true,
       "insider_1m_sell": false,
-      "at_52w_high": true,
+      "at_52w_high": false,
       "tags": [
-        "52-w-high",
         "90-d-high",
         "public-float-under-25",
-        "single-entity-holding-70",
-        "ytd-high"
+        "single-entity-holding-70"
       ],
-      "market_cap": 7177896000000,
+      "market_cap": 288000000000,
       "listing_board": "Development",
       "available": true
     }
   },
   {
-    "symbol": "MARK.JK",
-    "as_of": "2026-09-18",
+    "symbol": "HBAT.JK",
+    "as_of": "2026-09-23",
     "features": {
-      "ret_5d": 0.0678733031674208,
-      "ret_10d": 0.0976744186046512,
-      "ret_20d": 0.0678733031674208,
-      "vol_ratio": 1.1039360075321336,
-      "dist_from_high": 0.932806324110672,
+      "ret_5d": 0.1657142857142857,
+      "ret_10d": 0.2592592592592593,
+      "ret_20d": 0.6062992125984252,
+      "vol_ratio": 0.2923656296687816,
+      "dist_from_high": 0.9951219512195122,
       "prior_freeze_count": 0,
-      "consecutive_up_days": 0,
+      "consecutive_up_days": 5,
       "structural": {
         "float_under_25": true,
         "single_entity_70": false,
         "insider_1m_sell": false,
-        "at_52w_high": true,
+        "at_52w_high": false,
         "tags": [
-          "52-w-high",
           "90-d-high",
-          "dividend-yield-ttm-above-5-percent",
-          "public-float-under-25",
-          "ytd-high"
+          "public-float-under-25"
         ],
-        "market_cap": 4484000365800,
+        "market_cap": 424622246400,
+        "listing_board": "Acceleration",
+        "available": true
+      }
+    },
+    "bucket": "r2v1",
+    "tier": "sedang",
+    "structural": {
+      "float_under_25": true,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [
+        "90-d-high",
+        "public-float-under-25"
+      ],
+      "market_cap": 424622246400,
+      "listing_board": "Acceleration",
+      "available": true
+    }
+  },
+  {
+    "symbol": "MSJA.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.03508771929824572,
+      "ret_10d": 0.21232876712328763,
+      "ret_20d": 1.058139534883721,
+      "vol_ratio": 0.9501722296431664,
+      "dist_from_high": 0.9943820224719101,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 3,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "last-volume-above-10d-volume-average",
+          "public-float-under-25",
+          "top-ten-1m-leaders"
+        ],
+        "market_cap": 5205882316500,
         "listing_board": "Main",
         "available": true
       }
     },
     "bucket": "r2v2",
+    "tier": "sedang",
     "structural": {
       "float_under_25": true,
       "single_entity_70": false,
       "insider_1m_sell": false,
-      "at_52w_high": true,
+      "at_52w_high": false,
       "tags": [
-        "52-w-high",
-        "90-d-high",
-        "dividend-yield-ttm-above-5-percent",
+        "last-volume-above-10d-volume-average",
         "public-float-under-25",
-        "ytd-high"
+        "top-ten-1m-leaders"
       ],
-      "market_cap": 4484000365800,
+      "market_cap": 5205882316500,
       "listing_board": "Main",
       "available": true
     }
   },
   {
-    "symbol": "BSML.JK",
-    "as_of": "2026-09-18",
+    "symbol": "AGII.JK",
+    "as_of": "2026-09-23",
     "features": {
-      "ret_5d": 0.03738317757009346,
-      "ret_10d": 0.06730769230769229,
-      "ret_20d": 0.07766990291262132,
-      "vol_ratio": 0.5471877970888653,
-      "dist_from_high": 1.0,
+      "ret_5d": 0.06969696969696959,
+      "ret_10d": 0.18855218855218858,
+      "ret_20d": 0.2836363636363637,
+      "vol_ratio": 0.917347125781425,
+      "dist_from_high": 0.9289473684210526,
       "prior_freeze_count": 0,
       "consecutive_up_days": 1,
       "structural": {
@@ -530,15 +609,17 @@
         "tags": [
           "52-w-high",
           "90-d-high",
+          "all-time-high",
           "public-float-under-25",
           "ytd-high"
         ],
-        "market_cap": 1026874875000,
+        "market_cap": 10825309800000,
         "listing_board": "Development",
         "available": true
       }
     },
-    "bucket": "r2v1",
+    "bucket": "r2v2",
+    "tier": "senyap",
     "structural": {
       "float_under_25": true,
       "single_entity_70": false,
@@ -547,24 +628,1330 @@
       "tags": [
         "52-w-high",
         "90-d-high",
+        "all-time-high",
         "public-float-under-25",
         "ytd-high"
       ],
-      "market_cap": 1026874875000,
+      "market_cap": 10825309800000,
       "listing_board": "Development",
       "available": true
     }
   },
   {
-    "symbol": "AYAM.JK",
-    "as_of": "2026-09-18",
+    "symbol": "MOLI.JK",
+    "as_of": "2026-09-23",
     "features": {
-      "ret_5d": 0.046025104602510414,
-      "ret_10d": 0.024590163934426146,
-      "ret_20d": 0.008064516129032251,
-      "vol_ratio": 0.39431260747438723,
-      "dist_from_high": 0.9009009009009009,
+      "ret_5d": 0.21518987341772156,
+      "ret_10d": 0.18518518518518512,
+      "ret_20d": 0.4222222222222223,
+      "vol_ratio": 0.5023305958642323,
+      "dist_from_high": 0.9504950495049505,
       "prior_freeze_count": 0,
+      "consecutive_up_days": 2,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v1",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "HELI.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.12962962962962954,
+      "ret_10d": 0.18446601941747565,
+      "ret_20d": 0.27083333333333326,
+      "vol_ratio": 1.3469704446291295,
+      "dist_from_high": 0.8652482269503546,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v2",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "VOKS.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": -0.10897435897435892,
+      "ret_10d": 0.17796610169491522,
+      "ret_20d": 0.26363636363636367,
+      "vol_ratio": 0.43932660964533476,
+      "dist_from_high": 0.7128205128205128,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v1",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "PKPK.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.2470023980815348,
+      "ret_10d": 0.15555555555555545,
+      "ret_20d": 0.45251396648044695,
+      "vol_ratio": 3.979264689791006,
+      "dist_from_high": 0.9719626168224299,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v3",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "BPTR.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.1333333333333333,
+      "ret_10d": 0.14864864864864868,
+      "ret_20d": 0.10389610389610393,
+      "vol_ratio": 6.784451927982328,
+      "dist_from_high": 0.8585858585858586,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v3",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "TUGU.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": -0.049079754601227044,
+      "ret_10d": 0.1439114391143912,
+      "ret_20d": 0.17870722433460084,
+      "vol_ratio": 0.7639775159528716,
+      "dist_from_high": 0.9090909090909091,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v2",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "TEBE.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.23867069486404824,
+      "ret_10d": 0.14206128133704743,
+      "ret_20d": 0.20234604105571852,
+      "vol_ratio": 0.9627747706646628,
+      "dist_from_high": 0.8760683760683761,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v2",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "URBN.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.10526315789473695,
+      "ret_10d": 0.125,
+      "ret_20d": 0.16666666666666674,
+      "vol_ratio": 1.4078264723518523,
+      "dist_from_high": 0.9402985074626866,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v2",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "DFAM.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": -0.010526315789473717,
+      "ret_10d": 0.11904761904761907,
+      "ret_20d": 0.17500000000000004,
+      "vol_ratio": 4.665017613294185,
+      "dist_from_high": 0.8468468468468469,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v3",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "KICI.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.08029197080291972,
+      "ret_10d": 0.11278195488721798,
+      "ret_20d": 0.35779816513761475,
+      "vol_ratio": 0.6527170721211188,
+      "dist_from_high": 0.6727272727272727,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v1",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "JAWA.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.11038961038961048,
+      "ret_10d": 0.11038961038961048,
+      "ret_20d": 0.3153846153846154,
+      "vol_ratio": 6.886025580406302,
+      "dist_from_high": 0.7916666666666666,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v3",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "BSSR.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.12704918032786883,
+      "ret_10d": 0.10663983903420515,
+      "ret_20d": 0.23042505592841156,
+      "vol_ratio": 2.0424644361002735,
+      "dist_from_high": 1.0,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 2,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v3",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "RSCH.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.06511627906976747,
+      "ret_10d": 0.09047619047619038,
+      "ret_20d": 0.34705882352941186,
+      "vol_ratio": 1.0029913681680291,
+      "dist_from_high": 1.0,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 2,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v2",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "CASH.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": -0.016129032258064502,
+      "ret_10d": 0.07964601769911495,
+      "ret_20d": 0.042735042735042805,
+      "vol_ratio": 0.37181684678581656,
+      "dist_from_high": 0.8413793103448276,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v1",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "SMMT.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": -0.05161290322580647,
+      "ret_10d": 0.07299270072992692,
+      "ret_20d": 0.4411764705882353,
+      "vol_ratio": 1.4558786427831427,
+      "dist_from_high": 0.939297124600639,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v2",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "KING.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.11764705882352944,
+      "ret_10d": 0.07179487179487176,
+      "ret_20d": 0.4928571428571429,
+      "vol_ratio": 4.817472732744294,
+      "dist_from_high": 0.9288888888888889,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": true,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [
+          "90-d-high",
+          "last-volume-above-10d-volume-average",
+          "public-float-under-25",
+          "single-entity-holding-70"
+        ],
+        "market_cap": 1087992207060,
+        "listing_board": "Acceleration",
+        "available": true
+      }
+    },
+    "bucket": "r2v3",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": true,
+      "single_entity_70": true,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [
+        "90-d-high",
+        "last-volume-above-10d-volume-average",
+        "public-float-under-25",
+        "single-entity-holding-70"
+      ],
+      "market_cap": 1087992207060,
+      "listing_board": "Acceleration",
+      "available": true
+    }
+  },
+  {
+    "symbol": "KKGI.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.07843137254901955,
+      "ret_10d": 0.0714285714285714,
+      "ret_20d": 0.17021276595744683,
+      "vol_ratio": 2.115523837914286,
+      "dist_from_high": 0.9821428571428571,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v3",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "DMND.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.06557377049180335,
+      "ret_10d": 0.06557377049180335,
+      "ret_20d": 0.07438016528925617,
+      "vol_ratio": 0.7848633496846531,
+      "dist_from_high": 0.8666666666666667,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v2",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "SBMA.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.044642857142857206,
+      "ret_10d": 0.06363636363636371,
+      "ret_20d": 0.09345794392523366,
+      "vol_ratio": 0.5171439558628483,
+      "dist_from_high": 0.9435483870967742,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v1",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "MARK.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": -0.03389830508474578,
+      "ret_10d": 0.0604651162790697,
+      "ret_20d": 0.08056872037914697,
+      "vol_ratio": 1.2886961563022854,
+      "dist_from_high": 0.9011857707509882,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v2",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "APII.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.04615384615384621,
+      "ret_10d": 0.05699481865284972,
+      "ret_20d": 0.0680628272251309,
+      "vol_ratio": 1.1837717396180707,
+      "dist_from_high": 0.796875,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v2",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "MAYA.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.07692307692307687,
+      "ret_10d": 0.055276381909547645,
+      "ret_20d": 0.06060606060606055,
+      "vol_ratio": 4.979748758463154,
+      "dist_from_high": 0.9459459459459459,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v3",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "CAMP.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.06470588235294117,
+      "ret_10d": 0.05232558139534893,
+      "ret_20d": 0.07100591715976323,
+      "vol_ratio": 0.27832140533506833,
+      "dist_from_high": 0.8153153153153153,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v1",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "SCNP.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.05128205128205132,
+      "ret_10d": 0.05128205128205132,
+      "ret_20d": 0.10067114093959728,
+      "vol_ratio": 0.5636288889978465,
+      "dist_from_high": 0.803921568627451,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v1",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "GGRP.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.05031446540880502,
+      "ret_10d": 0.05031446540880502,
+      "ret_20d": 0.10596026490066235,
+      "vol_ratio": 0.5838398900823406,
+      "dist_from_high": 0.9823529411764705,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v1",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "NEST.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.04861111111111116,
+      "ret_10d": 0.04137931034482767,
+      "ret_20d": 0.08633093525179847,
+      "vol_ratio": 0.5487971215577452,
+      "dist_from_high": 0.9617834394904459,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v1",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "ARGO.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.0608695652173914,
+      "ret_10d": 0.038297872340425476,
+      "ret_20d": 0.07488986784140961,
+      "vol_ratio": 1.3446680964316167,
+      "dist_from_high": 0.953125,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v2",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "DIVA.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.07352941176470584,
+      "ret_10d": 0.03546099290780136,
+      "ret_20d": 0.12307692307692308,
+      "vol_ratio": 0.5865539860023072,
+      "dist_from_high": 0.8848484848484849,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v1",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "MMLP.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.039735099337748325,
+      "ret_10d": 0.03289473684210531,
+      "ret_20d": 0.06802721088435382,
+      "vol_ratio": 0.48038061238686997,
+      "dist_from_high": 0.8532608695652174,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v1",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "AYAM.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": -0.01941747572815533,
+      "ret_10d": 0.030612244897959107,
+      "ret_20d": 0.10262008733624461,
+      "vol_ratio": 0.8839858352752336,
+      "dist_from_high": 0.9099099099099099,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v2",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "NOBU.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.07843137254901955,
+      "ret_10d": 0.028037383177569986,
+      "ret_20d": 0.11788617886178865,
+      "vol_ratio": 0.9684747339240046,
+      "dist_from_high": 0.9649122807017544,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v2",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "PRAY.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.027027027027026973,
+      "ret_10d": 0.027027027027026973,
+      "ret_20d": -0.012987012987012991,
+      "vol_ratio": 1.1201588877855015,
+      "dist_from_high": 0.8491620111731844,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v2",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "VAST.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": -0.13432835820895528,
+      "ret_10d": 0.026548672566371723,
+      "ret_20d": 0.03571428571428581,
+      "vol_ratio": 0.27528765946844297,
+      "dist_from_high": 0.7785234899328859,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v1",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "RELF.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.024390243902439046,
+      "ret_10d": 0.024390243902439046,
+      "ret_20d": 0.19999999999999996,
+      "vol_ratio": 1.2565503783916645,
+      "dist_from_high": 0.9333333333333333,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v2",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "JRPT.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.02678571428571419,
+      "ret_10d": 0.022222222222222143,
+      "ret_20d": 0.06481481481481488,
+      "vol_ratio": 1.9029024868793676,
+      "dist_from_high": 1.0,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v3",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "CAKK.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.012499999999999956,
+      "ret_10d": 0.018867924528301883,
+      "ret_20d": 0.1020408163265305,
+      "vol_ratio": 0.9784792224053905,
+      "dist_from_high": 0.9585798816568047,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v2",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "NRCA.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.04629629629629628,
+      "ret_10d": 0.018018018018018056,
+      "ret_20d": 0.0,
+      "vol_ratio": 0.6960349957323829,
+      "dist_from_high": 0.8968253968253969,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v1",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "BIKE.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.06382978723404253,
+      "ret_10d": 0.015228426395939021,
+      "ret_20d": 0.6129032258064515,
+      "vol_ratio": 1.5216897197402193,
+      "dist_from_high": 0.8333333333333334,
+      "prior_freeze_count": 1,
       "consecutive_up_days": 0,
       "structural": {
         "float_under_25": true,
@@ -575,16 +1962,19 @@
           "52-w-high",
           "90-d-high",
           "all-time-high",
+          "last-volume-above-10d-volume-average",
           "public-float-under-25",
           "single-entity-holding-70",
+          "top-ten-1m-leaders",
           "ytd-high"
         ],
-        "market_cap": 2000000000000,
+        "market_cap": 1293916404000,
         "listing_board": "Development",
         "available": true
       }
     },
-    "bucket": "r2v1",
+    "bucket": "r2v2",
+    "tier": "senyap",
     "structural": {
       "float_under_25": true,
       "single_entity_70": true,
@@ -594,70 +1984,384 @@
         "52-w-high",
         "90-d-high",
         "all-time-high",
+        "last-volume-above-10d-volume-average",
         "public-float-under-25",
         "single-entity-holding-70",
+        "top-ten-1m-leaders",
         "ytd-high"
       ],
-      "market_cap": 2000000000000,
+      "market_cap": 1293916404000,
       "listing_board": "Development",
       "available": true
+    }
+  },
+  {
+    "symbol": "ASRM.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": -0.006896551724137945,
+      "ret_10d": 0.014084507042253502,
+      "ret_20d": 0.03597122302158273,
+      "vol_ratio": 0.11056023797719385,
+      "dist_from_high": 0.8228571428571428,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v1",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "BSML.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": -0.018181818181818188,
+      "ret_10d": 0.009345794392523255,
+      "ret_20d": 0.03846153846153855,
+      "vol_ratio": 0.30922406516648127,
+      "dist_from_high": 0.9391304347826087,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v1",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "AMAR.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.0,
+      "ret_10d": 0.008620689655172376,
+      "ret_20d": 0.026315789473684292,
+      "vol_ratio": 0.17952930132761163,
+      "dist_from_high": 0.975,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v1",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
     }
   },
   {
     "symbol": "SCCO.JK",
-    "as_of": "2026-09-18",
+    "as_of": "2026-09-23",
     "features": {
-      "ret_5d": 0.039682539682539764,
-      "ret_10d": 0.01945525291828787,
-      "ret_20d": 0.10548523206751059,
-      "vol_ratio": 0.8826633750156533,
-      "dist_from_high": 0.7963525835866262,
+      "ret_5d": -0.10738255033557043,
+      "ret_10d": 0.007575757575757569,
+      "ret_20d": 0.12711864406779672,
+      "vol_ratio": 0.18579179895513112,
+      "dist_from_high": 0.8085106382978723,
       "prior_freeze_count": 0,
-      "consecutive_up_days": 0,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v1",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "MAHA.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.027972027972027913,
+      "ret_10d": 0.006849315068493178,
+      "ret_20d": 0.0,
+      "vol_ratio": 0.7599708228428904,
+      "dist_from_high": 0.875,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v2",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "LMPI.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.012269938650306678,
+      "ret_10d": 0.0060975609756097615,
+      "ret_20d": 0.037735849056603765,
+      "vol_ratio": 1.1836538086001067,
+      "dist_from_high": 0.8967391304347826,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 1,
       "structural": {
         "float_under_25": true,
         "single_entity_70": false,
         "insider_1m_sell": false,
-        "at_52w_high": true,
+        "at_52w_high": false,
         "tags": [
-          "52-w-high",
           "90-d-high",
-          "public-float-under-25",
-          "ytd-high"
+          "public-float-under-25"
         ],
-        "market_cap": 2154514032000,
-        "listing_board": "Development",
+        "market_cap": 166405415385,
+        "listing_board": "Watchlist",
         "available": true
       }
     },
     "bucket": "r2v2",
+    "tier": "senyap",
     "structural": {
       "float_under_25": true,
       "single_entity_70": false,
       "insider_1m_sell": false,
-      "at_52w_high": true,
+      "at_52w_high": false,
       "tags": [
-        "52-w-high",
         "90-d-high",
-        "public-float-under-25",
-        "ytd-high"
+        "public-float-under-25"
       ],
-      "market_cap": 2154514032000,
-      "listing_board": "Development",
+      "market_cap": 166405415385,
+      "listing_board": "Watchlist",
       "available": true
     }
   },
   {
-    "symbol": "AALI.JK",
-    "as_of": "2026-09-18",
+    "symbol": "OBMD.JK",
+    "as_of": "2026-09-23",
     "features": {
-      "ret_5d": 0.0,
-      "ret_10d": 0.005847953216374213,
-      "ret_20d": 0.07499999999999996,
-      "vol_ratio": 1.6422772239284795,
-      "dist_from_high": 0.98005698005698,
+      "ret_5d": -0.05714285714285716,
+      "ret_10d": 0.0050761421319796,
+      "ret_20d": 0.03125,
+      "vol_ratio": 0.2977928794034763,
+      "dist_from_high": 0.792,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 2,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v1",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "BNGA.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.014409221902017322,
+      "ret_10d": 0.0,
+      "ret_20d": 0.05705705705705699,
+      "vol_ratio": 1.1171284525221132,
+      "dist_from_high": 0.9915492957746479,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v2",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "TOOL.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.014084507042253502,
+      "ret_10d": 0.0,
+      "ret_20d": 0.10769230769230775,
+      "vol_ratio": 11.189493155630764,
+      "dist_from_high": 0.7912087912087912,
       "prior_freeze_count": 0,
       "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v3",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "DOSS.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": -0.028735632183908066,
+      "ret_10d": -0.011695906432748537,
+      "ret_20d": 0.024242424242424176,
+      "vol_ratio": 0.39687321671655873,
+      "dist_from_high": 0.8802083333333334,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r2v1",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "LIFE.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": -0.017681728880157177,
+      "ret_10d": -0.017681728880157177,
+      "ret_20d": 0.838235294117647,
+      "vol_ratio": 0.1302287245003091,
+      "dist_from_high": 0.8944543828264758,
+      "prior_freeze_count": 2,
+      "consecutive_up_days": 2,
       "structural": {
         "float_under_25": true,
         "single_entity_70": true,
@@ -669,14 +2373,17 @@
           "last-volume-above-10d-volume-average",
           "public-float-under-25",
           "single-entity-holding-70",
+          "top-30-yoy-revenue-growth",
+          "top-ten-1m-leaders",
           "ytd-high"
         ],
-        "market_cap": 16552319663800,
-        "listing_board": "Main",
+        "market_cap": 26250000000000,
+        "listing_board": "Development",
         "available": true
       }
     },
-    "bucket": "r2v2",
+    "bucket": "r2v1",
+    "tier": "senyap",
     "structural": {
       "float_under_25": true,
       "single_entity_70": true,
@@ -688,59 +2395,391 @@
         "last-volume-above-10d-volume-average",
         "public-float-under-25",
         "single-entity-holding-70",
+        "top-30-yoy-revenue-growth",
+        "top-ten-1m-leaders",
         "ytd-high"
       ],
-      "market_cap": 16552319663800,
+      "market_cap": 26250000000000,
+      "listing_board": "Development",
+      "available": true
+    }
+  },
+  {
+    "symbol": "SAFE.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": -0.18957345971563977,
+      "ret_10d": -0.02285714285714291,
+      "ret_20d": 0.3902439024390243,
+      "vol_ratio": 0.3813421107256175,
+      "dist_from_high": 0.6705882352941176,
+      "prior_freeze_count": 1,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": true,
+        "at_52w_high": true,
+        "tags": [
+          "52-w-high",
+          "90-d-high",
+          "all-time-high",
+          "insider-1-month-buy",
+          "insider-1-month-sell",
+          "public-float-under-25",
+          "ytd-high"
+        ],
+        "market_cap": 702132422760,
+        "listing_board": "Watchlist",
+        "available": true
+      }
+    },
+    "bucket": "r2v1",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": true,
+      "single_entity_70": false,
+      "insider_1m_sell": true,
+      "at_52w_high": true,
+      "tags": [
+        "52-w-high",
+        "90-d-high",
+        "all-time-high",
+        "insider-1-month-buy",
+        "insider-1-month-sell",
+        "public-float-under-25",
+        "ytd-high"
+      ],
+      "market_cap": 702132422760,
+      "listing_board": "Watchlist",
+      "available": true
+    }
+  },
+  {
+    "symbol": "JARR.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": -0.14652956298200515,
+      "ret_10d": -0.02639296187683282,
+      "ret_20d": 0.03426791277258556,
+      "vol_ratio": 0.3210711040692612,
+      "dist_from_high": 0.7217391304347827,
+      "prior_freeze_count": 1,
+      "consecutive_up_days": 2,
+      "structural": {
+        "float_under_25": true,
+        "single_entity_70": true,
+        "insider_1m_sell": true,
+        "at_52w_high": false,
+        "tags": [
+          "90-d-high",
+          "insider-1-month-sell",
+          "public-float-under-25",
+          "single-entity-holding-70",
+          "ytd-high"
+        ],
+        "market_cap": 30645807966000,
+        "listing_board": "Main",
+        "available": true
+      }
+    },
+    "bucket": "r2v1",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": true,
+      "single_entity_70": true,
+      "insider_1m_sell": true,
+      "at_52w_high": false,
+      "tags": [
+        "90-d-high",
+        "insider-1-month-sell",
+        "public-float-under-25",
+        "single-entity-holding-70",
+        "ytd-high"
+      ],
+      "market_cap": 30645807966000,
       "listing_board": "Main",
       "available": true
     }
   },
   {
-    "symbol": "HYGN.JK",
-    "as_of": "2026-09-18",
+    "symbol": "PGUN.JK",
+    "as_of": "2026-09-23",
     "features": {
-      "ret_5d": -0.0757575757575758,
-      "ret_10d": -0.02659574468085102,
-      "ret_20d": 0.04571428571428582,
-      "vol_ratio": 1.4360494962568604,
-      "dist_from_high": 0.9195979899497487,
+      "ret_5d": 0.0,
+      "ret_10d": -0.030927835051546393,
+      "ret_20d": -0.055276381909547756,
+      "vol_ratio": 0.429618569295507,
+      "dist_from_high": 0.8337028824833703,
       "prior_freeze_count": 0,
       "consecutive_up_days": 1,
       "structural": {
-        "float_under_25": true,
+        "float_under_25": false,
         "single_entity_70": false,
         "insider_1m_sell": false,
-        "at_52w_high": true,
-        "tags": [
-          "52-w-high",
-          "90-d-high",
-          "last-volume-above-10d-volume-average",
-          "public-float-under-25",
-          "top-3-nipe-per-sectors",
-          "ytd-high"
-        ],
-        "market_cap": 462075000000,
-        "listing_board": "Development",
-        "available": true
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r1v1",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "PSSI.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": -0.03351955307262566,
+      "ret_10d": -0.03888888888888886,
+      "ret_20d": 0.054878048780487854,
+      "vol_ratio": 0.7390394801264076,
+      "dist_from_high": 0.7792792792792793,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r1v1",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "ESTA.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": -0.05649717514124297,
+      "ret_10d": -0.04022988505747127,
+      "ret_20d": -0.005952380952380931,
+      "vol_ratio": 1.637090081534526,
+      "dist_from_high": 0.7522522522522522,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
       }
     },
     "bucket": "r1v2",
+    "tier": "senyap",
     "structural": {
-      "float_under_25": true,
+      "float_under_25": false,
       "single_entity_70": false,
       "insider_1m_sell": false,
-      "at_52w_high": true,
-      "tags": [
-        "52-w-high",
-        "90-d-high",
-        "last-volume-above-10d-volume-average",
-        "public-float-under-25",
-        "top-3-nipe-per-sectors",
-        "ytd-high"
-      ],
-      "market_cap": 462075000000,
-      "listing_board": "Development",
-      "available": true
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "ACRO.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.0,
+      "ret_10d": -0.04477611940298509,
+      "ret_20d": 0.0,
+      "vol_ratio": 26.901503218064796,
+      "dist_from_high": 0.8421052631578947,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 1,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r1v3",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "VICI.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": -0.18775510204081636,
+      "ret_10d": -0.05238095238095242,
+      "ret_20d": 0.40140845070422526,
+      "vol_ratio": 0.6111584054190122,
+      "dist_from_high": 0.77734375,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r1v1",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "POLA.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.05555555555555558,
+      "ret_10d": -0.06172839506172845,
+      "ret_20d": 0.46153846153846145,
+      "vol_ratio": 0.2791104958857475,
+      "dist_from_high": 0.7378640776699029,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r1v1",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "AALI.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": -0.08985507246376812,
+      "ret_10d": -0.08720930232558144,
+      "ret_20d": 0.0031948881789136685,
+      "vol_ratio": 1.3176685427322077,
+      "dist_from_high": 0.8945868945868946,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r1v2",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
+    }
+  },
+  {
+    "symbol": "SQMI.JK",
+    "as_of": "2026-09-23",
+    "features": {
+      "ret_5d": 0.06896551724137923,
+      "ret_10d": -0.11428571428571432,
+      "ret_20d": 0.5245901639344261,
+      "vol_ratio": 1.222342662989943,
+      "dist_from_high": 0.7560975609756098,
+      "prior_freeze_count": 0,
+      "consecutive_up_days": 0,
+      "structural": {
+        "float_under_25": false,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false,
+        "tags": [],
+        "market_cap": null,
+        "listing_board": null,
+        "available": false
+      }
+    },
+    "bucket": "r1v2",
+    "tier": "senyap",
+    "structural": {
+      "float_under_25": false,
+      "single_entity_70": false,
+      "insider_1m_sell": false,
+      "at_52w_high": false,
+      "tags": [],
+      "market_cap": null,
+      "listing_board": null,
+      "available": false
     }
   }
 ]
