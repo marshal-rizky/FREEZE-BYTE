@@ -22,7 +22,7 @@
 - The repo `Stocklens` is not used as a code source.
 - "Bukan saran investasi" disclaimer appears in the extension description, the badge card, the popup, the site, and the README.
 - Comments and user-facing strings are in Indonesian, matching the existing code. Commit messages in English, Conventional Commits, ending with `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
-- Python tests: `python -m pytest`. JS tests: `node --test extension/test/`. Both must pass at the end of every task.
+- Python tests: `python -m pytest`. JS tests: `node --test "extension/test/*.test.js"`. Both must pass at the end of every task.
 - Run all commands from the repo root `C:\Users\User\FREEZE-BYTE`.
 
 ## File Structure
@@ -1476,7 +1476,7 @@ test("staleness flips after the configured days", () => {
 
 - [ ] **Step 2: Run to verify failure**
 
-Run: `node --test extension/test/`
+Run: `node --test "extension/test/*.test.js"`
 Expected: FAIL with `Cannot find module '../src/verdict.js'`
 
 - [ ] **Step 3: Implement `extension/src/verdict.js`**
@@ -1537,7 +1537,7 @@ Expected: FAIL with `Cannot find module '../src/verdict.js'`
 
 - [ ] **Step 4: Run verdict tests**
 
-Run: `node --test extension/test/`
+Run: `node --test "extension/test/*.test.js"`
 Expected: 6 passed
 
 - [ ] **Step 5: Write the failing detection tests**
@@ -1611,7 +1611,7 @@ test("does not match inside longer words", () => {
 
 - [ ] **Step 6: Run to verify failure**
 
-Run: `node --test extension/test/`
+Run: `node --test "extension/test/*.test.js"`
 Expected: detect tests FAIL with `Cannot find module '../src/detect.js'`
 
 - [ ] **Step 7: Implement `extension/src/detect.js`**
@@ -1684,7 +1684,7 @@ Expected: detect tests FAIL with `Cannot find module '../src/detect.js'`
 
 - [ ] **Step 8: Run all JS tests**
 
-Run: `node --test extension/test/`
+Run: `node --test "extension/test/*.test.js"`
 Expected: 16 passed
 
 - [ ] **Step 9: Commit**
@@ -1749,7 +1749,7 @@ test("a missing or invalid selector degrades to null, never throws", () => {
 });
 ```
 
-Run: `node --test extension/test/`
+Run: `node --test "extension/test/*.test.js"`
 Expected: anchors tests FAIL with `Cannot find module '../src/anchors.js'`
 
 - [ ] **Step 2: Implement `extension/src/anchors.js`**
@@ -1780,7 +1780,7 @@ Expected: anchors tests FAIL with `Cannot find module '../src/anchors.js'`
 })(typeof globalThis !== "undefined" ? globalThis : this);
 ```
 
-Run: `node --test extension/test/`
+Run: `node --test "extension/test/*.test.js"`
 Expected: 19 passed
 
 - [ ] **Step 3: Write `extension/src/overlay.js`**
@@ -2258,7 +2258,7 @@ Ask the user to open `chrome://extensions`, turn on Developer mode, click "Load 
 
 - [ ] **Step 10: Run all tests and commit**
 
-Run: `node --test extension/test/` — Expected: 19 passed
+Run: `node --test "extension/test/*.test.js"` — Expected: 19 passed
 Run: `python -m pytest` — Expected: all passed
 
 ```bash
@@ -2324,7 +2324,7 @@ Ask the user to reload the extension in `chrome://extensions`, reload the Stockb
 
 - [ ] **Step 5: Run tests and commit**
 
-Run: `node --test extension/test/`
+Run: `node --test "extension/test/*.test.js"`
 Expected: all passed
 
 ```bash
@@ -2736,11 +2736,11 @@ Halaman bukti: https://marshal-rizky.github.io/FREEZE-BYTE/site/
 **Bukan saran investasi.** Hitungan historis, bukan peluang. Tidak mengeksekusi order.
 ```
 
-Also add `node --test extension/test/` next to the existing `python -m pytest` line in the README's testing section.
+Also add `node --test "extension/test/*.test.js"` next to the existing `python -m pytest` line in the README's testing section.
 
 - [ ] **Step 5: Run tests and commit**
 
-Run: `python -m pytest` and `node --test extension/test/`
+Run: `python -m pytest` and `node --test "extension/test/*.test.js"`
 Expected: all passed
 
 ```bash
@@ -2846,7 +2846,7 @@ Add these rows to the requirements table and checks to "Pemeriksaan akhir sebelu
 ```
 
 ```markdown
-- [ ] `node --test extension/test/` lulus.
+- [ ] `node --test "extension/test/*.test.js"` lulus.
 - [ ] `python -m pytest` lulus dari clone bersih tanpa `.env`.
 - [ ] Zip Release terpasang tanpa error di `chrome://extensions`.
 - [ ] `extension/` tidak berisi string API key: `git grep -nE "SECTORS_API_KEY=[\"']?[A-Za-z0-9_-]{8,}"` kosong.
@@ -2868,7 +2868,7 @@ Run each and paste the tail of the output into the task report:
 
 ```bash
 python -m pytest
-node --test extension/test/
+node --test "extension/test/*.test.js"
 git grep -nE "SECTORS_API_KEY=[\"']?[A-Za-z0-9_-]{8,}"
 git grep -ni "risiko sedang" -- extension site
 git ls-files .env
