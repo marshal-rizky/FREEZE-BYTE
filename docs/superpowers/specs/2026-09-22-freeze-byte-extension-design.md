@@ -225,7 +225,61 @@ sebaliknya.
   lencana muncul, posisinya mengikuti scroll, dan DOM halaman tidak berubah.
 - `python -m pytest` tetap lulus dari clone bersih tanpa `.env`.
 
-## 13. Batasan yang tetap berlaku
+## 13. Deployment
+
+**Halaman bukti: GitHub Pages.** Wajib publik, karena popup ekstensi dan
+tautan `?symbol=` untuk mobile menunjuk ke sana. Situs memuat
+`../data/web/*.json`, jadi Pages menyajikan dari root repo, atau build
+menyalin data ke dalam `site/`. Yang dipilih ditentukan saat implementasi,
+dan URL akhirnya dipakai di `extension/data/thresholds.json` sebagai
+`evidence_url`, bukan diketik di kode ekstensi.
+
+**Ekstensi: GitHub Release sebagai jalur resmi.** Satu `.zip` hasil build
+`extension/`, dengan langkah Load unpacked di README. Ini jalur yang dipakai
+juri dan video.
+
+**Chrome Web Store, paralel.** Disubmit berbarengan (biaya developer US$5,
+sekali). Butuh privacy policy: ekstensi membaca teks halaman di perangkat
+pengguna, tidak mengirim apa pun ke mana pun, tidak menyimpan apa pun selain
+daftar situs opsional. Kalau review lolos sebelum penjurian, video
+menampilkan pemasangan dari store; kalau tidak, tidak ada yang bergantung
+padanya. Listing store tidak diubah setelah submit, mengikuti semangat
+freeze repo.
+
+**Data basi.** `universe.json` dibekukan pada build terakhir dan repo freeze
+setelah submit, jadi `as_of` akan menua selama penjurian. Kartu menandai data
+basi (bagian 11). Video direkam dengan data segar. README menjelaskan cara
+build ulang dengan kunci sendiri.
+
+## 14. Pengujian pengguna
+
+**Tidak ada uji pemahaman oleh investor.** Tidak tersedia penguji yang aktif
+berinvestasi saham. Pengujinya perancang produk sendiri, yang tahu arti
+setiap kata di lencana, jadi uji ini **tidak bisa** menangkap salah baca
+kata-kata. Batasan ini ditulis di `docs/user-testing.md` dan tidak disamarkan.
+
+**Yang tetap diuji sendiri, di situs asli** (bukan fixture), sekali sebelum
+merekam video, untuk tiap situs Lapis 0 dan satu artikel berita:
+- lencana muncul untuk simbol di semesta, dan tidak muncul untuk simbol di luar;
+- posisi mengikuti scroll dan resize;
+- halaman tidak rusak, tidak terasa melambat;
+- jangkar Stockbit menempel di tempatnya, dan jatuh ke pojok kalau selectornya
+  dirusak sengaja;
+- kartu detail terbuka, tautannya menuju halaman bukti yang benar.
+
+**Pertanyaan uji pemahaman tetap ditulis**, siap dipakai kalau penguji
+muncul, misalnya lewat postingan media sosial wajib atau komunitas ritel:
+1. "Apa arti lencana ini menurutmu?"
+2. "Kalau kamu mau beli saham ini, apa yang kamu lakukan sekarang?"
+3. "Berapa persen kemungkinan saham ini dibekukan?" — jawaban benar: tidak
+   disebutkan.
+4. Pada saham tanpa lencana: "Artinya saham ini aman?" — jawaban benar:
+   tidak dikenali, bukan aman.
+
+Tidak ada data pribadi penguji yang disimpan. Setiap perubahan kata-kata
+lencana yang lahir dari uji dicatat. Uji dijalankan sebelum video direkam.
+
+## 15. Batasan yang tetap berlaku
 
 - Bukan saran investasi. Disclaimer ada di popup, halaman bukti, README, dan
   deskripsi ekstensi.
@@ -235,9 +289,9 @@ sebaliknya.
 - Repo `Stocklens` tidak dipakai sebagai sumber kode.
 - Setelah submit, repo freeze total.
 
-## 14. Di luar cakupan
+## 16. Di luar cakupan
 
 - Aplikasi broker mobile.
 - Pembaruan data otomatis di ekstensi; data diperbarui dengan build ulang.
-- Publikasi ke Chrome Web Store. Juri memasang lewat "Load unpacked".
+- Ketergantungan pada Chrome Web Store; jalur resmi tetap Load unpacked.
 - Firefox. Manifest V3 Chromium saja (Chrome, Edge, Brave, Opera).
