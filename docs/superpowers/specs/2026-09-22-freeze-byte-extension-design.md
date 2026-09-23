@@ -174,9 +174,17 @@ tidak dipakai.
 ## 9. Semesta dan anggaran kredit
 
 Semesta ekstensi paling banyak 150 simbol, diambil dari screener Sectors
-(`client.screen`) dengan `where = "tags in ['public-float-under-25']"`.
-Sebelum harga ditarik, satu panggilan screener `limit=1` mengecek
-`total_count`. Sampel forensik **tidak** ikut semesta: deret harganya adalah
+(`client.screen`) dengan
+`where = "tags in ['public-float-under-25'] and tags in ['90-d-high', '52-w-high', 'ytd-high', 'top-ten-1m-leaders']"`
+dan `order_by = "-market_cap"`. Sebelum harga ditarik, satu panggilan
+screener `limit=1` mengecek `total_count`.
+
+Urutan bawaan screener adalah kode saham. Dengan filter float saja (521
+emiten pada 2026-09-24) potongan 150 hanya menyisakan kode berawalan A
+sampai F. Filter reli mempersempit ke saham yang sedang di puncak, tempat
+TINGGI hampir pasti berada, dan `-market_cap` memastikan yang terpotong kalau
+masih lebih dari 150 adalah emiten terkecil, bukan abjad terakhir. Tag
+adalah kondisi hari build, jadi semesta adalah potret saat build. Sampel forensik **tidak** ikut semesta: deret harganya adalah
 window historis di sekitar tanggal suspensi, bukan 90 hari terakhir, jadi
 tidak ada irisan cache yang bisa dipakai ulang.
 
