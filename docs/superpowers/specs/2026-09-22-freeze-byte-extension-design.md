@@ -48,9 +48,13 @@ tidak diketik ulang di mana pun.
 
 | Tingkat | Syarat | Bunyi lencana |
 |---|---|---|
-| **TINGGI** | `ret_10d` > 0,315874 (batas atas tercile) | "Di zona suspensi" |
-| **SEDANG** | 0,20 ≤ `ret_10d` ≤ 0,315874 | "Mendekati zona suspensi" |
+| **TINGGI** | `ret_10d` ≥ 0,315874 (batas atas tercile) | "Di zona suspensi" |
+| **SEDANG** | 0,20 ≤ `ret_10d` < 0,315874 | "Mendekati zona suspensi" |
 | **SENYAP** | selain itu, atau `ret_10d` tidak tersedia | tidak ada lencana |
+
+Batas TINGGI memakai `≥`, sama persis dengan `baserates._tercile_label`
+yang menaruh nilai tepat di batas atas ke r3. Tingkat dan bucket tidak boleh
+berbeda pendapat tentang satu nilai.
 
 SEDANG adalah **jarak ke ambang, bukan tingkat risiko tersendiri**. Data tidak
 mendukung tingkat risiko tengah: r1 dan r2 praktis identik (10/38 lawan 7/37).
@@ -130,7 +134,8 @@ pernah meminta API key. Data dibekukan saat build.
 
 **Lapis 0 — aturan URL.** Simbol yang sedang dilihat diambil dari
 `location.pathname` per situs yang dikenal: Stockbit, IDX, Sectors,
-TradingView, Google Finance, RTI, Investing.com. Pola URL tiap situs
+TradingView, Google Finance, RTI. Investing.com memakai slug nama perusahaan
+di URL, bukan kode saham, jadi hanya dilayani Lapis 1. Pola URL tiap situs
 diverifikasi terhadap situs aslinya saat implementasi, lalu dibekukan sebagai
 fixture tes. Simbol dari URL selalu dilencanai walau tidak disebut di teks.
 
@@ -160,32 +165,52 @@ Lencana menerima pointer (klik membuka kartu detail); host tidak.
 ## 8. Izin
 
 `host_permissions` hanya mendaftar situs Lapis 0. Situs lain lewat
-`optional_host_permissions`, diaktifkan pengguna dari popup. `<all_urls>`
-tidak dipakai sebagai izin wajib. Izin `storage` hanya untuk menyimpan daftar
-situs opsional yang diaktifkan.
+`optional_host_permissions`, diaktifkan pengguna dari popup untuk tab yang
+sedang terbuka (`activeTab`), lalu didaftarkan lewat
+`chrome.scripting.registerContentScripts`, yang bertahan antar sesi dengan
+sendirinya. `<all_urls>` tidak dipakai sebagai izin wajib. Izin `storage`
+tidak dipakai.
 
 ## 9. Semesta dan anggaran kredit
 
-Semesta ekstensi sekitar 150 simbol: sampel forensik yang masih
-diperdagangkan, ditambah hasil screener Sectors (`client.screen`) untuk emiten
-berisiko — `public-float-under-25`, papan Pengembangan, papan pemantauan
-khusus. Klausa `where` persisnya ditentukan saat implementasi dari kosakata
-tag di `docs/discovery/2026-09-21-suspensions.md`, dengan jumlah kandidat
-dicek lewat satu panggilan screener sebelum harga ditarik.
+Semesta ekstensi paling banyak 150 simbol, diambil dari screener Sectors
+(`client.screen`) dengan `where = "tags in ['public-float-under-25']"`.
+Sebelum harga ditarik, satu panggilan screener `limit=1` mengecek
+`total_count`. Sampel forensik **tidak** ikut semesta: deret harganya adalah
+window historis di sekitar tanggal suspensi, bukan 90 hari terakhir, jadi
+tidak ada irisan cache yang bisa dipakai ulang.
+
+Semesta ini menggantikan kandidat daftar pantau lama (screener 80 emiten di
+`scripts/etl_overviews.py`). Panel "Pantau" di halaman bukti menampilkan
+semesta yang sama dengan yang dikenali ekstensi.
 
 Simbol di luar semesta tidak dilencanai. Popup dan halaman bukti menyatakan
 terang bahwa "tidak dikenali" berbeda dari "aman".
 
+Cache `data/raw/` di mesin ini hanya berisi `suspensions`. Membangun ulang
+seluruh data dengan dataset sekarang (595 record) memakan:
+
 | Pos | Kredit |
 |---|---|
-| Harga 120 simbol sampel forensik (kurva tenggang, holdout) | 120 |
-| Screener semesta | ≤ 5 |
-| Harga ~80 simbol semesta di luar irisan | 80 |
-| Overview simbol TINGGI/SEDANG untuk flag struktural | ≤ 50 |
-| **Total** | **≤ 255** |
+| Harga 120 simbol sampel forensik (kurva tenggang, holdout, data situs) | 120 |
+| Screener daftar seluruh emiten untuk memilih kontrol | ≤ 5 |
+| Overview 60 kejadian sampel (flag struktural di tabel kejadian) | 60 |
+| Screener semesta (cek jumlah + satu halaman) | 2 |
+| Harga semesta, window 90 hari | ≤ 150 |
+| Overview simbol semesta bertingkat TINGGI/SEDANG | ≤ 50 |
+| **Total** | **≤ 387** |
 
-Sisa saat ini 619. Cadangan 150 tidak disentuh. Aturan lama tetap: setiap
-respons API di-cache ke disk sebelum diproses, parameter `?q=` tidak dipakai.
+Sisa saat ini 619; setelah build ini paling sedikit 232, di atas cadangan 150.
+Kalau `total_count` screener semesta membuat angka ini terlalu dekat dengan
+cadangan, `UNIVERSE_LIMIT` diturunkan sebelum harga ditarik. Aturan lama
+tetap: setiap respons API di-cache ke disk sebelum diproses, parameter `?q=`
+tidak dipakai, dan setiap script yang memakan kredit dijalankan hanya setelah
+perkiraan biayanya dicetak dan disetujui.
+
+Karena sampel dibangun ulang dari 595 record, 60 kejadian terbaru bergeser
+sedikit dan tercile dihitung ulang. Angka di tabel bagian 2 dan 3 berasal
+dari build 2026-09-21; build baru yang berlaku, dan `RET10_TERCILES`
+diperbarui dari `scripts/report_discovery.py` seperti sebelumnya.
 
 ## 10. Halaman bukti
 
