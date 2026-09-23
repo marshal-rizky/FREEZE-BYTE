@@ -22,6 +22,18 @@
     .badge::before { content: "\\25B2  "; }
     .badge.sedang::before { content: "\\25B3  "; }
     .badge[hidden] { display: none; }
+    .mark {
+      position: fixed; left: 0; top: 0; pointer-events: auto; cursor: pointer;
+      background: transparent; padding: 0; border-radius: 3px; box-sizing: border-box;
+    }
+    .mark.tinggi { border: 1.5px solid #f2555a; }
+    .mark.sedang { border: 1.5px solid #e0a43a; }
+    .mark::after {
+      content: "\\25B2"; position: absolute; top: -9px; right: -7px;
+      font: 700 9px/1 system-ui, sans-serif; color: #f2555a;
+    }
+    .mark.sedang::after { content: "\\25B3"; color: #e0a43a; }
+    .mark[hidden] { display: none; }
     .card {
       position: fixed; right: ${MARGIN}px; top: ${MARGIN}px; width: 320px;
       pointer-events: auto; background: #0e131d; color: #eaf0f9;
@@ -105,11 +117,22 @@
       return badge;
     }
 
+    function makeMark(v) {
+      const mark = doc.createElement("button");
+      mark.type = "button";
+      mark.className = `mark ${v.tier}`;
+      mark.title = `${v.symbol} · ${v.label}`;
+      mark.setAttribute("aria-label", `${v.symbol} · ${v.label}`);
+      mark.addEventListener("click", (event) => {
+        event.stopPropagation();
+        openCard(v);
+      });
+      layer.appendChild(mark);
+      return mark;
+    }
+
     function rectOf(item) {
-      if (item.range) {
-        const rects = item.range.getClientRects();
-        return rects.length ? rects[0] : null;
-      }
+      if (item.range) return item.range.getBoundingClientRect();
       if (item.anchor && item.anchor.isConnected) return item.anchor.getBoundingClientRect();
       return null;
     }
@@ -133,8 +156,16 @@
           rect.bottom < 0 || rect.top > vh || rect.right < 0 || rect.left > vw;
         item.el.hidden = off;
         if (off) continue;
-        item.el.style.transform =
-          `translate(${Math.round(rect.right + 4)}px, ${Math.round(rect.top - 3)}px)`;
+        if (item.range) {
+          // Bingkai tepat di kotak ticker -- tidak menutupi kata sesudahnya.
+          item.el.style.width = `${Math.round(rect.width + 4)}px`;
+          item.el.style.height = `${Math.round(rect.height + 2)}px`;
+          item.el.style.transform =
+            `translate(${Math.round(rect.left - 2)}px, ${Math.round(rect.top - 1)}px)`;
+        } else {
+          item.el.style.transform =
+            `translate(${Math.round(rect.right + 4)}px, ${Math.round(rect.top - 3)}px)`;
+        }
         visible += 1;
       }
       host.dataset.badges = String(visible);
@@ -146,7 +177,10 @@
 
     function setItems(next) {
       layer.textContent = "";
-      items = next.slice(0, MAX_BADGES).map((item) => ({ ...item, el: makeBadge(item.verdict) }));
+      items = next.slice(0, MAX_BADGES).map((item) => ({
+        ...item,
+        el: item.range ? makeMark(item.verdict) : makeBadge(item.verdict),
+      }));
       schedule();
     }
 
