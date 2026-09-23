@@ -13,11 +13,17 @@
   const names = new Set(panes.map((p) => p.dataset.pane));
   const parse = () => {
     const raw = location.hash.replace(/^#/, "");
-    return names.has(raw) ? raw : DEFAULT;
+    const [name, query = ""] = raw.split("?");
+    return {
+      name: names.has(name) ? name : DEFAULT,
+      params: new URLSearchParams(query),
+    };
   };
 
   function apply(options) {
-    const name = parse();
+    const route = parse();
+    const name = route.name;
+    window.freezebyteRoute = route;
     const target = panes.find((p) => p.dataset.pane === name);
 
     if (target && !target.hasAttribute("data-active")) {
@@ -39,6 +45,8 @@
       if (a.dataset.pane === name) a.setAttribute("aria-current", "page");
       else a.removeAttribute("aria-current");
     });
+
+    document.dispatchEvent(new CustomEvent("freezebyte:route", { detail: route }));
   }
 
   window.addEventListener("hashchange", () => apply({ focus: true }));

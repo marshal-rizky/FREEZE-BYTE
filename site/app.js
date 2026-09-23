@@ -1,3 +1,6 @@
+const esc = (s) => String(s).replace(/[&<>"']/g,
+  (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
 const fmtPct = (v) =>
   v === null || v === undefined ? "—" : `${(v * 100).toFixed(1).replace(".", ",")}%`;
 
@@ -219,7 +222,7 @@ function toolbar(id, placeholder, sorts) {
  * "nilai terkecil", dan menaruhnya di puncak urutan menaik akan terbaca
  * sebagai temuan.
  */
-function wireToolbar(root, items, { match, getValue, render, noun }) {
+function wireToolbar(root, items, { match, getValue, render, noun, empty }) {
   const input = root.querySelector(".search input");
   const buttons = Array.from(root.querySelectorAll(".sorts button"));
   const count = root.querySelector(".count");
@@ -248,8 +251,10 @@ function wireToolbar(root, items, { match, getValue, render, noun }) {
 
     slot.innerHTML = filtered.length
       ? render(filtered)
-      : `<div class="empty">Tidak ada ${noun} yang cocok dengan
-         "<strong>${state.q.trim()}</strong>".</div>`;
+      : empty
+        ? empty(state.q.trim())
+        : `<div class="empty">Tidak ada ${noun} yang cocok dengan
+           "<strong>${esc(state.q.trim())}</strong>".</div>`;
 
     count.textContent = q
       ? `${filtered.length} dari ${total} ${noun}`
@@ -348,10 +353,30 @@ function chips(structural) {
     .join("");
 }
 
+// Bunyinya sama dengan lencana ekstensi. SENYAP tidak diberi chip.
+const TIER_LABELS = { tinggi: "Di zona suspensi", sedang: "Mendekati zona suspensi" };
+const tierChip = (tier) =>
+  TIER_LABELS[tier] ? `<span class="tier ${tier}">${TIER_LABELS[tier]}</span>` : "";
+
+function focusFromRoute(container) {
+  const apply = () => {
+    const route = window.freezebyteRoute;
+    if (!route || route.name !== "pantau") return;
+    const symbol = (route.params.get("symbol") || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 4);
+    if (!symbol) return;
+    const input = container.querySelector(".search input");
+    if (!input || input.value === symbol) return;
+    input.value = symbol;
+    input.dispatchEvent(new Event("input"));
+  };
+  document.addEventListener("freezebyte:route", apply);
+  apply();
+}
+
 function renderWatchlist(container, watchlist, baserates) {
   if (!watchlist.length) {
-    container.innerHTML = `<p class="insufficient">Tidak ada kandidat yang lolos
-      syarat data pada build terakhir.</p>`;
+    container.innerHTML = `<p class="insufficient">Tidak ada emiten di semesta
+      pada build terakhir.</p>`;
     return;
   }
 
@@ -381,6 +406,7 @@ function renderWatchlist(container, watchlist, baserates) {
         <strong>${row.symbol}</strong>
         <span class="ret${sign(row.features.ret_10d)}">${fmtPct(row.features.ret_10d)}</span>
       </div>
+      ${tierChip(row.tier)}
       <div class="meta">
         <span>vol ${ratio(row.features.vol_ratio)}</span>
         <span>pernah beku ${row.features.prior_freeze_count}</span>
@@ -416,7 +442,10 @@ function renderWatchlist(container, watchlist, baserates) {
       : key === "vol" ? r.features.vol_ratio
       : r.symbol,
     render: (list) => list.map(card).join(""),
+    empty: (q) => `<div class="empty"><strong>${esc(q)}</strong> tidak ada di semesta
+      yang dipantau. Tidak dikenali bukan berarti aman.</div>`,
   });
+  focusFromRoute(container);
 }
 
 function renderCoverage(container, coverage, meta) {
@@ -518,6 +547,37 @@ function renderRegulatoryContext(container) {
       terlihat di data: papan pemantauan khusus &rarr; 1 tahun &rarr; suspensi.</p>`;
 }
 
+function renderLeadTime(container, validation) {
+  const rows = validation.lags.map((row) => {
+    const e = row.events, c = row.controls;
+    const measured = (x) => x.tinggi + x.sedang + x.senyap;
+    return `<tr><td>T−${row.lag}</td>
+      <td class="num">${e.tinggi}</td><td class="num">${e.sedang}</td><td class="num">${measured(e)}</td>
+      <td class="num">${c.tinggi}</td><td class="num">${c.sedang}</td><td class="num">${measured(c)}</td></tr>`;
+  }).join("");
+  const h = validation.holdout;
+  const fmt = (v) => v.toLocaleString("id-ID", { maximumFractionDigits: 4 });
+
+  container.innerHTML = `
+    <p>Kalau ambang zona terlihat hanya sehari sebelum suspensi, peringatannya
+       sempit. Tabel ini menghitung ulang posisi setiap emiten 1, 3, 5, dan 10
+       hari bursa sebelumnya, dengan ambang yang sama.</p>
+    ${wrapTable(
+      `<tr><th>Jarak</th><th class="num">Kejadian TINGGI</th><th class="num">Kejadian SEDANG</th>
+       <th class="num">Kejadian terukur</th><th class="num">Kontrol TINGGI</th>
+       <th class="num">Kontrol SEDANG</th><th class="num">Kontrol terukur</th></tr>`, rows)}
+    <h3>Diuji pada kejadian yang belum pernah dilihat</h3>
+    <p>Ambang dihitung ulang hanya dari kejadian sebelum ${h.boundary_date}
+       (ambang hasilnya ${fmt(h.upper)}), lalu diterapkan ke kejadian sesudahnya:
+       <strong>${h.test_events.tinggi} dari ${h.test_events.n}</strong> kejadian uji
+       tertangkap TINGGI, dan <strong>${h.test_controls.tinggi} dari
+       ${h.test_controls.n}</strong> kontrol uji salah tertangkap.</p>
+    <p class="caveat">TINGGI: return 10 hari bursa ≥ ${fmt(validation.upper)}.
+       SEDANG: ${fmt(validation.near_lower)} sampai di bawahnya &mdash; batas bawah ini
+       dipilih tetap, bukan diestimasi. Sampel case-control 1:1; hitungan ini
+       bukan peluang sebuah saham dibekukan.</p>`;
+}
+
 // I6: setiap render dibungkus try/catch sendiri, menulis kegagalan ke
 // container bagiannya sendiri saja -- supaya satu bagian yang gagal tidak
 // menimpa grafik yang sudah berhasil digambar atau membuat enam bagian lain
@@ -533,10 +593,10 @@ function renderSection(id, render) {
 }
 
 async function main() {
-  const [alka, events, baserates, watchlist, coverage, meta, distribution] =
+  const [alka, events, baserates, watchlist, coverage, meta, distribution, validation] =
     await Promise.all([
       load("alka"), load("events"), load("baserates"), load("watchlist"),
-      load("coverage"), load("meta"), load("distribution"),
+      load("coverage"), load("meta"), load("distribution"), load("validation"),
     ]);
 
   renderSection("bento", (c) => renderBento(c, { alka, coverage, distribution, watchlist }));
@@ -548,6 +608,7 @@ async function main() {
   renderSection("distribution-compare", (c) => renderDistribution(c, distribution));
   renderSection("event-table", (c) => renderEvents(c, events));
   renderSection("watchlist-table", (c) => renderWatchlist(c, watchlist, baserates));
+  renderSection("lead-time", (c) => renderLeadTime(c, validation));
   renderSection("coverage-report", (c) => renderCoverage(c, coverage, meta));
 
   document.dispatchEvent(new CustomEvent("freezebyte:ready"));
