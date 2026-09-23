@@ -1,5 +1,6 @@
 """Konstanta lingkungan. Satu-satunya tempat yang membaca .env."""
 import os
+from datetime import date, timedelta
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -30,3 +31,14 @@ def api_key() -> str:
             "lalu isi dengan key dari portal hackathon Sectors."
         )
     return key
+
+
+def last_complete_day() -> date:
+    """Hari kalender terakhir yang aman diminta ke API: kemarin.
+
+    date.today() memakai jam lokal (WIB, UTC+7). Antara pukul 00.00 dan 07.00
+    WIB server Sectors (UTC) masih di tanggal sebelumnya, sehingga "hari ini"
+    adalah tanggal masa depan baginya dan permintaan ditolak 400. Bar hari ini
+    juga belum lengkap sebelum bursa tutup.
+    """
+    return date.today() - timedelta(days=1)

@@ -82,20 +82,20 @@ def _write(name: str, payload) -> None:
 def _watchlist_window() -> tuple[str, str]:
     """Window harga 90 hari untuk kandidat daftar pantau, dipinkan ke cache.
 
-    Tanpa ini, `date.today()` membuat cache key baru setiap hari kalender
-    yang berbeda dan build pertama di hari itu menghabiskan ~80 kredit API
-    lagi walau tidak ada yang benar-benar berubah. Sekali dipinkan, build
-    berikutnya membaca window yang sama dari cache dan tidak memanggil
-    jaringan sama sekali. `FREEZEBYTE_REFRESH_WATCHLIST=1` menggeser window
-    itu maju dengan sengaja.
+    Tanpa ini, window baru dibuat setiap hari kalender yang berbeda dan build
+    pertama di hari itu menghabiskan ~80 kredit API lagi walau tidak ada yang
+    benar-benar berubah. Sekali dipinkan, build berikutnya membaca window yang
+    sama dari cache dan tidak memanggil jaringan sama sekali.
+    `FREEZEBYTE_REFRESH_WATCHLIST=1` menggeser window itu maju dengan sengaja.
     """
     window_path = config.RAW_DIR / "watchlist_window.json"
     if window_path.exists() and not os.environ.get(REFRESH_WATCHLIST_ENV):
         cached = _read(window_path)
         return cached["start"], cached["end"]
 
-    end = date.today().isoformat()
-    start = (date.today() - timedelta(days=89)).isoformat()
+    end_day = config.last_complete_day()
+    end = end_day.isoformat()
+    start = (end_day - timedelta(days=89)).isoformat()
     window_path.parent.mkdir(parents=True, exist_ok=True)
     window_path.write_text(
         json.dumps({"start": start, "end": end}, ensure_ascii=False, indent=2),

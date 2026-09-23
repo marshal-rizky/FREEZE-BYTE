@@ -14,7 +14,7 @@ N_EVENTS = 60
 N_CONTROLS = 60
 DAYS_BEFORE = 59
 DAYS_AFTER = 30
-TODAY = date.today()
+TODAY = config.last_complete_day()
 MAX_SCREENER_PAGES = 20  # 200 emiten per halaman; IDX punya sekitar 960
 
 
