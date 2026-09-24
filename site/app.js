@@ -363,9 +363,18 @@ function focusFromRoute(container) {
     const route = window.freezebyteRoute;
     if (!route || route.name !== "pantau") return;
     const symbol = (route.params.get("symbol") || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 4);
-    if (!symbol) return;
     const input = container.querySelector(".search input");
-    if (!input || input.value === symbol) return;
+    if (!input) return;
+    if (!symbol) {
+      // Tanpa symbol, spec §10 minta seluruh semesta terlihat -- saringan
+      // dari deep link sebelumnya tidak boleh menempel.
+      if (input.value !== "") {
+        input.value = "";
+        input.dispatchEvent(new Event("input"));
+      }
+      return;
+    }
+    if (input.value === symbol) return;
     input.value = symbol;
     input.dispatchEvent(new Event("input"));
   };
