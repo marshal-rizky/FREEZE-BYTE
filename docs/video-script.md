@@ -47,8 +47,12 @@ Tampilkan disclaimer di layar dan ucapkan bahwa produk ini deskriptif.
 
 ## Teaser 1 menit
 
-Potong 0:00–0:20 dan 0:55–1:15 dari judging video, tambahkan kartu judul di
+Potong 0:00–0:15 dan 0:55–1:30 dari judging video, tambahkan kartu judul di
 awal dan disclaimer di akhir.
+
+Potongan mana pun yang menampilkan hitungan (37/55, 0/57, 17/19, 1/17, dst.)
+wajib menyertakan kalimat "bukan peluang atau akurasi" secara utuh sampai
+selesai — tidak boleh dipotong sebelum kalimat caveat itu tuntas.
 
 ## Hal yang DILARANG muncul di kedua video
 

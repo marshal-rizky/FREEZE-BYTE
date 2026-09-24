@@ -12,7 +12,7 @@ Deadline: 30 September 2026, 23:59 WIB. Setelah submit, repo freeze total.
 | Postingan media sosial (Instagram / LinkedIn / Threads / TikTok) tag akun Sectors, pakai template thumbnail | **Belum** |
 | Ekstensi terpasang lewat Load unpacked dari zip Release | **Belum** |
 | Halaman bukti publik di GitHub Pages | **Belum** |
-| Chrome Web Store | belum disubmit |
+| Chrome Web Store | **belum disubmit** |
 
 Sisa pekerjaan: memuat ekstensi dari zip Release lewat Load unpacked, mengisi
 selector jangkar Stockbit di `extension/src/anchors.js`, mendorong dan
