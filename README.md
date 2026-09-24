@@ -5,6 +5,33 @@ Analisis suspensi perdagangan IDX. Entri Sectors Hackathon 2026, Track 03 Market
 Dua pilar di atas satu mesin fitur yang sama: anatomi forensik seluruh pembekuan yang
 tercatat, dan daftar pantau emiten hari ini yang kondisinya menyerupai kejadian-kejadian itu.
 
+## Ekstensi browser
+
+FREEZE BYTE menandai saham IDX yang berada di zona tempat bursa secara historis
+membekukan perdagangan, di Stockbit, TradingView, Google Finance, IDX, Sectors,
+RTI, Investing.com, dan situs lain yang Anda aktifkan sendiri.
+
+Tanpa API key, tanpa jaringan: seluruh data dibawa ekstensi.
+
+**Pasang (Load unpacked):**
+1. Unduh `freeze-byte-extension-<versi>.zip` dari halaman Releases, lalu ekstrak.
+2. Buka `chrome://extensions` dan nyalakan Developer mode.
+3. Klik "Load unpacked" dan pilih folder hasil ekstrak.
+4. Buka halaman saham di Stockbit atau TradingView.
+
+Lencana merah: di zona suspensi. Lencana kuning: mendekati zona. Tanpa lencana:
+tidak dikenali, bukan berarti aman. Klik lencana untuk hitungan dan tautan bukti.
+
+Halaman bukti: https://marshal-rizky.github.io/FREEZE-BYTE/site/
+
+**Bangun ulang data** (butuh `SECTORS_API_KEY` di `.env`, memakan kredit):
+`etl_suspensions.py` → `etl_prices.py` → `etl_overviews.py` →
+`report_discovery.py` (salin tercile ke `baserates.py`) →
+`etl_universe.py --count` lalu `--run` → `python -m freezebyte.build` →
+`report_validation.py` → `python -m freezebyte.export_extension`.
+
+**Bukan saran investasi.** Hitungan historis, bukan peluang. Tidak mengeksekusi order.
+
 ## Masalah yang diselesaikan
 
 Investor ritel IDX membeli saham yang sedang lari tanpa tahu bahwa kombinasi float
@@ -76,6 +103,7 @@ python -m freezebyte.build
 
 ```bash
 python -m pytest
+node --test "extension/test/*.test.js"
 ```
 
 Test berjalan offline memakai fixture di `tests/fixtures/`. Tidak butuh API key.
