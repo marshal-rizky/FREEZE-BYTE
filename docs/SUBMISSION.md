@@ -63,6 +63,6 @@ Track 03 — Market Intelligence.
 - [ ] Zip Release terpasang tanpa error di `chrome://extensions`.
 - [ ] `extension/` tidak berisi string API key: `git grep -nE "SECTORS_API_KEY=[\"']?[A-Za-z0-9_-]{8,}"` kosong.
 - [ ] "Bukan saran investasi" ada di deskripsi manifest, kartu lencana, popup, situs, README.
-- [ ] Frasa "risiko sedang" tidak ada di mana pun: `git grep -ni "risiko sedang" -- extension site` kosong.
+- [ ] Frasa "risiko sedang" tidak ada di mana pun: `git grep -ni "risiko sedang" -- extension/src site` kosong.
 - [ ] `docs/validation/lead-time.md` sesuai `data/web/validation.json` build terakhir.
 - [ ] `docs/user-testing.md` terisi untuk seluruh baris uji teknis.
