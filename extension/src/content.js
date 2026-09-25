@@ -68,12 +68,17 @@
     overlay.setItems(items);
   }
 
-  let timer = 0;
-  const rescan = () => {
-    clearTimeout(timer);
-    timer = setTimeout(scan, 400);
-  };
-  new MutationObserver(rescan).observe(document.body, {
+  // Debounce 400ms tetap ada supaya mutasi beruntun tidak memicu scan
+  // berkali-kali, tapi maxWait 1500ms memaksa scan tetap jalan di halaman
+  // yang bermutasi lebih rapat dari itu terus-menerus (mis. feed yang
+  // di-append tiap detik) -- debounce polos tidak akan pernah reda di sana.
+  const rescan = FB.debounceMaxWait(scan, 400, 1500);
+  new MutationObserver(() => {
+    // Posisi lencana mengikuti layout antar-scan juga, bukan hanya saat scan
+    // ulang selesai.
+    overlay.schedule();
+    rescan();
+  }).observe(document.body, {
     childList: true, subtree: true, characterData: true,
   });
   scan();
