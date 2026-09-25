@@ -136,6 +136,40 @@ def test_temporal_holdout_refuses_too_few_events():
         validation.temporal_holdout(samples)
 
 
+def test_temporal_holdout_reports_shipped_threshold_when_given():
+    samples = []
+    for i in range(6):
+        anchor = dt.date(2026, 3, 1) + dt.timedelta(days=i)
+        r_event = 0.5 if i < 4 else 0.6
+        samples.append(_sample("event", _with_return(r_event), anchor, f"E{i}"))
+        samples.append(_sample("control", _with_return(0.0), anchor, f"C{i}"))
+
+    result = validation.temporal_holdout(samples, train_fraction=2 / 3, near=0.2,
+                                         shipped_upper=0.65)
+
+    # Ambang refit (0.5) menangkap kedua kejadian uji (r=0.6); ambang yang
+    # dipakai ekstensi (0.65) tidak menangkap satu pun -- dua angka berbeda,
+    # dihitung dari split uji yang sama.
+    assert result["upper"] == pytest.approx(0.5)
+    assert result["test_events"] == {"n": 2, "tinggi": 2}
+    assert result["shipped"] == {
+        "upper": 0.65,
+        "test_events": {"n": 2, "tinggi": 0},
+        "test_controls": {"n": 2, "tinggi": 0},
+    }
+
+
+def test_temporal_holdout_omits_shipped_when_not_given():
+    samples = []
+    for i in range(6):
+        anchor = dt.date(2026, 3, 1) + dt.timedelta(days=i)
+        samples.append(_sample("event", _with_return(0.5), anchor, f"E{i}"))
+        samples.append(_sample("control", _with_return(0.0), anchor, f"C{i}"))
+
+    result = validation.temporal_holdout(samples, train_fraction=2 / 3, near=0.2)
+    assert "shipped" not in result
+
+
 def test_render_markdown_reports_counts_and_never_a_percentage():
     curve = [{
         "lag": 1,
@@ -154,3 +188,23 @@ def test_render_markdown_reports_counts_and_never_a_percentage():
     assert "0 dari 19" in md
     assert "BIMA.JK" in md
     assert "%" not in md
+
+
+def test_render_markdown_states_shipped_threshold_differs_when_present():
+    curve = [{
+        "lag": 1,
+        "events": {"tinggi": 38, "sedang": 3, "senyap": 14, "tidak_terukur": 0},
+        "controls": {"tinggi": 0, "sedang": 2, "senyap": 56, "tidak_terukur": 0},
+    }]
+    holdout = {"boundary_date": "2026-08-01", "upper": 0.31,
+               "train": {"events": 37, "controls": 39},
+               "test_events": {"n": 18, "tinggi": 12},
+               "test_controls": {"n": 19, "tinggi": 0},
+               "shipped": {"upper": 0.318182,
+                           "test_events": {"n": 18, "tinggi": 15},
+                           "test_controls": {"n": 19, "tinggi": 1}}}
+    md = validation.render_markdown(curve, holdout, upper=0.315874, near=0.2, skipped=[])
+
+    assert "15 dari 18" in md
+    assert "1 dari 19" in md
+    assert "berbeda" in md

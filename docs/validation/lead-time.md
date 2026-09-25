@@ -22,6 +22,8 @@ Tercile dihitung dari 36 kejadian dan 40 kontrol dengan tanggal suspensi sebelum
 
 Sampel ini case-control 1:1. Hitungan di atas bukan peluang sebuah saham dibekukan.
 
+Ambang yang sungguh dipakai ekstensi (0.318182) berbeda dari ambang refit di atas, karena ambang yang dipakai ekstensi dipasang dari data yang mencakup split uji ini juga. Pada ambang itu, kejadian uji yang tertangkap TINGGI: 16 dari 19. Kontrol uji yang salah tertangkap TINGGI: 0 dari 17.
+
 ## Gugur
 
 - LCKM.JK: hanya 13 baris berdagang

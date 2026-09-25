@@ -75,6 +75,17 @@
     "test_controls": {
       "n": 17,
       "tinggi": 1
+    },
+    "shipped": {
+      "upper": 0.318182,
+      "test_events": {
+        "n": 19,
+        "tinggi": 16
+      },
+      "test_controls": {
+        "n": 17,
+        "tinggi": 0
+      }
     }
   },
   "n_samples": {

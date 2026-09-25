@@ -100,11 +100,17 @@ def lead_time_curve(samples: list[Sample], lags=LAGS, upper: float | None = None
 
 
 def temporal_holdout(samples: list[Sample], train_fraction: float = TRAIN_FRACTION,
-                     near: float = scoring.NEAR_ZONE_LOWER) -> dict:
+                     near: float = scoring.NEAR_ZONE_LOWER,
+                     shipped_upper: float | None = None) -> dict:
     """Tercile dari kejadian tertua, diuji pada kejadian terbaru.
 
     Pemisahnya tanggal, bukan indeks, supaya kontrol ikut sisi kejadian
     pasangannya (anchor_date kontrol = tanggal suspensi pasangannya).
+
+    `shipped_upper`, kalau diisi, menghitung ulang tangkapan uji yang sama
+    dengan ambang yang benar-benar dipakai ekstensi -- ambang itu dipasang
+    dari seluruh data (termasuk split uji ini), jadi angkanya tidak boleh
+    disamakan begitu saja dengan hasil refit di atas.
     """
     events = sorted((s for s in samples if s.role == "event"),
                     key=lambda s: (s.anchor_date, s.symbol))
@@ -120,23 +126,30 @@ def temporal_holdout(samples: list[Sample], train_fraction: float = TRAIN_FRACTI
     values = [v for v in (ret10_at_lag(s, 1) for s in train) if v is not None]
     _, upper = terciles(values)
 
-    def caught(role: str) -> dict:
+    def caught(role: str, threshold: float) -> dict:
         group = [s for s in test if s.role == role]
         hits = 0
         for s in group:
             value = ret10_at_lag(s, 1)
-            if value is not None and scoring.tier(value, upper=upper, near=near) == scoring.TINGGI:
+            if value is not None and scoring.tier(value, upper=threshold, near=near) == scoring.TINGGI:
                 hits += 1
         return {"n": len(group), "tinggi": hits}
 
-    return {
+    result = {
         "boundary_date": boundary.isoformat(),
         "upper": upper,
         "train": {"events": sum(1 for s in train if s.role == "event"),
                   "controls": sum(1 for s in train if s.role == "control")},
-        "test_events": caught("event"),
-        "test_controls": caught("control"),
+        "test_events": caught("event", upper),
+        "test_controls": caught("control", upper),
     }
+    if shipped_upper is not None:
+        result["shipped"] = {
+            "upper": shipped_upper,
+            "test_events": caught("event", shipped_upper),
+            "test_controls": caught("control", shipped_upper),
+        }
+    return result
 
 
 def _measured(counts: dict) -> int:
@@ -188,6 +201,17 @@ def render_markdown(curve: list[dict], holdout: dict, upper: float, near: float,
         "Sampel ini case-control 1:1. Hitungan di atas bukan peluang sebuah "
         "saham dibekukan.",
     ]
+    if "shipped" in holdout:
+        sh = holdout["shipped"]
+        ste, stc = sh["test_events"], sh["test_controls"]
+        lines += [
+            "",
+            f"Ambang yang sungguh dipakai ekstensi ({sh['upper']:.6f}) berbeda dari "
+            "ambang refit di atas, karena ambang yang dipakai ekstensi dipasang dari "
+            "data yang mencakup split uji ini juga. Pada ambang itu, kejadian uji yang "
+            f"tertangkap TINGGI: {ste['tinggi']} dari {ste['n']}. Kontrol uji yang "
+            f"salah tertangkap TINGGI: {stc['tinggi']} dari {stc['n']}.",
+        ]
     if skipped:
         lines += ["", "## Gugur", ""]
         lines += [f"- {symbol}: {reason}" for symbol, reason in skipped]

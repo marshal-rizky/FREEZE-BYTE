@@ -565,7 +565,17 @@ function renderLeadTime(container, validation) {
       <td class="num">${c.tinggi}</td><td class="num">${c.sedang}</td><td class="num">${measured(c)}</td></tr>`;
   }).join("");
   const h = validation.holdout;
-  const fmt = (v) => v.toLocaleString("id-ID", { maximumFractionDigits: 4 });
+
+  // M1: ambang refit di atas dan ambang yang sungguh dipakai ekstensi bisa
+  // berbeda -- yang dipakai ekstensi dipasang dari data yang mencakup split
+  // uji ini juga, jadi kedua angka ditampilkan, bukan disamakan diam-diam.
+  const shipped = h.shipped ? `
+    <p>Ambang yang sungguh dipakai ekstensi (naik ${fmtPct(h.shipped.upper)} dalam
+       10 hari bursa) berbeda dari ambang refit di atas, karena ambang yang dipakai
+       ekstensi dipasang dari data yang mencakup split uji ini juga. Pada ambang itu:
+       <strong>${h.shipped.test_events.tinggi} dari ${h.shipped.test_events.n}</strong>
+       kejadian uji tertangkap TINGGI, dan <strong>${h.shipped.test_controls.tinggi} dari
+       ${h.shipped.test_controls.n}</strong> kontrol uji salah tertangkap.</p>` : "";
 
   container.innerHTML = `
     <p>Kalau ambang zona terlihat hanya sehari sebelum suspensi, peringatannya
@@ -577,13 +587,14 @@ function renderLeadTime(container, validation) {
        <th class="num">Kontrol SEDANG</th><th class="num">Kontrol terukur</th></tr>`, rows)}
     <h3>Diuji pada kejadian yang belum pernah dilihat</h3>
     <p>Ambang dihitung ulang hanya dari kejadian sebelum ${h.boundary_date}
-       (ambang hasilnya ${fmt(h.upper)}), lalu diterapkan ke kejadian sesudahnya:
-       <strong>${h.test_events.tinggi} dari ${h.test_events.n}</strong> kejadian uji
-       tertangkap TINGGI, dan <strong>${h.test_controls.tinggi} dari
+       (ambang hasilnya naik ${fmtPct(h.upper)} dalam 10 hari bursa), lalu diterapkan ke
+       kejadian sesudahnya: <strong>${h.test_events.tinggi} dari ${h.test_events.n}</strong>
+       kejadian uji tertangkap TINGGI, dan <strong>${h.test_controls.tinggi} dari
        ${h.test_controls.n}</strong> kontrol uji salah tertangkap.</p>
-    <p class="caveat">TINGGI: return 10 hari bursa ≥ ${fmt(validation.upper)}.
-       SEDANG: ${fmt(validation.near_lower)} sampai di bawahnya &mdash; batas bawah ini
-       dipilih tetap, bukan diestimasi. Sampel case-control 1:1; hitungan ini
+    ${shipped}
+    <p class="caveat">TINGGI: naik ${fmtPct(validation.upper)} dalam 10 hari bursa.
+       SEDANG: naik ${fmtPct(validation.near_lower)} sampai di bawah itu &mdash; batas
+       bawah ini dipilih tetap, bukan diestimasi. Sampel case-control 1:1; hitungan ini
        bukan peluang sebuah saham dibekukan.</p>`;
 }
 

@@ -33,7 +33,7 @@ def main() -> None:
     near = scoring.NEAR_ZONE_LOWER
 
     curve = validation.lead_time_curve(samples, validation.LAGS, upper=upper, near=near)
-    holdout = validation.temporal_holdout(samples, near=near)
+    holdout = validation.temporal_holdout(samples, near=near, shipped_upper=upper)
 
     payload = {
         "lags": curve,
