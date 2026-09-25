@@ -2,7 +2,12 @@
 <html lang="id">
 <head><meta charset="utf-8"><title>FREEZE BYTE harness</title>
 <style>body{font:16px/1.6 Georgia,serif;max-width:640px;margin:40px auto;padding:0 16px}
-.spacer{height:1400px}</style></head>
+.spacer{height:1400px}
+/* Scrim full-halaman (mis. overlay cookie/login) yang menutupi lewat
+   pseudo-element di body -- tidak aktif kecuali <html> diberi class
+   "scrim", jadi ekspektasi default tidak berubah. */
+html.scrim body::after { content:""; position:fixed; inset:0; background:rgba(0,0,0,.6); z-index:10; }
+</style></head>
 <body>
   <h1>Berita pasar</h1>
   <p id="p1">Saham <a id="lnk" href="#clicked">AAAA</a> naik tajam pekan ini. BBBB juga menguat, sementara CCCC tenang.</p>

@@ -174,8 +174,15 @@
           const cy = rect.top + rect.height / 2;
           const hit = doc.elementFromPoint(cx, cy);
           const parent = item.range.startContainer.parentElement;
+          // hit.contains(parent) sendirian gampang jebol: body/html selalu
+          // "berisi" parent apa pun, jadi scrim full-page (mis. body::after
+          // fixed inset:0) akan lolos sebagai "ancestor" padahal itu justru
+          // yang menutupi. Cabang leluhur hanya berlaku kalau hit bukan
+          // body/html.
           const onOwner = hit === host ||
-            (parent != null && (parent.contains(hit) || (hit != null && hit.contains(parent))));
+            (parent != null && (parent.contains(hit) ||
+              (hit != null && hit !== doc.body && hit !== doc.documentElement &&
+                hit.contains(parent))));
           if (!onOwner) off = true;
         }
         item.el.hidden = off;
