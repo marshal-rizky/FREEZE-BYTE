@@ -3,7 +3,8 @@
 Analisis suspensi perdagangan IDX. Entri Sectors Hackathon 2026, Track 03 Market Intelligence.
 
 Dua pilar di atas satu mesin fitur yang sama: anatomi forensik seluruh pembekuan yang
-tercatat, dan daftar pantau emiten hari ini yang kondisinya menyerupai kejadian-kejadian itu.
+tercatat, dan semesta emiten hari ini yang kondisinya menyerupai kejadian-kejadian itu --
+semesta yang sama yang dikenali dan dilencanai ekstensi browser.
 
 ## Ekstensi browser
 
@@ -41,7 +42,7 @@ historis berakhir dengan saham dibekukan — dan saat beku, mereka tidak bisa ke
 ## Cara kerjanya
 
 `features.py` menerima `(price_series, as_of_date)` dan mengembalikan satu dict fitur.
-Analisis forensik memanggilnya dengan `as_of` sehari sebelum suspensi. Daftar pantau
+Analisis forensik memanggilnya dengan `as_of` sehari sebelum suspensi. Semesta ekstensi
 memanggilnya dengan `as_of` hari bursa terakhir. Kode yang sama, dua sudut pandang.
 
 Jendela beku dideteksi dari deret `volume == 0`, lalu di-cross-check terhadap record
@@ -57,8 +58,8 @@ Sectors API v2: `/v2/suspensions/`, `/v2/daily/{symbol}/`, `/v2/company/report/{
 
 Dataset suspensi penuh berisi **595 record**. Dari situ, **120 masuk sampel forensik**
 (60 kejadian + 60 kontrol, dibatasi anggaran kredit API), dan dari 120 itu **112
-dianalisis, 8 dikecualikan**. Rincian lengkap alasan pengecualian per emiten, daftar
-pantau terpisah, dan distribusi kategori alasan suspensi ada di bagian coverage pada
+dianalisis, 8 dikecualikan**. Rincian lengkap alasan pengecualian per emiten, semesta
+ekstensi terpisah, dan distribusi kategori alasan suspensi ada di bagian coverage pada
 situs (`site/`, dibangun dari `data/web/coverage.json`).
 
 ## Batasan yang diakui
@@ -96,7 +97,12 @@ pip install -e .        # supaya `freezebyte` bisa di-import dari scripts/
 python scripts/etl_suspensions.py
 python scripts/etl_prices.py
 python scripts/etl_overviews.py
+python scripts/report_discovery.py   # salin tercile yang dicetak ke baserates.py
+python scripts/etl_universe.py --count
+python scripts/etl_universe.py --run
 python -m freezebyte.build
+python scripts/report_validation.py
+python -m freezebyte.export_extension
 ```
 
 ## Test
