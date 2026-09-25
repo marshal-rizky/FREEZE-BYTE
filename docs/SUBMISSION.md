@@ -10,14 +10,12 @@ Deadline: 30 September 2026, 23:59 WIB. Setelah submit, repo freeze total.
 | Problem statement satu kalimat | **Siap** — lihat bagian di bawah |
 | Pilihan track dan daftar nama peserta | **Siap** — Track 03, solo |
 | Postingan media sosial (Instagram / LinkedIn / Threads / TikTok) tag akun Sectors, pakai template thumbnail | **Belum** |
-| Ekstensi terpasang lewat Load unpacked dari zip Release | **Siap** (Release terbit) — [v0.1.0](https://github.com/marshal-rizky/FREEZE-BYTE/releases/tag/v0.1.0); dipasang dari folder `extension/` di Chrome, pemasangan dari zip belum dicoba |
+| Ekstensi terpasang lewat Load unpacked dari zip Release | **Siap** (Release terbit) — [v0.1.0](https://github.com/marshal-rizky/FREEZE-BYTE/releases/tag/v0.1.0); dipasang dari aset zip di Chrome tanpa error |
 | Halaman bukti publik di GitHub Pages | **Siap** — https://marshal-rizky.github.io/FREEZE-BYTE/site/ |
 | Chrome Web Store | **belum disubmit** |
 
-Sisa pekerjaan: memasang ekstensi dari zip Release sekali lewat Load
-unpacked, mengisi sisa checklist situs asli di `docs/user-testing.md`, dua
-video, dan satu postingan media sosial. Chrome Web Store opsional (butuh ikon
-128px).
+Sisa pekerjaan: dua video dan satu postingan media sosial. Chrome Web Store
+opsional (butuh ikon 128px).
 
 ## Problem statement
 
@@ -60,7 +58,10 @@ Track 03 — Market Intelligence.
 - [x] `node --test "extension/test/*.test.js"` lulus -- 38 passed (2026-09-25).
 - [x] `python -m pytest` lulus dari clone bersih tanpa `.env` -- `main` di-clone
   ke direktori sementara, tanpa `.env`, 133 passed (2026-09-25).
-- [ ] Zip Release terpasang tanpa error di `chrome://extensions`.
+- [x] Zip Release terpasang tanpa error di `chrome://extensions` -- aset
+  `freeze-byte-extension-0.1.0.zip`, 2026-09-25. (Arsip "Source code (zip)"
+  buatan GitHub gagal dimuat dari folder induknya; README kini menyebut aset yang
+  benar dan subfolder `extension` sebagai cadangan.)
 - [x] `extension/` tidak berisi string API key: `git grep -nE "SECTORS_API_KEY=[\"']?[A-Za-z0-9_-]{8,}"` kosong.
 - [x] "Bukan saran investasi" ada di deskripsi manifest, kartu lencana, popup, situs, README
   -- dicek per berkas: `manifest.json`, `verdict.js` (caveat kartu), `popup.html`,
@@ -68,4 +69,4 @@ Track 03 — Market Intelligence.
 - [x] Frasa "risiko sedang" tidak ada di mana pun: `git grep -ni "risiko sedang" -- extension/src site` kosong.
 - [x] `docs/validation/lead-time.md` sesuai `data/web/validation.json` build terakhir
   -- dibangun ulang dari cache (nol kredit), tidak ada perubahan.
-- [ ] `docs/user-testing.md` terisi untuk seluruh baris uji teknis.
+- [x] `docs/user-testing.md` terisi untuk seluruh baris uji teknis -- 8 situs, 2026-09-25.

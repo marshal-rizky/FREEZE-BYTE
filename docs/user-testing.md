@@ -9,19 +9,24 @@ adalah perilaku teknis dan kegunaan di situs asli.
 
 ## Uji teknis di situs asli
 
-Dijalankan sekali sebelum merekam video, dengan ekstensi terpasang lewat
-Load unpacked dan data build terakhir.
+Dijalankan 2026-09-25 di Chrome, dengan ekstensi v0.1.0 dipasang lewat Load
+unpacked dari aset Release `freeze-byte-extension-0.1.0.zip` dan data build
+2026-09-24. Semua baris dilaporkan lulus oleh penguji.
 
-| Situs | Lencana muncul untuk simbol TINGGI/SEDANG | Tidak muncul untuk simbol di luar semesta | Ikut scroll dan resize | Halaman utuh dan tidak melambat | Kartu dan tautan bukti benar | Catatan |
+Sejak strip empat keadaan, simbol di luar semesta tidak lagi "tanpa tanda":
+halaman sahamnya mendapat strip bening "Tidak dipantau", dan kode di dalam teks
+tetap tanpa tanda.
+
+| Situs | Tanda/strip muncul untuk simbol TINGGI/SEDANG | Simbol di luar semesta: strip bening, tanpa tanda di teks | Ikut scroll dan resize | Halaman utuh dan tidak melambat | Kartu dan tautan bukti benar | Catatan |
 |---|---|---|---|---|---|---|
-| Stockbit (halaman simbol) | | | | | | |
-| TradingView | | | | | | |
-| Google Finance | | | | | | |
-| IDX | | | | | | |
-| Sectors | | | | | | |
-| RTI | | | | | | |
-| Investing.com (Lapis 1) | | | | | | |
-| Satu artikel berita | | | | | | |
+| Stockbit (halaman simbol) | ya | ya | ya | ya | ya | CCSI: strip merah |
+| TradingView | ya | ya | ya | ya | ya | CCSI merah, MITI kuning, AGII biru, BBCA bening |
+| Google Finance | ya | ya | ya | ya | ya | CCSI: strip merah (URL dialihkan ke `/finance/beta/`) |
+| IDX | ya | ya | ya | ya | ya | AGII: strip biru |
+| Sectors | ya | ya | ya | ya | ya | BBCA: strip bening "Tidak dipantau" |
+| RTI | ya | ya | ya | ya | ya | Tanpa strip (URL tanpa kode saham); tanda hanya di kode TINGGI/SEDANG dalam teks |
+| Investing.com (Lapis 1) | ya | ya | ya | ya | ya | ▲ di "CCSI" dalam teks, tanpa strip |
+| Satu artikel berita | ya | ya | ya | ya | ya | Awalnya tanpa tanda; aktif setelah "Aktifkan di situs ini" di popup |
 
 Strip Lapis 0: tampil penuh, menciut jadi pil setelah 6 detik, pil membuka
 lagi saat diklik, tidak menutupi tombol navbar situs: ya (Chrome, 2026-09-25,
