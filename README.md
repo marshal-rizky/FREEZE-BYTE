@@ -15,13 +15,22 @@ RTI, Investing.com, dan situs lain yang Anda aktifkan sendiri.
 Tanpa API key, tanpa jaringan: seluruh data dibawa ekstensi.
 
 **Pasang (Load unpacked):**
-1. Unduh `freeze-byte-extension-<versi>.zip` dari halaman Releases, lalu ekstrak.
+1. Di [halaman Releases](https://github.com/marshal-rizky/FREEZE-BYTE/releases/latest),
+   bagian **Assets**, unduh `freeze-byte-extension-<versi>.zip` -- **bukan**
+   "Source code (zip)". Ekstrak.
 2. Buka `chrome://extensions` dan nyalakan Developer mode.
-3. Klik "Load unpacked" dan pilih folder hasil ekstrak.
+3. Klik "Load unpacked" dan pilih folder hasil ekstrak (folder yang langsung
+   berisi `manifest.json`).
 4. Buka halaman saham di Stockbit atau TradingView.
 
-Lencana merah: di zona suspensi. Lencana kuning: mendekati zona. Tanpa lencana:
-tidak dikenali, bukan berarti aman. Klik lencana untuk hitungan dan tautan bukti.
+Kalau yang terunduh "Source code", pilih subfolder `extension` di dalamnya --
+Chrome menolak folder induknya dengan pesan "file manifes tidak ada".
+
+Di halaman saham, strip di atas-tengah menunjukkan keadaannya: merah = di zona
+suspensi, kuning = mendekati zona, biru = di luar zona, bening = tidak dipantau.
+Biru dan bening **bukan berarti aman**. Kode saham di dalam teks diberi garis
+tepi dan ▲/△ hanya kalau merah atau kuning. Klik "Detail ›" atau ▲/△ untuk
+hitungan dan tautan bukti.
 
 Halaman bukti: https://marshal-rizky.github.io/FREEZE-BYTE/site/
 
