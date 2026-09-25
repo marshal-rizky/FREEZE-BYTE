@@ -23,17 +23,20 @@
     .badge.sedang::before { content: "\\25B3  "; }
     .badge[hidden] { display: none; }
     .mark {
-      position: fixed; left: 0; top: 0; pointer-events: auto; cursor: pointer;
+      position: fixed; left: 0; top: 0; pointer-events: none;
       background: transparent; padding: 0; border-radius: 3px; box-sizing: border-box;
     }
     .mark.tinggi { border: 1.5px solid #f2555a; }
     .mark.sedang { border: 1.5px solid #e0a43a; }
-    .mark::after {
-      content: "\\25B2"; position: absolute; top: -9px; right: -7px;
-      font: 700 9px/1 system-ui, sans-serif; color: #f2555a;
-    }
-    .mark.sedang::after { content: "\\25B3"; color: #e0a43a; }
     .mark[hidden] { display: none; }
+    .glyph {
+      position: absolute; top: -14px; right: -12px; pointer-events: auto;
+      width: 16px; height: 16px; padding: 0; margin: 0; box-sizing: border-box;
+      display: flex; align-items: center; justify-content: center;
+      background: transparent; border: 0; cursor: pointer;
+      font: 700 11px/1 system-ui, sans-serif; color: #f2555a;
+    }
+    .glyph.sedang { color: #e0a43a; }
     .card {
       position: fixed; right: ${MARGIN}px; top: ${MARGIN}px; width: 320px;
       pointer-events: auto; background: #0e131d; color: #eaf0f9;
@@ -118,15 +121,24 @@
     }
 
     function makeMark(v) {
-      const mark = doc.createElement("button");
-      mark.type = "button";
+      // Bingkai (.mark) punya pointer-events: none -- klik dan seleksi teks
+      // menembusnya ke halaman di baliknya. Satu-satunya target klik adalah
+      // glyph kecil di pojok kanan atasnya.
+      const mark = doc.createElement("div");
       mark.className = `mark ${v.tier}`;
-      mark.title = `${v.symbol} · ${v.label}`;
-      mark.setAttribute("aria-label", `${v.symbol} · ${v.label}`);
-      mark.addEventListener("click", (event) => {
+
+      const glyph = doc.createElement("button");
+      glyph.type = "button";
+      glyph.className = `glyph ${v.tier}`;
+      glyph.textContent = v.tier === "tinggi" ? "▲" : "△";
+      glyph.title = `${v.symbol} · ${v.label}`;
+      glyph.setAttribute("aria-label", `${v.symbol} · ${v.label}`);
+      glyph.addEventListener("click", (event) => {
         event.stopPropagation();
         openCard(v);
       });
+      mark.appendChild(glyph);
+
       layer.appendChild(mark);
       return mark;
     }
