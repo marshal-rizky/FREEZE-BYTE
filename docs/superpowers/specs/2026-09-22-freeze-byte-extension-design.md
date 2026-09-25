@@ -146,10 +146,9 @@ dalam rentetan kapital (lebih dari tiga kata kapital berurutan, mis. judul
 `script`, `style`, dan elemen `contenteditable` dilewati. `MutationObserver`
 menangkap konten yang muncul belakangan, dengan debounce.
 
-**Lapis 2 — jangkar Stockbit.** Satu selector yang hanya menentukan di mana
-lencana simbol Lapis 0 dipaku, supaya menempel di sebelah harga. Selector
-tidak pernah dipakai untuk deteksi. Kalau selector meleset, lencana jatuh ke
-pojok kanan atas viewport.
+**Lapis 0 tampil sebagai strip.** Saham yang dideteksi dari URL ditampilkan
+sebagai strip di atas-tengah yang menciut jadi pil setelah 6 detik; rinciannya
+di `2026-09-25-pinned-strip-design.md`. Tidak ada selector per situs.
 
 ## 7. Overlay
 
@@ -239,7 +238,6 @@ sebaliknya.
 |---|---|
 | Simbol tidak ada di semesta | Senyap |
 | `ret_10d` null (riwayat pendek) | Senyap; halaman bukti menulis "data tidak cukup" |
-| Selector jangkar Stockbit meleset | Lencana jatuh ke pojok |
 | Rentang teks di luar viewport | Tidak digambar |
 | `universe.json` gagal dimuat | Ekstensi senyap total, error di console |
 | `as_of` lebih tua dari 7 hari kalender | Lencana tetap tampil, kartu menandai data basi |
@@ -296,8 +294,6 @@ merekam video, untuk tiap situs Lapis 0 dan satu artikel berita:
 - lencana muncul untuk simbol di semesta, dan tidak muncul untuk simbol di luar;
 - posisi mengikuti scroll dan resize;
 - halaman tidak rusak, tidak terasa melambat;
-- jangkar Stockbit menempel di tempatnya, dan jatuh ke pojok kalau selectornya
-  dirusak sengaja;
 - kartu detail terbuka, tautannya menuju halaman bukti yang benar.
 
 **Pertanyaan uji pemahaman tetap ditulis**, siap dipakai kalau penguji

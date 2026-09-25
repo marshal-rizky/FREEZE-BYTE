@@ -22,12 +22,16 @@
   }
 
   const now = Date.now();
+  // Semua entri semesta, termasuk SENYAP -- dipakai strip Lapis 0.
+  const entries = new Map(universe.symbols.map((entry) => [entry.symbol, entry]));
+  // Hanya TINGGI/SEDANG -- daftar putih tanda di dalam teks (Lapis 1).
   const verdicts = new Map();
   for (const entry of universe.symbols) {
     const v = FB.verdict(entry, thresholds, now);
     if (v) verdicts.set(entry.symbol, v);
   }
-  if (!verdicts.size) return;
+  // Tidak berhenti walau tidak ada TINGGI/SEDANG: strip tetap memberi tahu
+  // pengguna bahwa ekstensi aktif di halaman saham mana pun.
 
   const whitelist = new Set(verdicts.keys());
   const overlay = FB.createOverlay(document);
@@ -38,11 +42,11 @@
     const items = [];
 
     const focused = FB.symbolFromUrl(location.href);
-    if (focused && verdicts.has(focused.symbol)) {
+    if (focused) {
+      const entry = entries.get(focused.symbol) || null;
       items.push({
         pinned: true,
-        anchor: FB.anchorFor(focused.site, document),
-        verdict: verdicts.get(focused.symbol),
+        verdict: FB.pinnedVerdict(entry, focused.symbol, thresholds, now, entries.size),
       });
     }
 

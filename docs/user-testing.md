@@ -23,8 +23,14 @@ Load unpacked dan data build terakhir.
 | Investing.com (Lapis 1) | | | | | | |
 | Satu artikel berita | | | | | | |
 
-Jangkar Stockbit: selector dihapus sengaja lewat DevTools → lencana pindah ke
-pojok: [ya/tidak].
+Strip Lapis 0: tampil penuh, menciut jadi pil setelah 6 detik, pil membuka
+lagi saat diklik, tidak menutupi tombol navbar situs: ya (Chrome, 2026-09-25,
+TradingView CCSI dan MITI).
+
+Strip untuk saham di luar zona (biru, "Di luar zona suspensi") dan yang tidak
+dipantau (bening, "Tidak dipantau"): tampil di halaman saham, menciut setelah
+3 detik, tidak ada kata "aman" sebagai penilaian: ya (Chrome, 2026-09-25,
+TradingView AGII dan BBCA).
 
 ## Pertanyaan uji pemahaman
 

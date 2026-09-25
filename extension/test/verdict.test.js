@@ -55,3 +55,14 @@ test("staleness flips after the configured days", () => {
   assert.equal(isStale("bukan-tanggal", NOW, 7), true);
   assert.equal(verdict(entry("tinggi", { as_of: "2026-09-01" }), thresholds, NOW).stale, true);
 });
+
+test("tinggi headline states the event count without a chance", () => {
+  const v = verdict(entry("tinggi"), thresholds, NOW);
+  assert.equal(v.headline, "Sehari sebelum suspensi, 38 dari 55 kejadian terlihat seperti ini");
+});
+
+test("sedang headline states the zone threshold as a return", () => {
+  const v = verdict(entry("sedang", { ret_10d: 0.25 }), thresholds, NOW);
+  assert.equal(v.headline, "Batas zona: naik 31,6%");
+  assert.ok(!v.headline.toLowerCase().includes("risiko sedang"));
+});

@@ -14,11 +14,10 @@ Deadline: 30 September 2026, 23:59 WIB. Setelah submit, repo freeze total.
 | Halaman bukti publik di GitHub Pages | **Belum** |
 | Chrome Web Store | **belum disubmit** |
 
-Sisa pekerjaan: memuat ekstensi dari zip Release lewat Load unpacked, mengisi
-selector jangkar Stockbit di `extension/src/anchors.js`, mendorong dan
-menggabungkan branch `feat/extension`, mengaktifkan GitHub Pages, membuat
-Release, submit ke Chrome Web Store, mengisi checklist situs asli di
-`docs/user-testing.md`, dua video, dan satu postingan media sosial.
+Sisa pekerjaan: memuat ekstensi dari zip Release lewat Load unpacked,
+mendorong dan menggabungkan branch `feat/extension`, mengaktifkan GitHub
+Pages, membuat Release, submit ke Chrome Web Store, mengisi checklist situs
+asli di `docs/user-testing.md`, dua video, dan satu postingan media sosial.
 
 ## Problem statement
 
