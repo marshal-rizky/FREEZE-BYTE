@@ -4,7 +4,7 @@ Biaya: sekitar 125 kredit pada eksekusi pertama. Nol pada eksekusi ulang.
 Window kontrol disamakan dengan kejadian pasangannya agar kondisi pasar sebanding.
 """
 import json
-from datetime import date, timedelta
+from datetime import timedelta
 
 from freezebyte import client, config
 from freezebyte.freeze import as_date
