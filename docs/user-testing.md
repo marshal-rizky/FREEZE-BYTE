@@ -24,9 +24,11 @@ Load unpacked dan data build terakhir.
 | Satu artikel berita | | | | | | |
 
 Strip Lapis 0: tampil penuh, menciut jadi pil setelah 6 detik, pil membuka
-
-Strip untuk saham di luar zona (biru, "Di luar zona suspensi") dan yang tidak dipantau (bening, "Tidak dipantau"): tampil di halaman saham, menciut setelah 3 detik, tidak ada kata "aman" sebagai penilaian: [ya/tidak].
 lagi saat diklik, tidak menutupi tombol navbar situs: [ya/tidak].
+
+Strip untuk saham di luar zona (biru, "Di luar zona suspensi") dan yang tidak
+dipantau (bening, "Tidak dipantau"): tampil di halaman saham, menciut setelah
+3 detik, tidak ada kata "aman" sebagai penilaian: [ya/tidak].
 
 ## Pertanyaan uji pemahaman
 
