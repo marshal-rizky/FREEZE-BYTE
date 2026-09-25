@@ -30,7 +30,9 @@
     }
     .glyph.sedang { color: #e0a43a; }
     .card {
-      position: fixed; right: ${MARGIN}px; top: ${MARGIN}px; width: 320px;
+      position: fixed; left: 50%; right: auto; top: 140px;
+      transform: translateX(-50%); width: min(360px, calc(100vw - 32px));
+      max-height: calc(100vh - 156px); overflow: auto;
       pointer-events: auto; background: #0e131d; color: #eaf0f9;
       border: 1px solid rgba(255,255,255,.14); border-radius: 14px;
       box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 18px 40px rgba(0,0,0,.5);
