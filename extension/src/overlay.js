@@ -10,7 +10,10 @@
 (function (root) {
   const MAX_BADGES = 60;
   const MARGIN = 16;
-  const COLLAPSE_AFTER_MS = 6000;
+  // Peringatan (TINGGI/SEDANG) tampil penuh lebih lama; keadaan netral
+  // (LUAR/TIDAK) hanya sebentar, sekadar tanda ekstensi aktif.
+  const COLLAPSE_AFTER_MS = { tinggi: 6000, sedang: 6000, luar: 3000, tidak: 3000 };
+  const GLYPHS = { tinggi: "▲", sedang: "△", luar: "○", tidak: "◌" };
 
   const CSS = `
     :host { all: initial; }
@@ -42,6 +45,7 @@
     .card h2 { font-size: 15px; margin: 0 0 4px; }
     .card .label.tinggi { color: #ff8a8e; }
     .card .label.sedang { color: #f2c46d; }
+    .card .label.luar { color: #8ab8ff; }
     .card p { margin: 8px 0; }
     .card .caveat, .card .stale { color: #9aa7bb; font-size: 12px; }
     .card .stale { color: #f2c46d; }
@@ -69,7 +73,7 @@
     .strip .tri { font-size: 22px; line-height: 1; }
     .pin.tinggi .tri { color: #ff6b70; }
     .pin.sedang .tri { color: #f2c46d; }
-    .strip .text { min-width: 0; }
+    .strip .text { min-width: 0; flex: 1; }
     .strip .sym { font-weight: 800; font-size: 17px; letter-spacing: .02em; }
     .strip .lbl { font-weight: 700; font-size: 15px; margin-left: 8px; }
     .pin.tinggi .lbl { color: #ffd9da; }
@@ -88,6 +92,17 @@
       box-shadow: 0 6px 18px rgba(0,0,0,.3); animation: fb-fade 240ms ease-out;
     }
     .pin.tinggi .pill { background: rgba(58,13,16,.95); border-color: #f2555a; color: #ffd9da; }
+    .pin.luar .strip { background: rgba(12,27,54,.94); border-color: #5b9dff;
+      box-shadow: 0 0 0 6px rgba(91,157,255,.16), 0 18px 40px rgba(0,0,0,.3); }
+    .pin.luar .tri { color: #8ab8ff; }
+    .pin.luar .lbl { color: #cfe0ff; }
+    .pin.luar .pill { background: rgba(12,27,54,.94); border-color: #5b9dff; color: #cfe0ff; }
+    .pin.tidak .strip, .pin.tidak .pill {
+      background: rgba(20,24,33,.52); border-color: rgba(255,255,255,.45);
+      -webkit-backdrop-filter: blur(14px) saturate(140%); backdrop-filter: blur(14px) saturate(140%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 14px 34px rgba(0,0,0,.25); }
+    .pin.tidak .tri { color: rgba(255,255,255,.85); }
+    .pin.tidak .lbl, .pin.tidak .pill { color: rgba(255,255,255,.9); }
     .pin.sedang .pill { background: rgba(51,37,10,.95); border-color: #e0a43a; color: #ffe7b8; }
     .pin .strip { animation: fb-fade 240ms ease-out; }
     .pin.fresh .strip { animation: fb-enter 420ms cubic-bezier(0.16, 1, 0.3, 1); }
@@ -127,7 +142,7 @@
       <button class="close" type="button" aria-label="Tutup">&times;</button>
       <h2>${esc(v.symbol)}</h2>
       <div class="label ${esc(v.tier)}">${esc(v.label)}</div>
-      <p><strong>${esc(v.move)}</strong></p>
+      ${v.move ? `<p><strong>${esc(v.move)}</strong></p>` : ""}
       <p>${esc(v.evidence)}</p>
       ${flags.length ? `<p>Kondisi sekarang:</p><ul>${flags.join("")}</ul>` : ""}
       ${v.stale ? `<p class="stale">Data per ${esc(v.asOf)} &mdash; sudah lebih dari seminggu.</p>`
@@ -202,8 +217,11 @@
     // simbol -- scan ulang dengan simbol yang sama tidak menyentuhnya, supaya
     // animasi masuk tidak berulang dan keadaan penuh/pil tidak ter-reset.
     function buildPinned(v) {
-      const tri = v.tier === "tinggi" ? "▲" : "△";
+      const tri = GLYPHS[v.tier] || "△";
       const stale = v.stale ? ` · data per ${esc(v.asOf)}` : "";
+      const sub = [v.move, v.headline].filter(Boolean).map(esc).join(" · ") + stale;
+      // TIDAK tidak punya data untuk ditunjukkan, jadi tanpa tombol Detail.
+      const go = v.tier === "tidak" ? "" : `<button class="go" type="button">Detail ›</button>`;
       const el = doc.createElement("div");
       el.className = `pin ${v.tier} fresh`;
       el.innerHTML = `
@@ -211,9 +229,9 @@
           <span class="tri">${tri}</span>
           <div class="text">
             <div><span class="sym">${esc(v.symbol)}</span><span class="lbl">${esc(v.label)}</span></div>
-            <div class="sub">${esc(v.move)} · ${esc(v.headline)}${stale}</div>
+            <div class="sub">${sub}</div>
           </div>
-          <button class="go" type="button">Detail ›</button>
+          ${go}
           <button class="x" type="button" aria-label="Ciutkan">×</button>
         </div>
         <button class="pill" type="button">${tri} ${esc(v.symbol)} · ${esc(v.label)}</button>`;
@@ -222,7 +240,7 @@
       const timer = root.FreezeByte.createCollapseTimer(() => {
         el.classList.remove("fresh");
         setPinnedState("collapsed");
-      }, COLLAPSE_AFTER_MS);
+      }, COLLAPSE_AFTER_MS[v.tier] || 6000);
       pinned = { symbol: v.symbol, el, timer };
       built += 1;
       host.dataset.pinnedBuilt = String(built);
@@ -231,10 +249,13 @@
       const strip = el.querySelector(".strip");
       strip.addEventListener("mouseenter", () => timer.hold());
       strip.addEventListener("mouseleave", () => timer.release());
-      el.querySelector(".go").addEventListener("click", (event) => {
-        event.stopPropagation();
-        openCard(v);
-      });
+      const goButton = el.querySelector(".go");
+      if (goButton) {
+        goButton.addEventListener("click", (event) => {
+          event.stopPropagation();
+          openCard(v);
+        });
+      }
       el.querySelector(".x").addEventListener("click", (event) => {
         event.stopPropagation();
         timer.collapseNow();

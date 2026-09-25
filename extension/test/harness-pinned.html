@@ -39,6 +39,10 @@
       window.__rescan = () => overlay.setItems([{ pinned: true, verdict: v("AAAA") }]);
       window.__switch = () => overlay.setItems([{ pinned: true, verdict: v("BBBB") }]);
       window.__clear = () => overlay.setItems([]);
+      const pv = (s) => FB.pinnedVerdict(universe.symbols.find((e) => e.symbol === s) || null,
+        s, thresholds, now, universe.symbols.length);
+      window.__luar = () => overlay.setItems([{ pinned: true, verdict: pv("CCCC") }]);
+      window.__tidak = () => overlay.setItems([{ pinned: true, verdict: pv("ZZZZ") }]);
       window.__rescan();
     })();
   </script>
