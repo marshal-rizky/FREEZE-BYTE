@@ -1,5 +1,9 @@
 # Naskah video
 
+Catatan produksi: jangan pakai INPS sebagai contoh saat syuting. INPS sedang
+disuspensi, jadi `as_of`-nya lebih tua dari seminggu pada hari build dan
+kartunya akan menampilkan peringatan data basi.
+
 ## Judging video (maks 3 menit)
 
 ### 0:00–0:20 — Ekstensi di halaman Stockbit
@@ -16,10 +20,15 @@ suspensi"), kondisi struktural yang aktif (float tipis, insider menjual,
 puncak 52 minggu), dan tautan "Lihat buktinya" yang membuka halaman bukti.
 
 ### 0:55–1:30 — Kenapa angkanya bisa dipercaya (Tenggang)
-Klik tautan itu ke bagian Tenggang di halaman bukti. Tunjukkan kurva
+Klik "Lihat buktinya" -- tautan itu membuka halaman bukti di panel Pantau
+dengan simbolnya sudah tersaring (`#pantau?symbol=...`), bukan langsung ke
+Tenggang. Klik manual ke panel Tenggang. Tunjukkan kurva
 tenggang: pada T−1, 37 dari 55 kejadian dan 0 dari 57 kontrol berada di
-TINGGI. Tunjukkan holdout temporal: 17 dari 19 kejadian uji tertangkap
-TINGGI, dengan 1 dari 17 kontrol uji ikut tertangkap. Ucapkan bahwa ini
+TINGGI. Tunjukkan holdout temporal: dengan ambang yang direfit dari kejadian
+lama saja, 17 dari 19 kejadian uji tertangkap TINGGI dan 1 dari 17 kontrol
+uji ikut tertangkap; dengan ambang yang sungguh dipakai ekstensi (dipasang
+dari seluruh data, termasuk split uji ini), 16 dari 19 kejadian uji
+tertangkap dan 0 dari 17 kontrol uji ikut tertangkap. Ucapkan bahwa ini
 hitungan sampel kejadian dan pembanding, bukan peluang atau akurasi sebuah
 saham dibekukan.
 
