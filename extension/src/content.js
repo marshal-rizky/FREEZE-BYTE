@@ -52,6 +52,13 @@
         if (!parent || SKIP.has(parent.tagName) || parent.isContentEditable) {
           return NodeFilter.FILTER_REJECT;
         }
+        // Kontainer yang disembunyikan/dikolaps (mis. tinggi 0, display:none)
+        // tetap punya Range dengan rect non-nol -- checkVisibility menyaring
+        // teks yang memang tidak terlihat pembaca.
+        if (typeof parent.checkVisibility === "function" &&
+            !parent.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true })) {
+          return NodeFilter.FILTER_REJECT;
+        }
         return MAYBE_TICKER.test(node.nodeValue)
           ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
       },

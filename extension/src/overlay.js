@@ -164,8 +164,20 @@
           visible += 1;
           continue;
         }
-        const off = !rect || rect.width === 0 ||
+        let off = !rect || rect.width === 0 ||
           rect.bottom < 0 || rect.top > vh || rect.right < 0 || rect.left > vw;
+        if (!off && item.range && !item.pinned) {
+          // Teks bisa ada di layout (rect valid) tapi tertutup elemen lain
+          // (mis. logo situs) -- elementFromPoint di titik tengah rect
+          // memastikan lencana hanya nempel di teks yang benar-benar di atas.
+          const cx = rect.left + rect.width / 2;
+          const cy = rect.top + rect.height / 2;
+          const hit = doc.elementFromPoint(cx, cy);
+          const parent = item.range.startContainer.parentElement;
+          const onOwner = hit === host ||
+            (parent != null && (parent.contains(hit) || (hit != null && hit.contains(parent))));
+          if (!onOwner) off = true;
+        }
         item.el.hidden = off;
         if (off) continue;
         if (item.range) {

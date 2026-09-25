@@ -9,6 +9,16 @@
   <p id="p2">BEI SUSPENSI SAHAM AAAA HARI INI</p>
   <p id="p3">BUMN dan RUPS tidak boleh terdeteksi.</p>
   <textarea>AAAA di dalam textarea tidak boleh terdeteksi</textarea>
+  <!-- Kontainer dikolaps: tinggi 0, tersembunyi lewat visibility -- Range-nya
+       tetap punya rect non-nol, tapi checkVisibility() induknya false. -->
+  <div style="height:0; overflow:visible; visibility:hidden">AAAA tersembunyi</div>
+  <!-- Ticker ini terlihat oleh checkVisibility() (span AAAA sendiri tidak
+       disembunyikan) tapi ditutupi elemen lain yang benar-benar opak di
+       atasnya (bukan turunan/leluhur span-nya) -- elementFromPoint harus
+       menyaringnya. -->
+  <p id="p5" style="position:relative">Ticker tertutup: <span id="ticker5">AAAA</span> di sini.
+    <span id="cover" style="position:absolute; inset:0; background:#fff"></span>
+  </p>
   <div class="spacer"></div>
   <p id="p4">Di bawah lipatan: AAAA sekali lagi.</p>
   <script>
