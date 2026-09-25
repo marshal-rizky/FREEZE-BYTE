@@ -30,12 +30,18 @@
         `bursa. Sehari sebelum suspensi, ${counts.events} dari ${n.events} ` +
         `kejadian suspensi berada di rentang ini.`;
 
+    // Satu baris untuk strip Lapis 0. Hitungan, bukan peluang.
+    const headline = entry.tier === "tinggi"
+      ? `Sehari sebelum suspensi, ${counts.events} dari ${n.events} kejadian terlihat seperti ini`
+      : `Batas zona: naik ${pct(thresholds.upper)}`;
+
     return {
       tier: entry.tier,
       label: LABELS[entry.tier],
       symbol: entry.symbol,
       move: `Naik ${pct(entry.ret_10d)} dalam 10 hari bursa`,
       evidence,
+      headline,
       caveat: "Hitungan sampel kejadian dan pembanding, bukan peluang. " +
               "Bukan saran investasi.",
       stale: isStale(entry.as_of, now, thresholds.stale_after_days),
