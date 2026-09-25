@@ -80,10 +80,10 @@ def _write(name: str, payload) -> None:
 
 
 def _watchlist_window() -> tuple[str, str]:
-    """Window harga 90 hari untuk kandidat daftar pantau, dipinkan ke cache.
+    """Pin window harga 90 hari milik semesta ekstensi ke cache.
 
     Tanpa ini, window baru dibuat setiap hari kalender yang berbeda dan build
-    pertama di hari itu menghabiskan ~80 kredit API lagi walau tidak ada yang
+    pertama di hari itu memanggil jaringan lagi walau tidak ada yang
     benar-benar berubah. Sekali dipinkan, build berikutnya membaca window yang
     sama dari cache dan tidak memanggil jaringan sama sekali.
     `FREEZEBYTE_REFRESH_WATCHLIST=1` menggeser window itu maju dengan sengaja.
