@@ -1,0 +1,9 @@
+body { width: 300px; margin: 0; padding: 16px; background: #080b12; color: #eaf0f9;
+       font: 400 13px/1.45 system-ui, sans-serif; }
+h1 { font-size: 15px; letter-spacing: .06em; margin: 0 0 8px; }
+p { margin: 8px 0; }
+#status { color: #9aa7bb; }
+button { width: 100%; padding: 8px; border-radius: 10px; border: 1px solid #5b9dff;
+         background: #10213d; color: #eaf0f9; font: inherit; cursor: pointer; }
+.disclaimer { color: #9aa7bb; font-size: 12px; border-top: 1px solid rgba(255,255,255,.1);
+              padding-top: 8px; }

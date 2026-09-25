@@ -122,12 +122,21 @@ def get_suspensions_page(limit: int = 30, offset: int = 0) -> dict:
     )
 
 
+def price_cache_key(symbol: str, start: str, end: str) -> str:
+    return f"daily/{symbol.upper()}_{start}_{end}"
+
+
+def is_price_cached(symbol: str, start: str, end: str) -> bool:
+    """Dipakai script yang dilarang memakan kredit untuk memeriksa lebih dulu."""
+    return _cache_path(price_cache_key(symbol, start, end)).exists()
+
+
 def get_prices(symbol: str, start: str, end: str) -> list[dict] | None:
     symbol = symbol.upper()
     return get_json(
         f"/daily/{symbol}/",
         {"start": start, "end": end},
-        f"daily/{symbol}_{start}_{end}",
+        price_cache_key(symbol, start, end),
     )
 
 
@@ -140,15 +149,18 @@ def get_overview(symbol: str) -> dict | None:
     )
 
 
-def screen(where: str | None, limit: int = 200, offset: int = 0) -> dict:
+def screen(where: str | None, limit: int = 200, offset: int = 0, order_by: str | None = None) -> dict:
     """Screener terstruktur. Parameter `q` sengaja tidak didukung: 3 kredit versus 1.
 
     Cache key memakai digest seluruh parameter, bukan potongan `where` saja.
     Dua query yang berbeda hanya pada `limit` — atau yang berbeda hanya pada
     tanda baca di dalam `where` — akan menulis ke file yang sama kalau digest
     tidak dipakai, dan pemanggil kedua diam-diam menerima hasil pemanggil pertama.
+    Parameter `order_by` memakai awalan `-field` untuk menurun.
     """
     params = {"limit": limit, "offset": offset}
+    if order_by:
+        params["order_by"] = order_by
     slug = "all"
     if where:
         params["where"] = where

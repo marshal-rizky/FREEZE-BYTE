@@ -22,3 +22,15 @@ def test_api_key_raises_clear_error_when_missing(monkeypatch):
         assert "SECTORS_API_KEY" in str(exc)
     else:
         raise AssertionError("api_key() harus melempar RuntimeError kalau key tidak ada")
+
+
+def test_last_complete_day_is_yesterday(monkeypatch):
+    import datetime as dt
+
+    class FakeDate(dt.date):
+        @classmethod
+        def today(cls):
+            return cls(2026, 9, 24)
+
+    monkeypatch.setattr(config, "date", FakeDate)
+    assert config.last_complete_day() == dt.date(2026, 9, 23)

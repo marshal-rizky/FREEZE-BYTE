@@ -1,0 +1,688 @@
+{
+  "symbols": [
+    {
+      "symbol": "MGNA",
+      "tier": "tinggi",
+      "ret_10d": 1.0,
+      "vol_ratio": 0.10153563853448294,
+      "as_of": "2026-09-23",
+      "flags": {
+        "float_under_25": true,
+        "single_entity_70": true,
+        "insider_1m_sell": false,
+        "at_52w_high": false
+      }
+    },
+    {
+      "symbol": "WAPO",
+      "tier": "tinggi",
+      "ret_10d": 0.630057803468208,
+      "vol_ratio": 2.8562181581783657,
+      "as_of": "2026-09-23",
+      "flags": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false
+      }
+    },
+    {
+      "symbol": "INPS",
+      "tier": "tinggi",
+      "ret_10d": 0.5106382978723405,
+      "vol_ratio": 2.5493952018003294,
+      "as_of": "2026-09-17",
+      "flags": {
+        "float_under_25": true,
+        "single_entity_70": true,
+        "insider_1m_sell": true,
+        "at_52w_high": true
+      }
+    },
+    {
+      "symbol": "CCSI",
+      "tier": "tinggi",
+      "ret_10d": 0.47552447552447563,
+      "vol_ratio": 0.44783460052569374,
+      "as_of": "2026-09-23",
+      "flags": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": true
+      }
+    },
+    {
+      "symbol": "BAJA",
+      "tier": "tinggi",
+      "ret_10d": 0.38853503184713367,
+      "vol_ratio": 0.8160164535210586,
+      "as_of": "2026-09-23",
+      "flags": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": true,
+        "at_52w_high": true
+      }
+    },
+    {
+      "symbol": "VISI",
+      "tier": "tinggi",
+      "ret_10d": 0.34183673469387754,
+      "vol_ratio": 0.5196081386586285,
+      "as_of": "2026-09-23",
+      "flags": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": true
+      }
+    },
+    {
+      "symbol": "ULTJ",
+      "tier": "tinggi",
+      "ret_10d": 0.3290322580645162,
+      "vol_ratio": 1.1955755305090832,
+      "as_of": "2026-09-23",
+      "flags": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": true
+      }
+    },
+    {
+      "symbol": "INTD",
+      "tier": "sedang",
+      "ret_10d": 0.3161764705882353,
+      "vol_ratio": 0.9695388349514563,
+      "as_of": "2026-09-23",
+      "flags": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false
+      }
+    },
+    {
+      "symbol": "MITI",
+      "tier": "sedang",
+      "ret_10d": 0.28181818181818175,
+      "vol_ratio": 0.8428676560125795,
+      "as_of": "2026-09-23",
+      "flags": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false
+      }
+    },
+    {
+      "symbol": "MSIE",
+      "tier": "sedang",
+      "ret_10d": 0.27737226277372273,
+      "vol_ratio": 0.24079437240340995,
+      "as_of": "2026-09-23",
+      "flags": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": true
+      }
+    },
+    {
+      "symbol": "AKSI",
+      "tier": "sedang",
+      "ret_10d": 0.2738853503184713,
+      "vol_ratio": 0.7036221661110462,
+      "as_of": "2026-09-23",
+      "flags": {
+        "float_under_25": true,
+        "single_entity_70": true,
+        "insider_1m_sell": false,
+        "at_52w_high": false
+      }
+    },
+    {
+      "symbol": "HBAT",
+      "tier": "sedang",
+      "ret_10d": 0.2592592592592593,
+      "vol_ratio": 0.2923656296687816,
+      "as_of": "2026-09-23",
+      "flags": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false
+      }
+    },
+    {
+      "symbol": "MSJA",
+      "tier": "sedang",
+      "ret_10d": 0.21232876712328763,
+      "vol_ratio": 0.9501722296431664,
+      "as_of": "2026-09-23",
+      "flags": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false
+      }
+    },
+    {
+      "symbol": "AGII",
+      "tier": "senyap",
+      "ret_10d": 0.18855218855218858,
+      "vol_ratio": 0.917347125781425,
+      "as_of": "2026-09-23",
+      "flags": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": true
+      }
+    },
+    {
+      "symbol": "MOLI",
+      "tier": "senyap",
+      "ret_10d": 0.18518518518518512,
+      "vol_ratio": 0.5023305958642323,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "HELI",
+      "tier": "senyap",
+      "ret_10d": 0.18446601941747565,
+      "vol_ratio": 1.3469704446291295,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "VOKS",
+      "tier": "senyap",
+      "ret_10d": 0.17796610169491522,
+      "vol_ratio": 0.43932660964533476,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "PKPK",
+      "tier": "senyap",
+      "ret_10d": 0.15555555555555545,
+      "vol_ratio": 3.979264689791006,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "BPTR",
+      "tier": "senyap",
+      "ret_10d": 0.14864864864864868,
+      "vol_ratio": 6.784451927982328,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "TUGU",
+      "tier": "senyap",
+      "ret_10d": 0.1439114391143912,
+      "vol_ratio": 0.7639775159528716,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "TEBE",
+      "tier": "senyap",
+      "ret_10d": 0.14206128133704743,
+      "vol_ratio": 0.9627747706646628,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "URBN",
+      "tier": "senyap",
+      "ret_10d": 0.125,
+      "vol_ratio": 1.4078264723518523,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "DFAM",
+      "tier": "senyap",
+      "ret_10d": 0.11904761904761907,
+      "vol_ratio": 4.665017613294185,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "KICI",
+      "tier": "senyap",
+      "ret_10d": 0.11278195488721798,
+      "vol_ratio": 0.6527170721211188,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "JAWA",
+      "tier": "senyap",
+      "ret_10d": 0.11038961038961048,
+      "vol_ratio": 6.886025580406302,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "BSSR",
+      "tier": "senyap",
+      "ret_10d": 0.10663983903420515,
+      "vol_ratio": 2.0424644361002735,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "RSCH",
+      "tier": "senyap",
+      "ret_10d": 0.09047619047619038,
+      "vol_ratio": 1.0029913681680291,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "CASH",
+      "tier": "senyap",
+      "ret_10d": 0.07964601769911495,
+      "vol_ratio": 0.37181684678581656,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "SMMT",
+      "tier": "senyap",
+      "ret_10d": 0.07299270072992692,
+      "vol_ratio": 1.4558786427831427,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "KING",
+      "tier": "senyap",
+      "ret_10d": 0.07179487179487176,
+      "vol_ratio": 4.817472732744294,
+      "as_of": "2026-09-23",
+      "flags": {
+        "float_under_25": true,
+        "single_entity_70": true,
+        "insider_1m_sell": false,
+        "at_52w_high": false
+      }
+    },
+    {
+      "symbol": "KKGI",
+      "tier": "senyap",
+      "ret_10d": 0.0714285714285714,
+      "vol_ratio": 2.115523837914286,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "DMND",
+      "tier": "senyap",
+      "ret_10d": 0.06557377049180335,
+      "vol_ratio": 0.7848633496846531,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "SBMA",
+      "tier": "senyap",
+      "ret_10d": 0.06363636363636371,
+      "vol_ratio": 0.5171439558628483,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "MARK",
+      "tier": "senyap",
+      "ret_10d": 0.0604651162790697,
+      "vol_ratio": 1.2886961563022854,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "APII",
+      "tier": "senyap",
+      "ret_10d": 0.05699481865284972,
+      "vol_ratio": 1.1837717396180707,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "MAYA",
+      "tier": "senyap",
+      "ret_10d": 0.055276381909547645,
+      "vol_ratio": 4.979748758463154,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "CAMP",
+      "tier": "senyap",
+      "ret_10d": 0.05232558139534893,
+      "vol_ratio": 0.27832140533506833,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "SCNP",
+      "tier": "senyap",
+      "ret_10d": 0.05128205128205132,
+      "vol_ratio": 0.5636288889978465,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "GGRP",
+      "tier": "senyap",
+      "ret_10d": 0.05031446540880502,
+      "vol_ratio": 0.5838398900823406,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "NEST",
+      "tier": "senyap",
+      "ret_10d": 0.04137931034482767,
+      "vol_ratio": 0.5487971215577452,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "ARGO",
+      "tier": "senyap",
+      "ret_10d": 0.038297872340425476,
+      "vol_ratio": 1.3446680964316167,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "DIVA",
+      "tier": "senyap",
+      "ret_10d": 0.03546099290780136,
+      "vol_ratio": 0.5865539860023072,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "MMLP",
+      "tier": "senyap",
+      "ret_10d": 0.03289473684210531,
+      "vol_ratio": 0.48038061238686997,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "AYAM",
+      "tier": "senyap",
+      "ret_10d": 0.030612244897959107,
+      "vol_ratio": 0.8839858352752336,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "NOBU",
+      "tier": "senyap",
+      "ret_10d": 0.028037383177569986,
+      "vol_ratio": 0.9684747339240046,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "PRAY",
+      "tier": "senyap",
+      "ret_10d": 0.027027027027026973,
+      "vol_ratio": 1.1201588877855015,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "VAST",
+      "tier": "senyap",
+      "ret_10d": 0.026548672566371723,
+      "vol_ratio": 0.27528765946844297,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "RELF",
+      "tier": "senyap",
+      "ret_10d": 0.024390243902439046,
+      "vol_ratio": 1.2565503783916645,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "JRPT",
+      "tier": "senyap",
+      "ret_10d": 0.022222222222222143,
+      "vol_ratio": 1.9029024868793676,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "CAKK",
+      "tier": "senyap",
+      "ret_10d": 0.018867924528301883,
+      "vol_ratio": 0.9784792224053905,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "NRCA",
+      "tier": "senyap",
+      "ret_10d": 0.018018018018018056,
+      "vol_ratio": 0.6960349957323829,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "BIKE",
+      "tier": "senyap",
+      "ret_10d": 0.015228426395939021,
+      "vol_ratio": 1.5216897197402193,
+      "as_of": "2026-09-23",
+      "flags": {
+        "float_under_25": true,
+        "single_entity_70": true,
+        "insider_1m_sell": false,
+        "at_52w_high": true
+      }
+    },
+    {
+      "symbol": "ASRM",
+      "tier": "senyap",
+      "ret_10d": 0.014084507042253502,
+      "vol_ratio": 0.11056023797719385,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "BSML",
+      "tier": "senyap",
+      "ret_10d": 0.009345794392523255,
+      "vol_ratio": 0.30922406516648127,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "AMAR",
+      "tier": "senyap",
+      "ret_10d": 0.008620689655172376,
+      "vol_ratio": 0.17952930132761163,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "SCCO",
+      "tier": "senyap",
+      "ret_10d": 0.007575757575757569,
+      "vol_ratio": 0.18579179895513112,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "MAHA",
+      "tier": "senyap",
+      "ret_10d": 0.006849315068493178,
+      "vol_ratio": 0.7599708228428904,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "LMPI",
+      "tier": "senyap",
+      "ret_10d": 0.0060975609756097615,
+      "vol_ratio": 1.1836538086001067,
+      "as_of": "2026-09-23",
+      "flags": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": false,
+        "at_52w_high": false
+      }
+    },
+    {
+      "symbol": "OBMD",
+      "tier": "senyap",
+      "ret_10d": 0.0050761421319796,
+      "vol_ratio": 0.2977928794034763,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "BNGA",
+      "tier": "senyap",
+      "ret_10d": 0.0,
+      "vol_ratio": 1.1171284525221132,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "TOOL",
+      "tier": "senyap",
+      "ret_10d": 0.0,
+      "vol_ratio": 11.189493155630764,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "DOSS",
+      "tier": "senyap",
+      "ret_10d": -0.011695906432748537,
+      "vol_ratio": 0.39687321671655873,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "LIFE",
+      "tier": "senyap",
+      "ret_10d": -0.017681728880157177,
+      "vol_ratio": 0.1302287245003091,
+      "as_of": "2026-09-23",
+      "flags": {
+        "float_under_25": true,
+        "single_entity_70": true,
+        "insider_1m_sell": false,
+        "at_52w_high": true
+      }
+    },
+    {
+      "symbol": "SAFE",
+      "tier": "senyap",
+      "ret_10d": -0.02285714285714291,
+      "vol_ratio": 0.3813421107256175,
+      "as_of": "2026-09-23",
+      "flags": {
+        "float_under_25": true,
+        "single_entity_70": false,
+        "insider_1m_sell": true,
+        "at_52w_high": true
+      }
+    },
+    {
+      "symbol": "JARR",
+      "tier": "senyap",
+      "ret_10d": -0.02639296187683282,
+      "vol_ratio": 0.3210711040692612,
+      "as_of": "2026-09-23",
+      "flags": {
+        "float_under_25": true,
+        "single_entity_70": true,
+        "insider_1m_sell": true,
+        "at_52w_high": false
+      }
+    },
+    {
+      "symbol": "PGUN",
+      "tier": "senyap",
+      "ret_10d": -0.030927835051546393,
+      "vol_ratio": 0.429618569295507,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "PSSI",
+      "tier": "senyap",
+      "ret_10d": -0.03888888888888886,
+      "vol_ratio": 0.7390394801264076,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "ESTA",
+      "tier": "senyap",
+      "ret_10d": -0.04022988505747127,
+      "vol_ratio": 1.637090081534526,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "ACRO",
+      "tier": "senyap",
+      "ret_10d": -0.04477611940298509,
+      "vol_ratio": 26.901503218064796,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "VICI",
+      "tier": "senyap",
+      "ret_10d": -0.05238095238095242,
+      "vol_ratio": 0.6111584054190122,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "POLA",
+      "tier": "senyap",
+      "ret_10d": -0.06172839506172845,
+      "vol_ratio": 0.2791104958857475,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "AALI",
+      "tier": "senyap",
+      "ret_10d": -0.08720930232558144,
+      "vol_ratio": 1.3176685427322077,
+      "as_of": "2026-09-23",
+      "flags": null
+    },
+    {
+      "symbol": "SQMI",
+      "tier": "senyap",
+      "ret_10d": -0.11428571428571432,
+      "vol_ratio": 1.222342662989943,
+      "as_of": "2026-09-23",
+      "flags": null
+    }
+  ]
+}

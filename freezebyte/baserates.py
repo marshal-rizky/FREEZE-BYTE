@@ -8,14 +8,15 @@ from dataclasses import dataclass
 from datetime import date
 
 # Batas tercile dihitung dari distribusi yang benar-benar teramati pada
-# 2026-09-21 oleh scripts/report_discovery.py: 60 kejadian suspensi + 60 emiten
-# kontrol, 113 di antaranya punya riwayat perdagangan cukup panjang (7 gugur --
-# LCKM 13 baris, INCF 10 baris, ZINC 13 baris, dan WBSA 20 baris berdagang;
-# BIMA, ADCP, dan IBST nol baris).
+# 2026-09-24 oleh scripts/report_discovery.py, dari dataset 595 record
+# suspensi: 60 kejadian suspensi + 60 emiten kontrol, 112 di antaranya punya
+# riwayat perdagangan cukup panjang (8 gugur -- LCKM 13 baris, INCF 10 baris,
+# ZINC 13 baris, WBSA 20 baris, dan BSWD 15 baris berdagang; BIMA, ADCP, dan
+# DIGI nol baris).
 # Angka ini TIDAK dikarang di muka. Untuk menghitung ulang setelah menarik data
 # baru, jalankan scripts/report_discovery.py lalu salin hasilnya ke sini.
-RET10_TERCILES: tuple[float, float] = (-0.011506, 0.315874)
-VOL_TERCILES: tuple[float, float] = (0.655936, 1.689015)
+RET10_TERCILES: tuple[float, float] = (-0.030303, 0.318182)
+VOL_TERCILES: tuple[float, float] = (0.742330, 1.719077)
 
 MIN_SAMPLE = 10
 UNKNOWN_BUCKET = "unknown"

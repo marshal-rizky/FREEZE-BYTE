@@ -1,5 +1,37 @@
+const esc = (s) => String(s).replace(/[&<>"']/g,
+  (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
 const fmtPct = (v) =>
   v === null || v === undefined ? "—" : `${(v * 100).toFixed(1).replace(".", ",")}%`;
+
+// Warna hanya menegaskan tanda yang sudah tertulis di angkanya, jadi pembaca
+// yang tidak membedakan warna tidak kehilangan informasi apa pun.
+const sign = (v) =>
+  v === null || v === undefined ? "" : v > 0 ? " pos" : v < 0 ? " neg" : "";
+
+const pctCell = (v) => `<td class="num${sign(v)}">${fmtPct(v)}</td>`;
+
+/* Sel angka + batang diverging.
+ *
+ * Angkanya bertinta biasa, bukan hijau/merah: teks memakai token teks, dan
+ * warna dibawa mark di sebelahnya. Di tabel 55 baris, mewarnai tiap digit
+ * membuat kolomnya berkedip dan besarannya tetap tidak terbaca. Batang
+ * membawa dua hal sekaligus -- tanda lewat arah dari garis tengah, besaran
+ * lewat panjang. */
+const barCell = (v, max) => {
+  if (v === null || v === undefined) return `<td class="num">—</td>`;
+  const w = max > 0 ? Math.min(Math.abs(v) / max, 1) * 50 : 0;
+  const side = v < 0 ? "down" : "up";
+  return `<td class="num">${fmtPct(v)}
+    <span class="bar" aria-hidden="true"><i class="${side}" style="width:${w}%"></i></span>
+  </td>`;
+};
+
+const ratio = (v) =>
+  v === null || v === undefined ? "—" : `${v.toFixed(1).replace(".", ",")}&times;`;
+
+const wrapTable = (head, body) =>
+  `<div class="table-wrap"><table><thead>${head}</thead><tbody>${body}</tbody></table></div>`;
 
 async function load(name) {
   const response = await fetch(`../data/web/${name}.json`);
@@ -39,7 +71,7 @@ function annotate(container, alka) {
   }
 
   container.innerHTML = cards
-    .map((c) => `<div class="annotation"><div class="value">${c.value}</div><div class="label">${c.label}</div></div>`)
+    .map((c) => `<div class="tile"><div class="value">${c.value}</div><div class="label">${c.label}</div></div>`)
     .join("");
 }
 
@@ -55,47 +87,256 @@ const CATEGORY_LABELS = {
   tanpa_alasan: "Tanpa keterangan alasan",
 };
 
+/* ---------- Bento ikhtisar ----------
+ * Empat kartu, masing-masing membawa cuplikan datanya sendiri dan membuka
+ * panel penuh saat diklik. Seluruh angkanya dibaca dari JSON; tidak ada yang
+ * ditulis tangan di sini.
+ */
+function renderBento(container, ctx) {
+  const { alka, coverage, distribution, watchlist } = ctx;
+
+  const reasons = Object.entries(coverage.reason_distribution)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3);
+  const reasonMax = reasons.length ? reasons[0][1] : 1;
+  const minibars = reasons
+    .map(([key, n]) => `
+      <div class="minibar">
+        <span class="name">${CATEGORY_LABELS[key] || key}</span>
+        <span class="n">${n}</span>
+        <span class="track"><i class="fill" style="width:${(n / reasonMax) * 100}%"></i></span>
+      </div>`)
+    .join("");
+
+  const top = watchlist
+    .slice()
+    .sort((a, b) => (b.features.ret_10d ?? -Infinity) - (a.features.ret_10d ?? -Infinity))
+    .slice(0, 3)
+    .map((r) => `
+      <div>
+        <span class="sym">${r.symbol}</span>
+        <span class="val${sign(r.features.ret_10d)}">${fmtPct(r.features.ret_10d)}</span>
+      </div>`)
+    .join("");
+
+  const eventStats = summarise((distribution.events || []).map((i) => i.ret_10d));
+  const pct = coverage.total ? Math.round((coverage.analyzed / coverage.total) * 100) : 0;
+
+  container.innerHTML = `
+    <button class="bento-card lg" data-goto="alka" type="button">
+      <div class="top">
+        <span class="label">Studi kasus &middot; ${alka.symbol}</span>
+        <span class="go">Buka &rarr;</span>
+      </div>
+      <div class="stat">${fmtPct(alka.pre_freeze_rally_return)}</div>
+      <div class="stat-note">kenaikan ${alka.pre_freeze_rally_rows} hari bursa, lalu dibekukan bursa</div>
+      <div id="bento-spark"></div>
+    </button>
+
+    <button class="bento-card sm" data-goto="anatomi" type="button">
+      <div class="top">
+        <span class="label">Anatomi</span>
+        <span class="go">Buka &rarr;</span>
+      </div>
+      <div class="stat">${coverage.total_suspension_records}</div>
+      <div class="stat-note">record suspensi IDX, alasan resmi terbanyak</div>
+      <div class="minibars">${minibars}</div>
+    </button>
+
+    <button class="bento-card" data-goto="pantau" type="button">
+      <div class="top">
+        <span class="label">Pantau hari ini</span>
+        <span class="go">Buka &rarr;</span>
+      </div>
+      <div class="stat">${watchlist.length}</div>
+      <div class="stat-note">emiten dengan kondisi menyerupai kejadian lampau</div>
+      <div class="minilist">${top}</div>
+    </button>
+
+    <button class="bento-card" data-goto="coverage" type="button">
+      <div class="top">
+        <span class="label">Coverage</span>
+        <span class="go">Buka &rarr;</span>
+      </div>
+      <div class="stat">${coverage.analyzed}<span style="color:var(--ink-3);font-size:.5em"> / ${coverage.total}</span></div>
+      <div class="stat-note">sampel forensik yang benar-benar bisa dianalisis${
+        eventStats ? `, median kenaikan sebelum dibekukan ${fmtPct(eventStats.median)}` : ""
+      }</div>
+      <div class="meter">
+        <span class="track"><i class="fill" style="width:${pct}%"></i></span>
+        <div class="legend"><span>${pct}% dianalisis</span><span>${coverage.excluded} gugur</span></div>
+      </div>
+    </button>`;
+
+  const spark = container.querySelector("#bento-spark");
+  if (spark) renderSparkline(spark, alka);
+}
+
 function renderReasons(container, distribution) {
   const total = Object.values(distribution).reduce((a, b) => a + b, 0);
   const rows = Object.entries(distribution)
     .sort((a, b) => b[1] - a[1])
     .map(([key, count]) => {
-      const label = CATEGORY_LABELS[key] || key;
       const pct = ((count / total) * 100).toFixed(1).replace(".", ",");
-      return `<tr><td>${label}</td><td>${count}</td><td>${pct}%</td></tr>`;
+      return `<tr><td>${CATEGORY_LABELS[key] || key}</td><td class="num">${count}</td><td class="num">${pct}%</td></tr>`;
     })
     .join("");
 
   container.innerHTML = `
-    <p>Alasan resmi dari ${total} record suspensi.</p>
-    <table><thead><tr><th>Alasan</th><th>Jumlah</th><th>Proporsi</th></tr></thead>
-    <tbody>${rows}</tbody></table>`;
+    <h3>Alasan resmi</h3>
+    ${wrapTable(`<tr><th>Alasan</th><th class="num">Jumlah</th><th class="num">Proporsi</th></tr>`, rows)}`;
 }
 
-function renderEvents(container, events) {
-  const rows = events
-    .map((e) => {
-      const pdf = e.pdf_url
-        ? `<a href="${e.pdf_url}" target="_blank" rel="noopener">pengumuman IDX</a>`
-        : "—";
-      return `<tr>
-        <td><strong>${e.symbol}</strong></td>
-        <td>${e.suspension_date}</td>
-        <td>${fmtPct(e.features.ret_10d)}</td>
-        <td>${e.features.vol_ratio === null ? "—" : e.features.vol_ratio.toFixed(1).replace(".", ",")}&times;</td>
-        <td>${fmtPct(e.reopen_return)}</td>
-        <td>${pdf}</td>
-      </tr>`;
-    })
+
+/* ---------- Toolbar: cari + urut ----------
+ * Satu baris kontrol di atas daftar yang dicakupnya. Pencarian menyaring
+ * secara langsung; pengurutan mengalihkan arah kalau tombol yang sama
+ * ditekan dua kali.
+ */
+const SEARCH_ICON =
+  `<svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+     <circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.6"/>
+     <path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+   </svg>`;
+
+function toolbar(id, placeholder, sorts) {
+  const buttons = sorts
+    .map((s, i) => `<button type="button" data-key="${s.key}" data-dir="${s.dir}"
+                     aria-pressed="${i === 0}">${s.label}<span class="dir">↓</span></button>`)
     .join("");
+  return `<div class="toolbar">
+    <label class="search">
+      ${SEARCH_ICON}
+      <input type="search" id="${id}" placeholder="${placeholder}" autocomplete="off" spellcheck="false">
+      <kbd>/</kbd>
+    </label>
+    <div class="sorts">${buttons}</div>
+    <span class="count" role="status" aria-live="polite"></span>
+  </div>`;
+}
+
+/* Menyambungkan toolbar ke daftarnya.
+ *
+ * `getValue(item, key)` mengembalikan nilai yang diurutkan. Nilai null
+ * selalu dilempar ke belakang, apa pun arahnya -- "tidak ada data" bukan
+ * "nilai terkecil", dan menaruhnya di puncak urutan menaik akan terbaca
+ * sebagai temuan.
+ */
+function wireToolbar(root, items, { match, getValue, render, noun, empty }) {
+  const input = root.querySelector(".search input");
+  const buttons = Array.from(root.querySelectorAll(".sorts button"));
+  const count = root.querySelector(".count");
+  const slot = root.querySelector("[data-list]");
+  const total = items.length;
+
+  const state = {
+    q: "",
+    key: buttons[0].dataset.key,
+    dir: buttons[0].dataset.dir === "asc" ? 1 : -1,
+  };
+
+  function apply() {
+    const q = state.q.trim().toLowerCase();
+    const filtered = q ? items.filter((it) => match(it, q)) : items.slice();
+
+    filtered.sort((a, b) => {
+      const av = getValue(a, state.key);
+      const bv = getValue(b, state.key);
+      if (av === null || av === undefined) return 1;
+      if (bv === null || bv === undefined) return -1;
+      if (av < bv) return -state.dir;
+      if (av > bv) return state.dir;
+      return 0;
+    });
+
+    slot.innerHTML = filtered.length
+      ? render(filtered)
+      : empty
+        ? empty(state.q.trim())
+        : `<div class="empty">Tidak ada ${noun} yang cocok dengan
+           "<strong>${esc(state.q.trim())}</strong>".</div>`;
+
+    count.textContent = q
+      ? `${filtered.length} dari ${total} ${noun}`
+      : `${total} ${noun}`;
+  }
+
+  input.addEventListener("input", () => { state.q = input.value; apply(); });
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") { input.value = ""; state.q = ""; apply(); }
+  });
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const key = btn.dataset.key;
+      // Menekan tombol yang sudah aktif membalik arahnya.
+      if (state.key === key) state.dir = -state.dir;
+      else { state.key = key; state.dir = btn.dataset.dir === "asc" ? 1 : -1; }
+      buttons.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+      btn.querySelector(".dir").textContent = state.dir === 1 ? "↑" : "↓";
+      apply();
+    });
+  });
+
+  apply();
+}
+
+// Garis miring memfokuskan pencarian di panel yang sedang aktif, Escape
+// mengosongkannya. Pintasan diabaikan saat pembaca sedang mengetik di
+// tempat lain, supaya tidak mencuri karakternya.
+document.addEventListener("keydown", (event) => {
+  const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName || "");
+  if (event.key === "/" && !typing) {
+    const input = document.querySelector('.pane[data-active] .search input');
+    if (input) { event.preventDefault(); input.focus(); input.select(); }
+  }
+});
+
+function renderEvents(container, events) {
+  // Skala batang dipatok ke magnitudo terbesar di SELURUH dataset, bukan di
+  // hasil saringan. Kalau skalanya ikut menyaring, panjang batang berubah
+  // arti setiap kali diketik -- 35% bisa tampak penuh di satu saringan dan
+  // seperempat di saringan lain.
+  const maxRet = Math.max(...events.map((e) => Math.abs(e.features.ret_10d ?? 0)), 0);
+  const maxReopen = Math.max(...events.map((e) => Math.abs(e.reopen_return ?? 0)), 0);
+
+  const row = (e) => {
+    const pdf = e.pdf_url
+      ? `<a href="${e.pdf_url}" target="_blank" rel="noopener">pengumuman IDX</a>`
+      : "—";
+    return `<tr>
+      <td><strong>${e.symbol}</strong></td>
+      <td class="num">${e.suspension_date}</td>
+      ${barCell(e.features.ret_10d, maxRet)}
+      <td class="num">${ratio(e.features.vol_ratio)}</td>
+      ${barCell(e.reopen_return, maxReopen)}
+      <td>${pdf}</td>
+    </tr>`;
+  };
 
   container.innerHTML = `
-    <p>Kondisi setiap emiten pada hari bursa terakhir sebelum dibekukan.
-       Setiap baris tertaut ke PDF pengumuman resmi IDX.</p>
-    <table><thead><tr>
-      <th>Emiten</th><th>Tanggal suspensi</th><th>Return 10 baris</th>
-      <th>Rasio volume</th><th>Saat dibuka</th><th>Bukti</th>
-    </tr></thead><tbody>${rows}</tbody></table>`;
+    <h3>Daftar kejadian</h3>
+    ${toolbar("event-search", "Cari emiten…", [
+      { key: "date", dir: "desc", label: "Terbaru" },
+      { key: "ret", dir: "desc", label: "Return" },
+      { key: "reopen", dir: "desc", label: "Saat dibuka" },
+    ])}
+    <div class="table-wrap"><table>
+      <thead><tr><th>Emiten</th><th class="num">Tanggal suspensi</th>
+        <th class="num">Return 10 baris</th><th class="num">Rasio volume</th>
+        <th class="num">Saat dibuka</th><th>Bukti</th></tr></thead>
+      <tbody data-list></tbody>
+    </table></div>`;
+
+  wireToolbar(container, events, {
+    noun: "kejadian",
+    match: (e, q) => e.symbol.toLowerCase().includes(q),
+    getValue: (e, key) =>
+      key === "date" ? e.suspension_date
+      : key === "ret" ? e.features.ret_10d
+      : e.reopen_return,
+    render: (list) => list.map(row).join(""),
+  });
 }
 
 const STRUCTURAL_LABELS = {
@@ -112,56 +353,108 @@ function chips(structural) {
     .join("");
 }
 
+// Bunyinya sama dengan lencana ekstensi. SENYAP tidak diberi chip.
+const TIER_LABELS = { tinggi: "Di zona suspensi", sedang: "Mendekati zona suspensi" };
+const tierChip = (tier) =>
+  TIER_LABELS[tier] ? `<span class="tier ${tier}">${TIER_LABELS[tier]}</span>` : "";
+
+function focusFromRoute(container) {
+  const apply = () => {
+    const route = window.freezebyteRoute;
+    if (!route || route.name !== "pantau") return;
+    const symbol = (route.params.get("symbol") || "").toUpperCase().replace(/[^A-Z]/g, "").slice(0, 4);
+    const input = container.querySelector(".search input");
+    if (!input) return;
+    if (!symbol) {
+      // Tanpa symbol, spec §10 minta seluruh semesta terlihat -- saringan
+      // dari deep link sebelumnya tidak boleh menempel.
+      if (input.value !== "") {
+        input.value = "";
+        input.dispatchEvent(new Event("input"));
+      }
+      return;
+    }
+    if (input.value === symbol) return;
+    input.value = symbol;
+    input.dispatchEvent(new Event("input"));
+  };
+  document.addEventListener("freezebyte:route", apply);
+  apply();
+}
+
 function renderWatchlist(container, watchlist, baserates) {
   if (!watchlist.length) {
-    container.innerHTML = `<p class="insufficient">Tidak ada kandidat yang lolos
-      syarat data pada build terakhir.</p>`;
+    container.innerHTML = `<p class="insufficient">Tidak ada emiten di semesta
+      pada build terakhir.</p>`;
     return;
   }
 
   const lookup = Object.fromEntries(baserates.buckets.map((b) => [b.bucket, b]));
 
-  const rows = watchlist
-    .map((row) => {
-      const rate = lookup[row.bucket];
-      let rateCell = `<span class="insufficient">sampel tidak cukup</span>`;
-      if (rate && rate.sufficient) {
-        // C2: n_frozen_within_30d di sini SELALU sama dengan jumlah anggota
-        // bucket yang berasal dari arm kejadian (frozen_within_30d dipatok
-        // True untuk seluruh arm kejadian dan tidak pernah True untuk
-        // kontrol di bawah definisi pick_controls saat ini). Jadi angka ini
-        // adalah komposisi sampel case-control, bukan frekuensi pembekuan
-        // yang teramati di populasi pasar -- lihat caveat di bawah tabel.
-        rateCell = `${rate.n_events} dari ${rate.n} emiten di bucket ini adalah
-                    kejadian suspensi, sisanya kontrol. Sampel disusun berpasangan
-                    (${baserates.n_events} kejadian, ${baserates.n_controls} kontrol),
-                    jadi angka ini membedakan kelompok &mdash; bukan frekuensi populasi.`;
-      }
-      return `<tr>
-        <td><strong>${row.symbol}</strong><br>${chips(row.structural)}</td>
-        <td>${fmtPct(row.features.ret_10d)}</td>
-        <td>${row.features.vol_ratio === null ? "—" : row.features.vol_ratio.toFixed(1).replace(".", ",")}&times;</td>
-        <td>${row.features.prior_freeze_count}</td>
-        <td>${rateCell}</td>
-      </tr>`;
-    })
-    .join("");
+  // Satu kartu per emiten. Penjelasan komposisi kelompoknya sama bentuknya
+  // untuk setiap emiten; mengulangnya utuh di enam belas baris sekaligus
+  // adalah yang membuat bagian ini terbaca sebagai dinding teks. Sekarang ia
+  // ada di balik pengungkap -- tetap tersedia, tidak lagi dipaksakan.
+  const card = (row) => {
+    const rate = lookup[row.bucket];
+    const enough = rate && rate.sufficient;
+    let detail = `<p class="insufficient">Bucket ini belum punya cukup sampel
+                  untuk dibandingkan.</p>`;
+    if (enough) {
+      // C2: n_frozen_within_30d di sini SELALU sama dengan jumlah anggota
+      // bucket yang berasal dari arm kejadian (frozen_within_30d dipatok
+      // True untuk seluruh arm kejadian dan tidak pernah True untuk
+      // kontrol di bawah definisi pick_controls saat ini). Jadi angka ini
+      // adalah komposisi sampel case-control, bukan frekuensi pembekuan
+      // yang teramati di populasi pasar -- lihat caveat di bawah grid.
+      detail = `<p>${rate.n_events} dari ${rate.n} emiten di bucket ini adalah
+                kejadian suspensi, sisanya kontrol.</p>`;
+    }
+    return `<article class="card">
+      <div class="sym">
+        <strong>${row.symbol}</strong>
+        <span class="ret${sign(row.features.ret_10d)}">${fmtPct(row.features.ret_10d)}</span>
+      </div>
+      ${tierChip(row.tier)}
+      <div class="meta">
+        <span>vol ${ratio(row.features.vol_ratio)}</span>
+        <span>pernah beku ${row.features.prior_freeze_count}</span>
+      </div>
+      ${chips(row.structural)}
+      <details>
+        <summary>${enough ? "komposisi kelompoknya" : "sampel tidak cukup"}</summary>
+        ${detail}
+      </details>
+    </article>`;
+  };
 
   container.innerHTML = `
-    <table><thead><tr>
-      <th>Emiten dan kondisi struktural</th><th>Return 10 baris</th>
-      <th>Rasio volume</th><th>Pernah beku</th><th>Komposisi kelompoknya</th>
-    </tr></thead><tbody>${rows}</tbody></table>
-    <p class="caveat">Bucket dengan kurang dari ${baserates.min_sample} kejadian
-      ditampilkan sebagai "sampel tidak cukup", bukan angka. Kolom terakhir
-      BUKAN base rate populasi: sampel forensik disusun berpasangan 1:1
-      (${baserates.n_events} kejadian, ${baserates.n_controls} kontrol) by
-      design, sehingga pecahan kejadian di tiap bucket bergravitasi ke
-      sekitar 50% terlepas dari seberapa jarang pembekuan sungguhan terjadi
-      di pasar &mdash; base rate pembekuan yang sebenarnya jauh lebih rendah
-      dari itu. Penanda "kondisi sekarang" berarti nilai itu diambil hari
-      ini, bukan pada tanggal historis &mdash; tag emiten tidak tersedia
-      secara historis.</p>`;
+    ${toolbar("watch-search", "Cari emiten…", [
+      { key: "ret", dir: "desc", label: "Return" },
+      { key: "vol", dir: "desc", label: "Rasio volume" },
+      { key: "sym", dir: "asc", label: "Kode" },
+    ])}
+    <div class="card-grid" data-list></div>
+    <p class="caveat">Komposisi kelompok <strong>bukan base rate populasi</strong>:
+      sampel disusun berpasangan 1:1 (${baserates.n_events} kejadian,
+      ${baserates.n_controls} kontrol), jadi pecahannya bergravitasi ke sekitar
+      50% dan base rate pembekuan sesungguhnya jauh lebih rendah. Bucket dengan
+      kurang dari ${baserates.min_sample} kejadian tidak diberi angka. Penanda
+      "kondisi sekarang" berarti nilainya diambil hari ini &mdash; tag emiten
+      tidak tersedia secara historis.</p>`;
+
+  wireToolbar(container, watchlist, {
+    noun: "emiten",
+    match: (r, q) => r.symbol.toLowerCase().includes(q),
+    getValue: (r, key) =>
+      key === "ret" ? r.features.ret_10d
+      : key === "vol" ? r.features.vol_ratio
+      : r.symbol,
+    render: (list) => list.map(card).join(""),
+    empty: (q) => `<div class="empty"><strong>${esc(q)}</strong> tidak ada di semesta
+      yang dipantau. Tidak dikenali bukan berarti aman.</div>`,
+  });
+  focusFromRoute(container);
 }
 
 function renderCoverage(container, coverage, meta) {
@@ -172,34 +465,31 @@ function renderCoverage(container, coverage, meta) {
   // ada angka yang ditulis tangan di sini.
   const reasons = Object.entries(coverage.by_reason)
     .sort((a, b) => b[1] - a[1])
-    .map(([reason, count]) => `<tr><td>${reason}</td><td>${count}</td></tr>`)
+    .map(([reason, count]) => `<tr><td>${reason}</td><td class="num">${count}</td></tr>`)
     .join("");
 
   const watchlist = coverage.watchlist || { total: 0, analyzed: 0, excluded: 0, by_reason: {} };
   const watchlistReasons = Object.entries(watchlist.by_reason)
     .sort((a, b) => b[1] - a[1])
-    .map(([reason, count]) => `<tr><td>${reason}</td><td>${count}</td></tr>`)
+    .map(([reason, count]) => `<tr><td>${reason}</td><td class="num">${count}</td></tr>`)
     .join("");
   const watchlistSection = watchlist.total > 0
     ? `<h3>Kandidat daftar pantau</h3>
-       <p>Terpisah dari sampel forensik di atas: dari
-          <strong>${watchlist.total}</strong> <em>kandidat daftar pantau</em>
-          (bukan record suspensi), <strong>${watchlist.analyzed}</strong>
-          bisa dianalisis dan <strong>${watchlist.excluded}</strong> gugur.</p>
-       <table><thead><tr><th>Alasan gugur (kandidat daftar pantau)</th><th>Jumlah</th></tr></thead>
-       <tbody>${watchlistReasons}</tbody></table>`
+       <p>Terpisah dari sampel forensik: dari <strong>${watchlist.total}</strong>
+          kandidat, <strong>${watchlist.analyzed}</strong> dianalisis,
+          <strong>${watchlist.excluded}</strong> gugur.</p>
+       ${wrapTable(`<tr><th>Alasan gugur (kandidat daftar pantau)</th><th class="num">Jumlah</th></tr>`, watchlistReasons)}`
     : `<h3>Kandidat daftar pantau</h3>
        <p class="caveat">Belum ada kandidat daftar pantau yang diproses pada build ini.</p>`;
 
   container.innerHTML = `
-    <p>Dari <strong>${coverage.total_suspension_records}</strong> record suspensi,
+    <p><strong>${coverage.total_suspension_records}</strong> record suspensi,
        <strong>${coverage.total}</strong> masuk sampel forensik
        (${coverage.sample_events} kejadian + ${coverage.sample_controls} kontrol,
-       dibatasi anggaran kredit API). Dari <strong>${coverage.total}</strong> itu,
-       <strong>${coverage.analyzed}</strong> bisa dianalisis dan
+       dibatasi anggaran kredit API). Dari jumlah itu
+       <strong>${coverage.analyzed}</strong> dianalisis,
        <strong>${coverage.excluded}</strong> gugur.</p>
-    <table><thead><tr><th>Alasan gugur (sampel forensik)</th><th>Jumlah</th></tr></thead>
-    <tbody>${reasons}</tbody></table>
+    ${wrapTable(`<tr><th>Alasan gugur (sampel forensik)</th><th class="num">Jumlah</th></tr>`, reasons)}
     ${watchlistSection}
     <p class="caveat">${coverage.sample_note}</p>
     <p class="caveat">Data dibangun ${meta.built_at}.
@@ -230,18 +520,19 @@ function renderDistribution(container, distribution) {
       const stats = summarise(items.map((i) => i.ret_10d));
       if (!stats) return `<tr><td>${label}</td><td colspan="5" class="insufficient">tidak ada data</td></tr>`;
       return `<tr>
-        <td>${label}</td><td>${stats.n}</td><td>${fmtPct(stats.p25)}</td>
-        <td><strong>${fmtPct(stats.median)}</strong></td><td>${fmtPct(stats.p75)}</td>
-        <td>${fmtPct(stats.max)}</td>
+        <td>${label}</td><td class="num">${stats.n}</td>${pctCell(stats.p25)}
+        <td class="num${sign(stats.median)}"><strong>${fmtPct(stats.median)}</strong></td>
+        ${pctCell(stats.p75)}${pctCell(stats.max)}
       </tr>`;
     })
     .join("");
 
   container.innerHTML = `
     <h3>Return 10 baris bursa: kejadian dibanding kontrol</h3>
-    <table><thead><tr>
-      <th>Kelompok</th><th>n</th><th>p25</th><th>median</th><th>p75</th><th>maks</th>
-    </tr></thead><tbody>${rows}</tbody></table>
+    ${wrapTable(
+      `<tr><th>Kelompok</th><th class="num">n</th><th class="num">p25</th>
+       <th class="num">median</th><th class="num">p75</th>
+       <th class="num">maks</th></tr>`, rows)}
     <p class="caveat">${distribution.control_definition}</p>`;
 }
 
@@ -252,18 +543,59 @@ function renderRegulatoryContext(container) {
       <strong>X</strong>) diperdagangkan lewat Full Call Auction &mdash; lelang berkala,
       bukan tawar-menawar kontinu. Likuiditas turun, order tidak langsung tereksekusi,
       dan batas bawah harga dilonggarkan sampai Rp1.</p>
-    <p>Ada sekitar 11 kriteria masuk dan cukup memenuhi satu. Pemicu tersering adalah
-      harga rata-rata 6 bulan di bawah sekitar Rp51, likuiditas sangat tipis selama
-      6 bulan, opini auditor disclaimer, dan ekuitas negatif. Notasi lain yang sering
-      menyertai: <strong>B</strong> permohonan pailit atau PKPU, <strong>E</strong>
-      ekuitas negatif, <strong>L</strong> belum menyampaikan laporan keuangan,
-      <strong>M</strong> sedang PKPU, <strong>S</strong> tidak ada pendapatan usaha.</p>
-    <p class="caveat">Status Papan Pemantauan Khusus <strong>bukan field</strong> di
-      Sectors API. <code>listing_board</code> INPS berbunyi "Development" padahal INPS
-      disuspensi justru karena berada di papan pemantauan khusus lebih dari satu tahun.
-      Status itu hanya bisa disimpulkan dari teks alasan resmi, dan itulah yang
-      dilakukan klasifikasi di atas. Jalur eskalasi yang terlihat di data:
-      papan pemantauan khusus &rarr; 1 tahun &rarr; suspensi.</p>`;
+    <p>Sekitar 11 kriteria masuk, cukup memenuhi satu. Tersering: harga rata-rata
+      6 bulan di bawah Rp51, likuiditas sangat tipis, opini auditor disclaimer,
+      ekuitas negatif. Notasi penyerta &mdash; <strong>B</strong> pailit/PKPU,
+      <strong>E</strong> ekuitas negatif, <strong>L</strong> laporan keuangan
+      terlambat, <strong>M</strong> sedang PKPU, <strong>S</strong> tanpa
+      pendapatan usaha.</p>
+    <p class="caveat">Status ini <strong>bukan field</strong> di Sectors API.
+      <code>listing_board</code> INPS berbunyi "Development" padahal INPS disuspensi
+      justru karena berada di papan pemantauan khusus lebih dari setahun, jadi
+      statusnya hanya bisa disimpulkan dari teks alasan resmi. Jalur eskalasi yang
+      terlihat di data: papan pemantauan khusus &rarr; 1 tahun &rarr; suspensi.</p>`;
+}
+
+function renderLeadTime(container, validation) {
+  const rows = validation.lags.map((row) => {
+    const e = row.events, c = row.controls;
+    const measured = (x) => x.tinggi + x.sedang + x.senyap;
+    return `<tr><td>T−${row.lag}</td>
+      <td class="num">${e.tinggi}</td><td class="num">${e.sedang}</td><td class="num">${measured(e)}</td>
+      <td class="num">${c.tinggi}</td><td class="num">${c.sedang}</td><td class="num">${measured(c)}</td></tr>`;
+  }).join("");
+  const h = validation.holdout;
+
+  // M1: ambang refit di atas dan ambang yang sungguh dipakai ekstensi bisa
+  // berbeda -- yang dipakai ekstensi dipasang dari data yang mencakup split
+  // uji ini juga, jadi kedua angka ditampilkan, bukan disamakan diam-diam.
+  const shipped = h.shipped ? `
+    <p>Ambang yang sungguh dipakai ekstensi (naik ${fmtPct(h.shipped.upper)} dalam
+       10 hari bursa) berbeda dari ambang refit di atas, karena ambang yang dipakai
+       ekstensi dipasang dari data yang mencakup split uji ini juga. Pada ambang itu:
+       <strong>${h.shipped.test_events.tinggi} dari ${h.shipped.test_events.n}</strong>
+       kejadian uji tertangkap TINGGI, dan <strong>${h.shipped.test_controls.tinggi} dari
+       ${h.shipped.test_controls.n}</strong> kontrol uji salah tertangkap.</p>` : "";
+
+  container.innerHTML = `
+    <p>Kalau ambang zona terlihat hanya sehari sebelum suspensi, peringatannya
+       sempit. Tabel ini menghitung ulang posisi setiap emiten 1, 3, 5, dan 10
+       hari bursa sebelumnya, dengan ambang yang sama.</p>
+    ${wrapTable(
+      `<tr><th>Jarak</th><th class="num">Kejadian TINGGI</th><th class="num">Kejadian SEDANG</th>
+       <th class="num">Kejadian terukur</th><th class="num">Kontrol TINGGI</th>
+       <th class="num">Kontrol SEDANG</th><th class="num">Kontrol terukur</th></tr>`, rows)}
+    <h3>Diuji pada kejadian yang belum pernah dilihat</h3>
+    <p>Ambang dihitung ulang hanya dari kejadian sebelum ${h.boundary_date}
+       (ambang hasilnya naik ${fmtPct(h.upper)} dalam 10 hari bursa), lalu diterapkan ke
+       kejadian sesudahnya: <strong>${h.test_events.tinggi} dari ${h.test_events.n}</strong>
+       kejadian uji tertangkap TINGGI, dan <strong>${h.test_controls.tinggi} dari
+       ${h.test_controls.n}</strong> kontrol uji salah tertangkap.</p>
+    ${shipped}
+    <p class="caveat">TINGGI: naik ${fmtPct(validation.upper)} dalam 10 hari bursa.
+       SEDANG: naik ${fmtPct(validation.near_lower)} sampai di bawah itu &mdash; batas
+       bawah ini dipilih tetap, bukan diestimasi. Sampel case-control 1:1; hitungan ini
+       bukan peluang sebuah saham dibekukan.</p>`;
 }
 
 // I6: setiap render dibungkus try/catch sendiri, menulis kegagalan ke
@@ -281,28 +613,34 @@ function renderSection(id, render) {
 }
 
 async function main() {
-  const [alka, events, baserates, watchlist, coverage, meta, distribution] =
+  const [alka, events, baserates, watchlist, coverage, meta, distribution, validation] =
     await Promise.all([
       load("alka"), load("events"), load("baserates"), load("watchlist"),
-      load("coverage"), load("meta"), load("distribution"),
+      load("coverage"), load("meta"), load("distribution"), load("validation"),
     ]);
 
-  renderSection("alka-chart", (c) => renderPriceChart(c, alka));
+  renderSection("bento", (c) => renderBento(c, { alka, coverage, distribution, watchlist }));
+  renderSection("alka-chart", (c) =>
+    renderPriceChart(c, alka, document.getElementById("alka-readout")));
   renderSection("alka-annotations", (c) => annotate(c, alka));
   renderSection("reason-distribution", (c) => renderReasons(c, coverage.reason_distribution));
   renderSection("regulatory-context", (c) => renderRegulatoryContext(c));
   renderSection("distribution-compare", (c) => renderDistribution(c, distribution));
   renderSection("event-table", (c) => renderEvents(c, events));
   renderSection("watchlist-table", (c) => renderWatchlist(c, watchlist, baserates));
+  renderSection("lead-time", (c) => renderLeadTime(c, validation));
   renderSection("coverage-report", (c) => renderCoverage(c, coverage, meta));
+
+  document.dispatchEvent(new CustomEvent("freezebyte:ready"));
 }
 
 main().catch((err) => {
   // Kegagalan di sini berarti load() (fetch JSON) sendiri gagal -- misalnya
   // dibuka lewat file:// tanpa server lokal -- sebelum satu pun bagian
-  // sempat dirender. Banner di atas <main>, bukan ditimpakan ke slot grafik.
+  // sempat dirender.
   const banner = document.createElement("div");
   banner.className = "error-banner";
   banner.textContent = `Gagal memuat halaman: ${err.message}`;
-  document.querySelector("main").prepend(banner);
+  const host = document.querySelector("#pane-ikhtisar") || document.querySelector(".canvas");
+  if (host) host.prepend(banner);
 });

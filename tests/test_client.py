@@ -235,3 +235,38 @@ def test_screen_distinguishes_where_clauses_that_differ_only_in_punctuation(tmp_
 
     assert len(seen) == 2
     assert len(list((tmp_path / "companies").glob("*.json"))) == 2
+
+
+def test_is_price_cached_matches_get_prices_cache_path(tmp_path, monkeypatch):
+    from freezebyte import client, config
+    monkeypatch.setattr(config, "RAW_DIR", tmp_path)
+    assert client.price_cache_key("ccsi.jk", "2026-01-01", "2026-03-31") == \
+        "daily/CCSI.JK_2026-01-01_2026-03-31"
+    assert not client.is_price_cached("CCSI.JK", "2026-01-01", "2026-03-31")
+    path = tmp_path / "daily" / "CCSI.JK_2026-01-01_2026-03-31.json"
+    path.parent.mkdir(parents=True)
+    path.write_text("{}", encoding="utf-8")
+    assert client.is_price_cached("ccsi.jk", "2026-01-01", "2026-03-31")
+
+
+def test_screen_passes_order_by_and_caches_it_separately(tmp_path, monkeypatch):
+    from freezebyte import client, config
+    monkeypatch.setattr(config, "RAW_DIR", tmp_path)
+    monkeypatch.setattr(config, "api_key", lambda: "test-key")
+    seen = []
+
+    class Resp:
+        status_code = 200
+        def raise_for_status(self): pass
+        def json(self): return {"results": [], "pagination": {"total_count": 0}}
+
+    def fake_get(url, headers, params, timeout):
+        seen.append(dict(params))
+        return Resp()
+
+    monkeypatch.setattr(client.requests, "get", fake_get)
+    client.screen(where="x = 1", limit=5, offset=0, order_by="-market_cap")
+    client.screen(where="x = 1", limit=5, offset=0)
+    assert seen[0]["order_by"] == "-market_cap"
+    assert "order_by" not in seen[1]
+    assert len(seen) == 2  # different params -> different cache files, both fetched

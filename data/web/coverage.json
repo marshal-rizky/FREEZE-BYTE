@@ -1,10 +1,10 @@
 {
   "total": 120,
-  "analyzed": 113,
-  "excluded": 7,
+  "analyzed": 112,
+  "excluded": 8,
   "by_reason": {
     "riwayat perdagangan terlalu pendek": 5,
-    "riwayat kontrol terlalu pendek": 2
+    "riwayat kontrol terlalu pendek": 3
   },
   "symbols": {
     "riwayat perdagangan terlalu pendek": [
@@ -16,28 +16,23 @@
     ],
     "riwayat kontrol terlalu pendek": [
       "ADCP.JK",
-      "IBST.JK"
+      "BSWD.JK",
+      "DIGI.JK"
     ]
   },
-  "total_suspension_records": 592,
+  "total_suspension_records": 595,
   "sample_events": 60,
   "sample_controls": 60,
   "watchlist": {
-    "total": 17,
-    "analyzed": 16,
-    "excluded": 1,
-    "by_reason": {
-      "riwayat kandidat terlalu pendek": 1
-    },
-    "symbols": {
-      "riwayat kandidat terlalu pendek": [
-        "BIKE.JK"
-      ]
-    }
+    "total": 73,
+    "analyzed": 73,
+    "excluded": 0,
+    "by_reason": {},
+    "symbols": {}
   },
   "reason_distribution": {
+    "lonjakan_harga": 470,
     "papan_pemantauan_khusus": 8,
-    "lonjakan_harga": 467,
     "kelangsungan_usaha": 8,
     "suspensi_berkepanjangan": 56,
     "ketentuan_pencatatan": 32,

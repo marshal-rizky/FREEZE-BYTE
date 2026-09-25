@@ -14,12 +14,12 @@ from collections import Counter
 from dataclasses import asdict
 from datetime import date, datetime, timedelta
 
-from freezebyte import baserates, client, config
+from freezebyte import baserates, client, config, scoring, universe
 from freezebyte.coverage import Coverage
 from freezebyte.features import compute_features, ret_n
 from freezebyte.freeze import as_date, detect_freeze_windows
 from freezebyte.reasons import classify
-from freezebyte.structural import extract
+from freezebyte.structural import EMPTY, extract
 
 ALL_BUCKETS = [f"r{r}v{v}" for r in (1, 2, 3) for v in (1, 2, 3)]
 MIN_TRADING_ROWS = 21
@@ -80,22 +80,22 @@ def _write(name: str, payload) -> None:
 
 
 def _watchlist_window() -> tuple[str, str]:
-    """Window harga 90 hari untuk kandidat daftar pantau, dipinkan ke cache.
+    """Pin window harga 90 hari milik semesta ekstensi ke cache.
 
-    Tanpa ini, `date.today()` membuat cache key baru setiap hari kalender
-    yang berbeda dan build pertama di hari itu menghabiskan ~80 kredit API
-    lagi walau tidak ada yang benar-benar berubah. Sekali dipinkan, build
-    berikutnya membaca window yang sama dari cache dan tidak memanggil
-    jaringan sama sekali. `FREEZEBYTE_REFRESH_WATCHLIST=1` menggeser window
-    itu maju dengan sengaja.
+    Tanpa ini, window baru dibuat setiap hari kalender yang berbeda dan build
+    pertama di hari itu memanggil jaringan lagi walau tidak ada yang
+    benar-benar berubah. Sekali dipinkan, build berikutnya membaca window yang
+    sama dari cache dan tidak memanggil jaringan sama sekali.
+    `FREEZEBYTE_REFRESH_WATCHLIST=1` menggeser window itu maju dengan sengaja.
     """
     window_path = config.RAW_DIR / "watchlist_window.json"
     if window_path.exists() and not os.environ.get(REFRESH_WATCHLIST_ENV):
         cached = _read(window_path)
         return cached["start"], cached["end"]
 
-    end = date.today().isoformat()
-    start = (date.today() - timedelta(days=89)).isoformat()
+    end_day = config.last_complete_day()
+    end = end_day.isoformat()
+    start = (end_day - timedelta(days=89)).isoformat()
     window_path.parent.mkdir(parents=True, exist_ok=True)
     window_path.write_text(
         json.dumps({"start": start, "end": end}, ensure_ascii=False, indent=2),
@@ -263,51 +263,50 @@ def build_events(manifest: dict, suspensions: list[dict], coverage: Coverage):
     return events, serialised, controls_serialised
 
 
-def build_watchlist(suspensions: list[dict], coverage: Coverage) -> list[dict]:
-    manifest = _read(config.RAW_DIR / "manifest_prices.json")
-    seen = {e["symbol"] for e in manifest["events"]}
-    candidates = [
-        f for f in sorted((config.RAW_DIR / "overview").glob("*.json"))
-        if f.stem not in seen
-    ]
-    coverage.total = len(candidates)
+def _cached_structural(symbol: str) -> dict:
+    """Overview hanya dibaca kalau sudah ada di cache.
 
-    start, end = _watchlist_window()
+    etl_universe.py sengaja tidak menarik overview untuk simbol SENYAP.
+    Memanggil client.get_overview di sini untuk simbol tanpa cache akan
+    diam-diam menghabiskan satu kredit per simbol itu.
+    """
+    if not (config.RAW_DIR / "overview" / f"{symbol.upper()}.json").exists():
+        return dict(EMPTY)
+    return extract(client.get_overview(symbol))
+
+
+def build_watchlist(suspensions: list[dict], coverage: Coverage) -> list[dict]:
+    """Semesta ekstensi. Panel Pantau dan ekstensi mengenali simbol yang sama."""
+    manifest = _read(config.RAW_DIR / "manifest_universe.json")
+    symbols = manifest["symbols"]
+    start, end = manifest["window"]
+    coverage.total = len(symbols)
     rows = []
 
-    for cache_file in candidates:
-        symbol = cache_file.stem
-        structural = extract(client.get_overview(symbol))
-        if not structural["available"]:
-            coverage.exclude(symbol, "overview tidak tersedia")
-            continue
-
+    for symbol in symbols:
         prices = client.get_prices(symbol, start, end)
         if not prices:
             coverage.exclude(symbol, "harga kandidat tidak tersedia")
             continue
 
-        ordered = sorted(prices, key=lambda r: as_date(r["date"]))
-        trading = [r for r in ordered if r["volume"]]
-        if len(trading) < MIN_TRADING_ROWS:
-            coverage.exclude(symbol, "riwayat kandidat terlalu pendek")
-            continue
-
-        as_of = as_date(trading[-1]["date"])
-        # C1: sama seperti build_events -- pakai tanggal suspensi milik
-        # simbol ini sendiri, bukan daftar kosong, supaya prior_freeze_count
-        # tidak selalu nol.
+        # C1: tanggal suspensi milik simbol ini sendiri, supaya
+        # prior_freeze_count tidak selalu nol.
         symbol_dates = [
             r["suspension_date"] for r in suspensions if _base(r["symbol"]) == _base(symbol)
         ]
-        computed = compute_features(
-            ordered, as_of, suspension_dates=symbol_dates, structural=structural,
-        )
+        structural = _cached_structural(symbol)
+        latest = universe.latest_features(prices, symbol_dates, structural)
+        if latest is None:
+            coverage.exclude(symbol, "riwayat kandidat terlalu pendek")
+            continue
+
+        as_of, computed = latest
         rows.append({
             "symbol": symbol,
             "as_of": as_of.isoformat(),
             "features": computed,
             "bucket": baserates.bucket(computed),
+            "tier": scoring.tier(computed["ret_10d"]),
             "structural": structural,
         })
         coverage.analyzed += 1
@@ -320,6 +319,26 @@ def build_watchlist(suspensions: list[dict], coverage: Coverage) -> list[dict]:
 
 
 def main():
+    # Setiap prasyarat diperiksa lebih dulu dan dilaporkan sebagai satu
+    # pesan, bukan dibiarkan meledak jadi stack trace di pembacaan pertama.
+    # Urutan ETL-nya juga ikut tercetak, karena "berkas tidak ada" tidak
+    # memberi tahu script mana yang harus dijalankan.
+    required = [
+        (config.RAW_DIR / "suspensions" / "all.json", "scripts/etl_suspensions.py"),
+        (config.RAW_DIR / "manifest_prices.json", "scripts/etl_prices.py"),
+        (config.RAW_DIR / "tag_vocabulary.json", "scripts/etl_overviews.py"),
+        (config.RAW_DIR / "manifest_universe.json", "scripts/etl_universe.py"),
+    ]
+    missing = [(p, s) for p, s in required if not p.exists()]
+    if missing:
+        lines = [f"  {p.relative_to(config.RAW_DIR.parent.parent)} -> jalankan {s}"
+                 for p, s in missing]
+        raise SystemExit(
+            "Cache mentah belum lengkap, build dihentikan sebelum menulis apa pun.\n"
+            + "\n".join(lines)
+            + "\n\ndata/web/*.json yang sudah ada TIDAK diubah."
+        )
+
     suspensions = _read(config.RAW_DIR / "suspensions" / "all.json")
     manifest = _read(config.RAW_DIR / "manifest_prices.json")
 

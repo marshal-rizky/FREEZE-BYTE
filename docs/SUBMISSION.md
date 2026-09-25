@@ -10,9 +10,15 @@ Deadline: 30 September 2026, 23:59 WIB. Setelah submit, repo freeze total.
 | Problem statement satu kalimat | **Siap** — lihat bagian di bawah |
 | Pilihan track dan daftar nama peserta | **Siap** — Track 03, solo |
 | Postingan media sosial (Instagram / LinkedIn / Threads / TikTok) tag akun Sectors, pakai template thumbnail | **Belum** |
+| Ekstensi terpasang lewat Load unpacked dari zip Release | **Belum** |
+| Halaman bukti publik di GitHub Pages | **Belum** |
+| Chrome Web Store | **belum disubmit** |
 
-Sisa pekerjaan murni non-teknis: dua video dan satu postingan media sosial.
-Seluruh bagian teknis sudah lolos pemeriksaan di bawah.
+Sisa pekerjaan: memuat ekstensi dari zip Release lewat Load unpacked, mengisi
+selector jangkar Stockbit di `extension/src/anchors.js`, mendorong dan
+menggabungkan branch `feat/extension`, mengaktifkan GitHub Pages, membuat
+Release, submit ke Chrome Web Store, mengisi checklist situs asli di
+`docs/user-testing.md`, dua video, dan satu postingan media sosial.
 
 ## Problem statement
 
@@ -28,15 +34,15 @@ Track 03 — Market Intelligence.
 
 - [x] `RET10_TERCILES` dan `VOL_TERCILES` di `freezebyte/baserates.py` sudah diisi
   tercile sebenarnya dari output `scripts/report_discovery.py`:
-  `(-0.011506, 0.315874)` dan `(0.655936, 1.689015)`, dihitung dari 113 window
+  `(-0.030303, 0.318182)` dan `(0.742330, 1.719077)`, dihitung dari 112 window
   yang riwayat perdagangannya cukup panjang. Bukan placeholder lagi.
   Penjaganya tetap ada: kalau nilainya kembali ke `(0.0, 0.0)`, `build.main()`
   menolak menulis `baserates.json` (kecuali
   `FREEZEBYTE_ALLOW_PLACEHOLDER_TERCILES=1` diset), karena dengan placeholder
   kesembilan bucket kolaps jadi satu (`r3v3`).
 - [x] Bagian `## Coverage` sudah ada di README.md dengan angka sebenarnya dari
-  `data/web/coverage.json`: 592 record total, 120 masuk sampel forensik
-  (60 kejadian + 60 kontrol), 113 dianalisis dan 7 gugur.
+  `data/web/coverage.json`: 595 record total, 120 masuk sampel forensik
+  (60 kejadian + 60 kontrol), 112 dianalisis dan 8 gugur.
 - [x] `git grep -nE "SECTORS_API_KEY=[\"']?[A-Za-z0-9_-]{8,}"` tidak mengembalikan
   apa pun (dipersempit dari pola sebelumnya: pola lama juga kena tiga hit palsu --
   baris checklist ini sendiri, dikutip di sini dan di implementation plan, plus
@@ -52,3 +58,11 @@ Track 03 — Market Intelligence.
   `site/index.html` maupun `README.md`.
 - [x] Tidak ada klaim akurasi berbasis n=2 di mana pun -- tidak ada frasa akurasi
   INPS/MGLV di `site/` maupun README.md.
+- [ ] `node --test "extension/test/*.test.js"` lulus.
+- [ ] `python -m pytest` lulus dari clone bersih tanpa `.env`.
+- [ ] Zip Release terpasang tanpa error di `chrome://extensions`.
+- [ ] `extension/` tidak berisi string API key: `git grep -nE "SECTORS_API_KEY=[\"']?[A-Za-z0-9_-]{8,}"` kosong.
+- [ ] "Bukan saran investasi" ada di deskripsi manifest, kartu lencana, popup, situs, README.
+- [ ] Frasa "risiko sedang" tidak ada di mana pun: `git grep -ni "risiko sedang" -- extension/src site` kosong.
+- [ ] `docs/validation/lead-time.md` sesuai `data/web/validation.json` build terakhir.
+- [ ] `docs/user-testing.md` terisi untuk seluruh baris uji teknis.

@@ -3,60 +3,111 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
   <title>FREEZE BYTE — anatomi suspensi perdagangan IDX</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:,">
 </head>
 <body>
-  <header class="site-header">
-    <h1>FREEZE BYTE</h1>
-    <p class="tagline">
-      Investor ritel IDX membeli saham yang sedang lari tanpa tahu bahwa kombinasi
-      float tipis, insider yang sedang menjual, dan harga di puncak adalah kondisi
-      yang secara historis berakhir dengan saham dibekukan &mdash; dan saat beku,
-      mereka tidak bisa keluar.
-    </p>
-  </header>
+  <div class="glow" aria-hidden="true"></div>
 
-  <main>
-    <section id="case-study">
-      <h2>1. Apa yang terjadi pada ALKA</h2>
-      <div id="alka-chart" class="chart-slot">Memuat data&hellip;</div>
-      <div id="alka-annotations" class="annotations"></div>
-    </section>
+  <div class="shell">
+    <aside class="rail">
+      <a class="wordmark" href="#ikhtisar">FREEZE&nbsp;BYTE</a>
+      <nav aria-label="Bagian">
+        <a href="#ikhtisar" data-pane="ikhtisar"><i class="dot"></i>Ikhtisar</a>
+        <a href="#alka" data-pane="alka"><i class="dot"></i>Studi kasus</a>
+        <a href="#anatomi" data-pane="anatomi"><i class="dot"></i>Anatomi</a>
+        <a href="#pantau" data-pane="pantau"><i class="dot"></i>Pantau hari ini</a>
+        <a href="#tenggang" data-pane="tenggang"><i class="dot"></i>Tenggang</a>
+        <a href="#coverage" data-pane="coverage"><i class="dot"></i>Coverage</a>
+      </nav>
+      <div class="rail-foot">
+        <p class="disclaimer">
+          <strong>Bukan saran investasi.</strong>
+          Deskriptif, berbasis statistik historis. Tidak merekomendasikan
+          pembelian atau penjualan efek dan tidak mengeksekusi order.
+          Data dari Sectors API.
+        </p>
+      </div>
+    </aside>
 
-    <section id="anatomy">
-      <h2>2. Anatomi pembekuan yang tercatat</h2>
-      <div id="reason-distribution"></div>
-      <div id="regulatory-context"></div>
-      <div id="distribution-compare"></div>
-      <div id="event-table"></div>
-    </section>
+    <main class="canvas">
 
-    <section id="watchlist">
-      <h2>3. Pantau hari ini</h2>
-      <p class="caveat">
-        Daftar ini deskriptif. Setiap baris menunjukkan kondisi yang menyerupai
-        kejadian lampau, bukan prediksi atas emiten tertentu.
-      </p>
-      <div id="watchlist-table"></div>
-    </section>
+      <section class="pane" id="pane-ikhtisar" data-pane="ikhtisar" tabindex="-1">
+        <div class="pane-head">
+          <h1 class="display">Saat saham dibekukan,<br>tidak ada pintu keluar.</h1>
+          <p class="pane-note">
+            Ekstensi FREEZE BYTE menandai saham di zona ini saat Anda sedang
+            melihatnya. Halaman ini buktinya.
+          </p>
+        </div>
+        <div class="bento" id="bento"></div>
+      </section>
 
-    <section id="coverage">
-      <h2>Coverage dan batasan</h2>
-      <div id="coverage-report"></div>
-    </section>
-  </main>
+      <section class="pane" id="pane-alka" data-pane="alka" tabindex="-1">
+        <div class="pane-head">
+          <a class="back" href="#ikhtisar">&larr; Ikhtisar</a>
+          <div class="row">
+            <h2>Apa yang terjadi pada ALKA</h2>
+            <p class="pane-note">90 hari bursa terakhir.</p>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="chart-legend">
+            <span><i class="swatch confirmed"></i> beku terkonfirmasi &mdash; ada pengumuman IDX</span>
+            <span><i class="swatch inferred"></i> volume nol tersimpulkan &mdash; tanpa pengumuman</span>
+          </div>
+          <div id="alka-chart">Memuat data&hellip;</div>
+          <div id="alka-readout" class="readout"></div>
+        </div>
+        <div class="tiles" id="alka-annotations"></div>
+      </section>
 
-  <footer>
-    <p class="disclaimer">
-      <strong>Bukan saran investasi.</strong> FREEZE BYTE bersifat deskriptif dan
-      menyajikan statistik historis serta frekuensi kondisional. Produk ini tidak
-      merekomendasikan pembelian atau penjualan efek apa pun dan tidak mengeksekusi
-      order. Data bersumber dari Sectors API.
-    </p>
-  </footer>
+      <section class="pane" id="pane-anatomi" data-pane="anatomi" tabindex="-1">
+        <div class="pane-head">
+          <a class="back" href="#ikhtisar">&larr; Ikhtisar</a>
+          <div class="row"><h2>Anatomi pembekuan yang tercatat</h2></div>
+        </div>
+        <div class="panel"><div id="reason-distribution"></div></div>
+        <div class="panel"><div id="distribution-compare"></div></div>
+        <div class="panel"><div id="event-table"></div></div>
+        <div class="panel"><div id="regulatory-context"></div></div>
+      </section>
+
+      <section class="pane" id="pane-pantau" data-pane="pantau" tabindex="-1">
+        <div class="pane-head">
+          <a class="back" href="#ikhtisar">&larr; Ikhtisar</a>
+          <div class="row">
+            <h2>Pantau hari ini</h2>
+            <p class="pane-note">Semesta yang dikenali ekstensi. Deskriptif, bukan prediksi.</p>
+          </div>
+        </div>
+        <div id="watchlist-table"></div>
+      </section>
+
+      <section class="pane" id="pane-tenggang" data-pane="tenggang" tabindex="-1">
+        <div class="pane-head">
+          <a class="back" href="#ikhtisar">&larr; Ikhtisar</a>
+          <div class="row"><h2>Seberapa awal zonanya terlihat</h2></div>
+        </div>
+        <div class="panel"><div id="lead-time"></div></div>
+      </section>
+
+      <section class="pane" id="pane-coverage" data-pane="coverage" tabindex="-1">
+        <div class="pane-head">
+          <a class="back" href="#ikhtisar">&larr; Ikhtisar</a>
+          <div class="row"><h2>Coverage dan batasan</h2></div>
+        </div>
+        <div class="panel"><div id="coverage-report"></div></div>
+      </section>
+
+    </main>
+  </div>
 
   <script src="chart.js"></script>
   <script src="app.js"></script>
+  <script src="shell.js"></script>
+  <script src="motion.js"></script>
 </body>
 </html>

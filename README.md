@@ -3,7 +3,35 @@
 Analisis suspensi perdagangan IDX. Entri Sectors Hackathon 2026, Track 03 Market Intelligence.
 
 Dua pilar di atas satu mesin fitur yang sama: anatomi forensik seluruh pembekuan yang
-tercatat, dan daftar pantau emiten hari ini yang kondisinya menyerupai kejadian-kejadian itu.
+tercatat, dan semesta emiten hari ini yang kondisinya menyerupai kejadian-kejadian itu --
+semesta yang sama yang dikenali dan dilencanai ekstensi browser.
+
+## Ekstensi browser
+
+FREEZE BYTE menandai saham IDX yang berada di zona tempat bursa secara historis
+membekukan perdagangan, di Stockbit, TradingView, Google Finance, IDX, Sectors,
+RTI, Investing.com, dan situs lain yang Anda aktifkan sendiri.
+
+Tanpa API key, tanpa jaringan: seluruh data dibawa ekstensi.
+
+**Pasang (Load unpacked):**
+1. Unduh `freeze-byte-extension-<versi>.zip` dari halaman Releases, lalu ekstrak.
+2. Buka `chrome://extensions` dan nyalakan Developer mode.
+3. Klik "Load unpacked" dan pilih folder hasil ekstrak.
+4. Buka halaman saham di Stockbit atau TradingView.
+
+Lencana merah: di zona suspensi. Lencana kuning: mendekati zona. Tanpa lencana:
+tidak dikenali, bukan berarti aman. Klik lencana untuk hitungan dan tautan bukti.
+
+Halaman bukti: https://marshal-rizky.github.io/FREEZE-BYTE/site/
+
+**Bangun ulang data** (butuh `SECTORS_API_KEY` di `.env`, memakan kredit):
+`etl_suspensions.py` → `etl_prices.py` → `etl_overviews.py` →
+`report_discovery.py` (salin tercile ke `baserates.py`) →
+`etl_universe.py --count` lalu `--run` → `python -m freezebyte.build` →
+`report_validation.py` → `python -m freezebyte.export_extension`.
+
+**Bukan saran investasi.** Hitungan historis, bukan peluang. Tidak mengeksekusi order.
 
 ## Masalah yang diselesaikan
 
@@ -14,7 +42,7 @@ historis berakhir dengan saham dibekukan — dan saat beku, mereka tidak bisa ke
 ## Cara kerjanya
 
 `features.py` menerima `(price_series, as_of_date)` dan mengembalikan satu dict fitur.
-Analisis forensik memanggilnya dengan `as_of` sehari sebelum suspensi. Daftar pantau
+Analisis forensik memanggilnya dengan `as_of` sehari sebelum suspensi. Semesta ekstensi
 memanggilnya dengan `as_of` hari bursa terakhir. Kode yang sama, dua sudut pandang.
 
 Jendela beku dideteksi dari deret `volume == 0`, lalu di-cross-check terhadap record
@@ -28,10 +56,10 @@ Sectors API v2: `/v2/suspensions/`, `/v2/daily/{symbol}/`, `/v2/company/report/{
 
 ## Coverage
 
-Dataset suspensi penuh berisi **592 record**. Dari situ, **120 masuk sampel forensik**
-(60 kejadian + 60 kontrol, dibatasi anggaran kredit API), dan dari 120 itu **113
-dianalisis, 7 dikecualikan**. Rincian lengkap alasan pengecualian per emiten, daftar
-pantau terpisah, dan distribusi kategori alasan suspensi ada di bagian coverage pada
+Dataset suspensi penuh berisi **595 record**. Dari situ, **120 masuk sampel forensik**
+(60 kejadian + 60 kontrol, dibatasi anggaran kredit API), dan dari 120 itu **112
+dianalisis, 8 dikecualikan**. Rincian lengkap alasan pengecualian per emiten, semesta
+ekstensi terpisah, dan distribusi kategori alasan suspensi ada di bagian coverage pada
 situs (`site/`, dibangun dari `data/web/coverage.json`).
 
 ## Batasan yang diakui
@@ -69,13 +97,19 @@ pip install -e .        # supaya `freezebyte` bisa di-import dari scripts/
 python scripts/etl_suspensions.py
 python scripts/etl_prices.py
 python scripts/etl_overviews.py
+python scripts/report_discovery.py   # salin tercile yang dicetak ke baserates.py
+python scripts/etl_universe.py --count
+python scripts/etl_universe.py --run
 python -m freezebyte.build
+python scripts/report_validation.py
+python -m freezebyte.export_extension
 ```
 
 ## Test
 
 ```bash
 python -m pytest
+node --test "extension/test/*.test.js"
 ```
 
 Test berjalan offline memakai fixture di `tests/fixtures/`. Tidak butuh API key.

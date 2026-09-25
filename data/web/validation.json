@@ -1,0 +1,131 @@
+{
+  "lags": [
+    {
+      "lag": 1,
+      "events": {
+        "tinggi": 37,
+        "sedang": 4,
+        "senyap": 14,
+        "tidak_terukur": 0
+      },
+      "controls": {
+        "tinggi": 0,
+        "sedang": 2,
+        "senyap": 55,
+        "tidak_terukur": 0
+      }
+    },
+    {
+      "lag": 3,
+      "events": {
+        "tinggi": 27,
+        "sedang": 5,
+        "senyap": 23,
+        "tidak_terukur": 0
+      },
+      "controls": {
+        "tinggi": 0,
+        "sedang": 1,
+        "senyap": 56,
+        "tidak_terukur": 0
+      }
+    },
+    {
+      "lag": 5,
+      "events": {
+        "tinggi": 17,
+        "sedang": 9,
+        "senyap": 29,
+        "tidak_terukur": 0
+      },
+      "controls": {
+        "tinggi": 1,
+        "sedang": 0,
+        "senyap": 56,
+        "tidak_terukur": 0
+      }
+    },
+    {
+      "lag": 10,
+      "events": {
+        "tinggi": 14,
+        "sedang": 7,
+        "senyap": 34,
+        "tidak_terukur": 0
+      },
+      "controls": {
+        "tinggi": 0,
+        "sedang": 3,
+        "senyap": 54,
+        "tidak_terukur": 0
+      }
+    }
+  ],
+  "holdout": {
+    "boundary_date": "2026-08-28",
+    "upper": 0.1959798994974875,
+    "train": {
+      "events": 36,
+      "controls": 40
+    },
+    "test_events": {
+      "n": 19,
+      "tinggi": 17
+    },
+    "test_controls": {
+      "n": 17,
+      "tinggi": 1
+    },
+    "shipped": {
+      "upper": 0.318182,
+      "test_events": {
+        "n": 19,
+        "tinggi": 16
+      },
+      "test_controls": {
+        "n": 17,
+        "tinggi": 0
+      }
+    }
+  },
+  "n_samples": {
+    "events": 55,
+    "controls": 57
+  },
+  "skipped": [
+    [
+      "LCKM.JK",
+      "hanya 13 baris berdagang"
+    ],
+    [
+      "INCF.JK",
+      "hanya 10 baris berdagang"
+    ],
+    [
+      "ZINC.JK",
+      "hanya 13 baris berdagang"
+    ],
+    [
+      "WBSA.JK",
+      "hanya 20 baris berdagang"
+    ],
+    [
+      "BIMA.JK",
+      "hanya 0 baris berdagang"
+    ],
+    [
+      "ADCP.JK",
+      "hanya 0 baris berdagang"
+    ],
+    [
+      "BSWD.JK",
+      "hanya 15 baris berdagang"
+    ],
+    [
+      "DIGI.JK",
+      "hanya 0 baris berdagang"
+    ]
+  ],
+  "upper": 0.318182,
+  "near_lower": 0.2
+}
