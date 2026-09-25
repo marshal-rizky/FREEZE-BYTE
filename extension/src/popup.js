@@ -1,7 +1,7 @@
 // Popup: status situs yang sedang dibuka dan izin opt-in untuk situs di luar
 // daftar bawaan. Izin diminta untuk satu origin saja, lalu content script
 // didaftarkan untuk origin itu dan bertahan antar sesi.
-const SCRIPTS = ["src/detect.js", "src/verdict.js", "src/anchors.js", "src/overlay.js", "src/schedule.js", "src/content.js"];
+const SCRIPTS = ["src/detect.js", "src/verdict.js", "src/strip.js", "src/overlay.js", "src/schedule.js", "src/content.js"];
 
 document.addEventListener("DOMContentLoaded", async () => {
   const FB = globalThis.FreezeByte;

@@ -37,7 +37,7 @@
         "https://www.investing.com/*",
         "https://id.investing.com/*"
       ],
-      "js": ["src/detect.js", "src/verdict.js", "src/anchors.js", "src/overlay.js", "src/schedule.js", "src/content.js"],
+      "js": ["src/detect.js", "src/verdict.js", "src/strip.js", "src/overlay.js", "src/schedule.js", "src/content.js"],
       "run_at": "document_idle"
     }
   ],

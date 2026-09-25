@@ -39,11 +39,7 @@
 
     const focused = FB.symbolFromUrl(location.href);
     if (focused && verdicts.has(focused.symbol)) {
-      items.push({
-        pinned: true,
-        anchor: FB.anchorFor(focused.site, document),
-        verdict: verdicts.get(focused.symbol),
-      });
+      items.push({ pinned: true, verdict: verdicts.get(focused.symbol) });
     }
 
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {

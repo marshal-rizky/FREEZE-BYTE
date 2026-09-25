@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <title>FREEZE BYTE harness pinned</title>
+  <style>
+    body { margin: 0; font: 16px/1.6 Georgia, serif; background: #fff; color: #131722; }
+    nav { display: flex; gap: 16px; align-items: center; padding: 14px 20px; border-bottom: 1px solid #ddd; }
+    nav .cta { margin-left: auto; background: #2962ff; color: #fff; padding: 4px 12px; border-radius: 16px; }
+    main { max-width: 760px; margin: 24px auto; padding: 0 16px; }
+  </style>
+</head>
+<body>
+  <nav><b>SitusSaham</b><span>Pasar</span><span>Berita</span><span class="cta" id="cta">Mulai</span></nav>
+  <main>
+    <h1>PT Contoh AAAA Tbk</h1>
+    <p>Halaman simbol tiruan. Deteksi URL tidak bisa jalan di localhost, jadi
+       strip Lapis 0 dipasang langsung lewat createOverlay().setItems().</p>
+  </main>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      window.__bodyBefore = document.body.innerHTML;
+    });
+  </script>
+  <script src="../src/verdict.js"></script>
+  <script src="../src/strip.js"></script>
+  <script src="../src/overlay.js"></script>
+  <script>
+    (async () => {
+      const FB = globalThis.FreezeByte;
+      const [universe, thresholds] = await Promise.all([
+        fetch("fixtures/universe.json").then((r) => r.json()),
+        fetch("fixtures/thresholds.json").then((r) => r.json()),
+      ]);
+      const now = Date.parse("2026-09-20T00:00:00Z");
+      const v = (s) => FB.verdict(universe.symbols.find((e) => e.symbol === s), thresholds, now);
+      const overlay = FB.createOverlay(document);
+      window.__host = overlay.host;
+      window.__rescan = () => overlay.setItems([{ pinned: true, verdict: v("AAAA") }]);
+      window.__switch = () => overlay.setItems([{ pinned: true, verdict: v("BBBB") }]);
+      window.__clear = () => overlay.setItems([]);
+      window.__rescan();
+    })();
+  </script>
+</body>
+</html>
