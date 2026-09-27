@@ -174,7 +174,9 @@ a:hover { text-decoration-color: currentColor; }
 .wordmark {
   font-size: 0.75rem; font-weight: 700; letter-spacing: 0.17em;
   color: var(--ink); text-decoration: none; padding: 0 var(--s3);
+  display: flex; align-items: center; gap: var(--s3);
 }
+.wordmark img { flex: none; }
 
 .rail nav { display: flex; flex-direction: column; gap: var(--s1); }
 

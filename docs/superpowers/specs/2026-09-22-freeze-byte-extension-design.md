@@ -313,8 +313,7 @@ lencana yang lahir dari uji dicatat. Uji dijalankan sebelum video direkam.
 - Bukan saran investasi. Disclaimer ada di popup, halaman bukti, README, dan
   deskripsi ekstensi.
 - Tidak mengeksekusi order, tidak menghubungi broker.
-- Tidak ada API key di repo; cek `git grep` di `docs/SUBMISSION.md` tetap
-  dijalankan sebelum submit.
+- Tidak ada API key di repo; cek dengan `git grep` sebelum submit.
 - Repo `Stocklens` tidak dipakai sebagai sumber kode.
 - Setelah submit, repo freeze total.
 
