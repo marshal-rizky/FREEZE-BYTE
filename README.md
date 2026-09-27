@@ -1,4 +1,4 @@
-# FREEZE BYTE
+# <img src="site/logo.svg" alt="" width="40" height="40" align="top"> FREEZE BYTE
 
 Analisis suspensi perdagangan IDX. Entri Sectors Hackathon 2026, Track 03 Market Intelligence.
 

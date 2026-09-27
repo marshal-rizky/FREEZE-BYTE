@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#080b12"/>
+<defs>
+ <linearGradient id="spike" x1="0" y1="1" x2="0.6" y2="0">
+  <stop offset="0" stop-color="#f2555a"/><stop offset=".78" stop-color="#ff7a7e"/>
+  <stop offset="1" stop-color="#dff1ff"/></linearGradient>
+ <linearGradient id="iceline" x1="0" x2="1">
+  <stop offset="0" stop-color="#dff1ff"/><stop offset="1" stop-color="#5b9dff"/></linearGradient>
+ <radialGradient id="aura" cx="44" cy="19" r="22" gradientUnits="userSpaceOnUse">
+  <stop offset="0" stop-color="#5b9dff" stop-opacity=".45"/>
+  <stop offset="1" stop-color="#5b9dff" stop-opacity="0"/></radialGradient>
+ <filter id="glow" x="20" y="0" width="50" height="34" filterUnits="userSpaceOnUse">
+  <feGaussianBlur stdDeviation="2.2"/></filter>
+</defs>
+<rect x="2" y="2" width="60" height="60" rx="16" fill="none" stroke="#9fd0ff" stroke-opacity=".28" stroke-width="2"/>
+<circle cx="44" cy="19" r="22" fill="url(#aura)"/>
+<polyline points="9,50 16,44 21,48 33,18" fill="none" stroke="url(#spike)" stroke-width="6"
+ stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"/>
+<rect x="33" y="12.5" width="23" height="7" rx="3.5" fill="#9fd0ff" opacity=".85" filter="url(#glow)"/>
+<rect x="34" y="13.5" width="21" height="5" rx="2.5" fill="url(#iceline)"/>
+<path d="M38 18.5 L40 27 L42 18.5 Z M44 18.5 L45.5 24 L47 18.5 Z M49 18.5 L50.6 29 L52.2 18.5 Z"
+ fill="#9fd0ff" opacity=".9"/>
+<path d="M34 9.5 L38.8 16 L34 22.5 L29.2 16 Z" fill="#dff1ff"/></svg>

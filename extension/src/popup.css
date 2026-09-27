@@ -1,6 +1,6 @@
 body { width: 300px; margin: 0; padding: 16px; background: #080b12; color: #eaf0f9;
        font: 400 13px/1.45 system-ui, sans-serif; }
-h1 { font-size: 15px; letter-spacing: .06em; margin: 0 0 8px; }
+h1 { font-size: 15px; letter-spacing: .06em; margin: 0 0 8px; display: flex; align-items: center; gap: 8px; }
 p { margin: 8px 0; }
 #status { color: #9aa7bb; }
 button { width: 100%; padding: 8px; border-radius: 10px; border: 1px solid #5b9dff;
