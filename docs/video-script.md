@@ -130,6 +130,13 @@ ls .env                            # tidak ada: tanpa API key
 python -m http.server 8000         # buka http://localhost:8000/site/
 ```
 
+Di Command Prompt (cmd.exe) `source` dan `ls` tidak ada. Ganti dua baris itu:
+
+```bat
+.venv\Scriptsctivate
+dir .env
+```
+
 ### Sumber angka judging video
 
 | Angka | Nilai | Sumber |
