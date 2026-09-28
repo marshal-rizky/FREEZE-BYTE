@@ -40,6 +40,10 @@ test("idx.co.id company profile page", () => {
   assert.deepEqual(
     symbolFromUrl("https://www.idx.co.id/id/perusahaan-tercatat/profil-perusahaan-tercatat/BBCA"),
     { site: "idx", symbol: "BBCA" });
+  // IDX serves the same page on the bare host.
+  assert.deepEqual(
+    symbolFromUrl("https://idx.co.id/id/perusahaan-tercatat/profil-perusahaan-tercatat/CCSI"),
+    { site: "idx", symbol: "CCSI" });
   assert.equal(symbolFromUrl("https://www.idx.co.id/id"), null);
 });
 
