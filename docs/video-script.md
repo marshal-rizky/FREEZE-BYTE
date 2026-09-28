@@ -6,53 +6,142 @@ kartunya akan menampilkan peringatan data basi.
 
 ## Judging video (maks 3 menit)
 
-### 0:00–0:20 — Ekstensi di halaman Stockbit
-Buka halaman Stockbit. Ucapkan problem statement satu kalimat sebagai
-voice-over. Tunjukkan ticker yang disebut di teks halaman mendapat bingkai
-tipis dengan tanda kecil ▲/△ di pojoknya. Lalu tunjukkan simbol yang sedang
-dilihat pengguna mendapat lencana penuh: "Di zona suspensi" atau "Mendekati
-zona suspensi". Klik lencana sampai kartu detail terbuka.
+Aturan hackathon: walkthrough masalah, audiens, dan alur inti, maksimal 3
+menit, boleh publik atau unlisted. Target 2:50 supaya ada ruang 10 detik.
+Bobot nilai: video 30%, usability 40%, technical depth 30%.
 
-### 0:20–0:55 — Isi kartu detail
-Tunjukkan isi kartu: kenaikan harga dalam 10 hari bursa, kalimat bukti
-("sehari sebelum suspensi, profil ini muncul pada ... dari ... kejadian
-suspensi"), kondisi struktural yang aktif (float tipis, insider menjual,
-puncak 52 minggu), dan tautan "Lihat buktinya" yang membuka halaman bukti.
+### Sebelum merekam
 
-### 0:55–1:30 — Kenapa angkanya bisa dipercaya (Tenggang)
-Klik "Lihat buktinya" -- tautan itu membuka halaman bukti di panel Pantau
-dengan simbolnya sudah tersaring (`#pantau?symbol=...`), bukan langsung ke
-Tenggang. Klik manual ke panel Tenggang. Tunjukkan kurva
-tenggang: pada T−1, 37 dari 55 kejadian dan 0 dari 57 kontrol berada di
-TINGGI. Tunjukkan holdout temporal: dengan ambang yang direfit dari kejadian
-lama saja, 17 dari 19 kejadian uji tertangkap TINGGI dan 1 dari 17 kontrol
-uji ikut tertangkap; dengan ambang yang sungguh dipakai ekstensi (dipasang
-dari seluruh data, termasuk split uji ini), 16 dari 19 kejadian uji
-tertangkap dan 0 dari 17 kontrol uji ikut tertangkap. Ucapkan bahwa ini
-hitungan sampel kejadian dan pembanding, bukan peluang atau akurasi sebuah
-saham dibekukan.
+- Rekam paling lambat 29 September. `as_of` data ekstensi 2026-09-23 dan
+  strip menampilkan "data per ..." begitu lewat 7 hari.
+- Reload ekstensi di `chrome://extensions` dari build terbaru (termasuk
+  host `idx.co.id` tanpa `www`).
+- Buka semua tab di bawah lebih dulu supaya tidak ada layar loading.
+- Situs bukti dibuka dari GitHub Pages, bukan `file://`.
+- Jangan pakai INPS (lihat catatan di atas).
 
-### 1:30–2:15 — Studi kasus ALKA
-Tampilkan grafik ALKA. Harga naik +97,3% dalam enam hari bursa (3.750 pada
-7 September ke 7.400 pada 15 September), lalu ALKA resmi disuspensi IDX pada
-16 September — dan masih beku sampai baris data terakhir, 18 September, tutup
-di 7.400 dengan volume nol. Pada titik itu pemegang saham tidak bisa keluar.
-Klik satu PDF pengumuman IDX sampai benar-benar terbuka di layar — ini aset
-kredibilitas terbesar produk. Tunjukkan sebaran kenaikan harga sebelum
-pembekuan dibanding kelompok kontrol.
+Tab yang disiapkan:
 
-### 2:15–2:45 — Coverage dan mesin yang sama
-Tunjukkan bagian coverage: berapa yang dianalisis, berapa yang gugur, dan
-kenapa. Tunjukkan bucket yang berbunyi "sampel tidak cukup". Sebutkan bahwa
-forensik dan daftar pantau ekstensi memanggil fungsi yang sama dengan as_of
-yang berbeda — mesin yang menghasilkan kurva tenggang di atas adalah mesin
-yang sama yang memasang lencana barusan.
+| # | URL | Dipakai di |
+|---|---|---|
+| 1 | `https://stockbit.com/symbol/CCSI` | 0:00, 0:25 |
+| 2 | `https://stockbit.com/symbol/MITI` | 0:50 |
+| 3 | `https://www.tradingview.com/symbols/IDX-AGII/` | 0:55 |
+| 4 | `https://www.google.com/finance/quote/BBCA:IDX` | 1:00 |
+| 5 | Halaman berita/forum yang menyebut CCSI atau MITI di teks | 1:05 |
+| 6 | `https://marshal-rizky.github.io/FREEZE-BYTE/site/` | 1:15 |
+| 7 | PDF suspensi ALKA dari panel ALKA di situs | 1:50 |
+| 8 | Terminal di folder kosong | 2:25 |
 
-### 2:45–2:55 — Jalankan sendiri
-Terminal: clone, pytest lulus, buka halaman. Tanpa API key, tanpa kredit.
+### 0:00–0:15 — Masalah
 
-### 2:55–3:00 — Disclaimer dan penutup
-Tampilkan disclaimer di layar dan ucapkan bahwa produk ini deskriptif.
+Layar: tab 1, strip merah CCSI terlihat di atas.
+
+Voice-over:
+> "Sepanjang 2025, ada 323 record suspensi saham di BEI karena harganya
+> melonjak, menurut data Sectors. Saat saham dibekukan, pemegangnya tidak
+> bisa menjual sampai perdagangan dibuka lagi."
+
+### 0:15–0:25 — Untuk siapa
+
+Layar: tetap di CCSI, zoom pelan ke strip.
+
+> "FREEZE BYTE untuk investor ritel yang membeli saham yang sedang lari.
+> Ekstensi ini memberi tahu, di halaman yang sedang mereka baca, kalau
+> saham itu sedang berada di zona tempat bursa secara historis
+> membekukan perdagangan."
+
+### 0:25–1:15 — Alur inti di ekstensi
+
+| Waktu | Layar | Voice-over |
+|---|---|---|
+| 0:25–0:50 | Tab 1 (CCSI). Strip merah "Di zona suspensi". Klik "Detail ›", kartu terbuka: naik 47,6% dalam 10 hari bursa, kalimat bukti, kondisi struktural, tautan "Lihat buktinya". | "CCSI naik 47,6% dalam sepuluh hari bursa. Sehari sebelum suspensi, 37 dari 55 kejadian terlihat seperti ini, dan tidak satu pun dari 57 emiten pembanding." |
+| 0:50–0:55 | Tab 2 (MITI). Strip kuning. | "MITI kuning: mendekati zona, naik 28,2%." |
+| 0:55–1:00 | Tab 3 (AGII, TradingView). Strip biru. | "AGII biru: di luar zona. Itu bukan berarti aman." |
+| 1:00–1:05 | Tab 4 (BBCA, Google Finance). Strip bening "Tidak dipantau". | "BBCA tidak dipantau, tapi strip tetap muncul supaya jelas ekstensi aktif." |
+| 1:05–1:15 | Tab 5. Kode saham di teks diberi bingkai dan ▲/△. Buka popup ekstensi di situs yang belum didukung, klik tombol aktifkan. | "Kode saham di teks berita juga ditandai. Situs lain bisa diaktifkan sendiri dari popup. Semua data dibawa ekstensi: tanpa akun, tanpa API key, tanpa jaringan." |
+
+### 1:15–1:50 — Kenapa angkanya bisa dipercaya
+
+Layar: dari kartu CCSI klik "Lihat buktinya". Halaman bukti terbuka di
+panel Pantau dengan CCSI sudah tersaring. Klik manual ke panel Tenggang.
+
+> "Angka di kartu berasal dari sini. Kami ambil 55 kejadian suspensi dan 57
+> emiten pembanding, lalu mengukur profil masing-masing sehari sebelum
+> suspensi. 37 kejadian berada di zona merah; pembandingnya nol.
+> Untuk menguji ambangnya, kami pasang ulang hanya dari kejadian sebelum
+> 28 Agustus, lalu uji ke kejadian sesudahnya: 17 dari 19 tertangkap,
+> dengan 1 dari 17 pembanding ikut tertangkap. Ini hitungan sampel, bukan
+> peluang sebuah saham dibekukan."
+
+Tunjukkan juga baris T−3, T−5, T−10 di kurva: 27, 17, dan 14 dari 55
+kejadian sudah merah, jadi zonanya sering terlihat beberapa hari lebih awal.
+
+### 1:50–2:10 — Studi kasus ALKA
+
+Layar: panel ALKA. Grafik, lalu klik satu PDF pengumuman IDX sampai
+benar-benar terbuka.
+
+> "ALKA naik dari 3.750 pada 7 September ke 7.400 pada 15 September, 97%
+> dalam enam hari bursa. Keesokan harinya IDX membekukannya. Sampai data
+> terakhir, 18 September, volumenya nol: pemegang saham terkunci di 7.400.
+> Ini pengumuman resminya."
+
+### 2:10–2:25 — Coverage dan satu mesin
+
+Layar: panel Coverage. Tunjukkan 595 record, 120 sampel, 112 dianalisis,
+8 dikecualikan beserta alasannya.
+
+> "Dari 595 record suspensi, 112 dianalisis dan 8 dikecualikan karena
+> riwayat perdagangannya terlalu pendek. Fungsi yang menghitung fitur
+> kejadian lama ini sama persis dengan yang menghitung 73 saham di
+> ekstensi hari ini; bedanya hanya tanggal `as_of`."
+
+### 2:25–2:45 — Jalankan sendiri
+
+Layar: terminal di folder kosong. Jalankan perintah di bawah (bagian
+"Perintah terminal"). Potong waktu `pip install` di editor.
+
+> "Semua bisa diperiksa sendiri. Clone repo, pasang tiga dependensi, lalu
+> jalankan tes: 133 tes Python dan 38 tes ekstensi, lulus tanpa API key dan
+> tanpa koneksi ke Sectors."
+
+### 2:45–2:55 — Penutup
+
+Layar: kartu penutup dengan link repo dan disclaimer penuh.
+
+> "FREEZE BYTE bersifat deskriptif. Ini alat informasi, bukan saran
+> investasi, dan tidak mengeksekusi order."
+
+### Perintah terminal
+
+Diuji di clone bersih dengan venv baru (Python 3.11, Node 24): 133 dan 38
+tes lulus, tanpa `.env`.
+
+```bash
+git clone https://github.com/marshal-rizky/FREEZE-BYTE.git
+cd FREEZE-BYTE
+python -m venv .venv
+source .venv/Scripts/activate      # PowerShell: .venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+python -m pytest                   # 133 passed
+node --test "extension/test/*.test.js"   # pass 38, fail 0
+ls .env                            # tidak ada: tanpa API key
+python -m http.server 8000         # buka http://localhost:8000/site/
+```
+
+### Sumber angka judging video
+
+| Angka | Nilai | Sumber |
+|---|---|---|
+| T−1 | 37 dari 55 kejadian, 0 dari 57 kontrol di TINGGI | `data/web/validation.json`, `lags[lag=1]` |
+| T−3 / T−5 / T−10 | 27 / 17 / 14 dari 55 kejadian di TINGGI | `data/web/validation.json`, `lags` |
+| Holdout (ambang direfit) | batas 2026-08-28; 17/19 kejadian uji, 1/17 kontrol uji | `data/web/validation.json`, `holdout` |
+| Holdout (ambang yang dipakai ekstensi) | 16/19 kejadian uji, 0/17 kontrol uji. Ambang ini dipasang dari seluruh data, termasuk split uji; sebut hanya kalau ditanya. | `holdout.shipped` |
+| ALKA | 3.750 (7 Sep) ke 7.400 (15 Sep), +97,3% dalam 6 hari bursa; volume nol 16–18 Sep | `data/web/alka.json` |
+| Coverage | 595 record; 120 sampel; 112 dianalisis; 8 dikecualikan (5 riwayat terlalu pendek, 3 riwayat kontrol terlalu pendek) | `data/web/coverage.json` |
+| Semesta ekstensi | 73 saham: 7 TINGGI, 6 SEDANG, 60 senyap | `extension/data/universe.json` |
+| CCSI / MITI / AGII | naik 47,6% / 28,2% / 18,9% | `extension/data/universe.json` |
 
 ## Teaser 1 menit
 
